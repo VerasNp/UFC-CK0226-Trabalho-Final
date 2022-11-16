@@ -1,0 +1,3 @@
+/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/cmake-build-debug/CMakeFiles/UFC-CK0226-Trabalho-Final.dir
+/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/cmake-build-debug/CMakeFiles/rebuild_cache.dir
