@@ -1,0 +1,6 @@
+# ninja log v5
+0	32	1668491544540770892	CMakeFiles/travel_reservation_test.dir/TravelReservationTest.c.o	a4c1de637a8f5fc
+0	28	1668491509194101790	CMakeFiles/travel_reservation_test.dir/TravelReservation.c.o	c5480d55fdd059bb
+32	59	1668491544567437560	travel_reservation_test	6aa50e1269a10f91
+0	30	1668491726397450086	CMakeFiles/travel_reservation_test.dir/TravelReservationTest.c.o	a4c1de637a8f5fc
+31	57	1668491726424116755	travel_reservation_test	6aa50e1269a10f91
