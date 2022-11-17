@@ -13,94 +13,94 @@ struct lista_passageiro{
 
 /*Cria uma nova lista com nó cabeça*/
 Lista *cria_lista(){ 
-    Lista *listaNova = (Lista *)malloc(sizeof(Lista)); 
-    listaNova->primeiro = (No *)malloc(sizeof(No)); 
-    listaNova->primeiro->passageiro = NULL; 
-    listaNova->primeiro->proximo = NULL; 
-    return listaNova; 
+    Lista *p_listaNova = (Lista *)malloc(sizeof(Lista)); 
+    p_listaNova->primeiro = (No *)malloc(sizeof(No)); 
+    p_listaNova->primeiro->passageiro = NULL; 
+    p_listaNova->primeiro->proximo = NULL; 
+    return p_listaNova; 
 } 
 
 /*Inclui novo passageiro na lista. Retorna 1 se foi possivel incluir e 0 se não foi possível*/
-int incluir_lista(Lista *lista,Passageiro *novoPassageiro){ 
-    if (lista != NULL && novoPassageiro != NULL){
-        No *novoNo = (No *)malloc(sizeof(No));
-        if (novoNo == NULL)
+int incluir_lista(Lista *p_lista,Passageiro *p_novoPassageiro){ 
+    if (p_lista != NULL && p_novoPassageiro != NULL){
+        No *p_novoNo = (No *)malloc(sizeof(No));
+        if (p_novoNo == NULL)
             return  0;  
-        novoNo->passageiro = novoPassageiro; 
-        novoNo->proximo = lista->primeiro->proximo; 
-        lista->primeiro->proximo = novoNo;  
+        p_novoNo->passageiro = p_novoPassageiro; 
+        p_novoNo->proximo = p_lista->primeiro->proximo; 
+        p_lista->primeiro->proximo = p_novoNo;  
         return 1; 
     }
     return 0; 
 }
 
 /*Remove um passageiro da lista. Retorna o passageiro se foi possível remover e retorna NULL se não foi possível*/
-Passageiro *remover_passageiro(Lista *lista,int id){ 
-    No *aux = lista->primeiro->proximo; 
-    No *aux2 = lista->primeiro; 
+Passageiro *remover_passageiro(Lista *p_lista,int id){ 
+    No *p_aux = p_lista->primeiro->proximo; 
+    No *p_aux2 = p_lista->primeiro; 
 
     int idConsulta;
-    char *nome = (char*)malloc(sizeof(char)*100);
-    char *endereço = (char*)malloc(sizeof(char)*300);
+    char *p_nome = (char*)malloc(sizeof(char)*100);
+    char *p_endereço = (char*)malloc(sizeof(char)*300);
 
-    while(aux != NULL){ 
-        passageiro_acessa(aux->passageiro,&idConsulta,nome,endereço); 
+    while(p_aux != NULL){ 
+        passageiro_acessa(p_aux->passageiro,&idConsulta,p_nome,p_endereço); 
         if (idConsulta == id){ 
-            Passageiro *passageiro = aux->passageiro; 
-            aux2->proximo = aux->proximo; 
+            Passageiro *passageiro = p_aux->passageiro; 
+            p_aux2->proximo = p_aux->proximo; 
             return passageiro;    
         }
-        aux2 = aux2->proximo; 
-        aux = aux->proximo;
+        p_aux2 = p_aux2->proximo; 
+        p_aux = p_aux->proximo;
     }
     return NULL; 
 
 }
 
 /*Dado um id, busca um passageiro com esse id*/
-Passageiro *lista_busca(int id,Lista *lista){ 
-    No *aux = lista->primeiro->proximo;
+Passageiro *lista_busca(int id,Lista *p_lista){ 
+    No *p_aux = p_lista->primeiro->proximo;
 
     int idConsulta; 
-    char *nome = (char*)malloc(sizeof(char)*100);  
-    char *endereço = (char *)malloc(sizeof(char)*300);
+    char *p_nome = (char*)malloc(sizeof(char)*100);  
+    char *p_endereço = (char *)malloc(sizeof(char)*300);
 
-    while(aux != NULL){ 
-        passageiro_acessa(aux->passageiro, &idConsulta,nome,endereço);
+    while(p_aux != NULL){ 
+        passageiro_acessa(p_aux->passageiro, &idConsulta,p_nome,p_endereço);
         if(idConsulta == id)
-            return aux->passageiro; 
-        aux = aux->proximo;
+            return p_aux->passageiro; 
+        p_aux = p_aux->proximo;
     }
     return NULL; 
 }
 
 /*Libera toda lista. Retorna 1 se foi possível liberar e 0 se não foi possível*/
-int libera_lista(Lista *lista){ 
-    if (lista != NULL){ 
-        No *aux = lista->primeiro->proximo; 
-        No *aux2 = lista->primeiro;  
-        while(aux2 != NULL){ 
-            libera_passageiro(aux2->passageiro);
-            free(aux2);  
-            aux2 = aux; 
-            aux = aux->proximo; 
+int libera_lista(Lista *p_lista){ 
+    if (p_lista != NULL){ 
+        No *p_aux = p_lista->primeiro->proximo; 
+        No *p_aux2 = p_lista->primeiro;  
+        while(p_aux2 != NULL){ 
+            libera_passageiro(p_aux2->passageiro);
+            free(p_aux2);  
+            p_aux2 = p_aux; 
+            p_aux = p_aux->proximo; 
         }
-        free(lista); 
-        lista = NULL; 
+        free(p_lista); 
+        p_lista = NULL; 
         return 1; 
     }
     return 0; 
 }
 
 /*Retorna o número de passageiros da lista. Se a lista for nula retorna -1*/
-int lista_quantidade(Lista *lista){ 
-    if (lista == NULL)
+int lista_quantidade(Lista *p_lista){ 
+    if (p_lista == NULL)
         return -1; 
-    No *aux = lista->primeiro->proximo; 
+    No *p_aux = p_lista->primeiro->proximo; 
     int cont; 
-    while(aux != NULL){ 
+    while(p_aux != NULL){ 
         cont++; 
-        aux = aux->proximo; 
+        p_aux = p_aux->proximo; 
     }
     return cont; 
 }

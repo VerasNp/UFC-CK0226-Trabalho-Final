@@ -9,57 +9,57 @@ struct passageiro{
     char *endereco;
 };
 
-int verif_param(char *nome,char *endereço){ 
-    if (nome == NULL || endereço == NULL ||strlen(nome)>100 || strlen(endereço)>300)  
+int verif_param(char *p_nome,char *p_endereço){ 
+    if (p_nome == NULL || p_endereço == NULL ||strlen(p_nome)>100 || strlen(p_endereço)>300)  
         return 0;
     return 1; 
 }
 
 /*Cria novo passageiro. Retorna NULL se não foi possível criar*/
-Passageiro *aloca_passageiro(char *nome,char *endereço){ 
+Passageiro *aloca_passageiro(char *p_nome,char *p_endereco){ 
     static int id; 
-    if (verif_param(nome, endereço)){
-        Passageiro *novo_pass = (Passageiro *)malloc(sizeof(Passageiro)); 
-        if (novo_pass == NULL) 
+    if (verif_param(p_nome, p_endereco)){
+        Passageiro *p_novoPass = (Passageiro *)malloc(sizeof(Passageiro)); 
+        if (p_novoPass == NULL) 
             return NULL; 
-        int novo_id = ++id;
-        novo_pass->id = novo_id; 
-        novo_pass->endereco = endereço; 
-        novo_pass->nome = nome; 
-        return novo_pass; 
+        int novoId = ++id;
+        p_novoPass->id = novoId; 
+        p_novoPass->endereco = p_endereco; 
+        p_novoPass->nome = p_nome; 
+        return p_novoPass; 
     }
     return NULL; 
 }
 
 /*Acessa os atribudos do passageiro*/
-void passageiro_acessa(Passageiro *passageiro,int *id, char *nome, char *endereço){ 
-    if (passageiro != NULL && verif_param(nome,endereço)){ 
-        *id = passageiro->id;
-        strcpy(nome,passageiro->nome); 
-        strcpy(endereço,passageiro->endereco); 
+void passageiro_acessa(Passageiro *p_passageiro,int *p_id, char *p_nome, char *p_endereco){ 
+    if (p_passageiro != NULL && verif_param(p_nome,p_endereco)){ 
+        *p_id = p_passageiro->id;
+        strcpy(p_nome,p_passageiro->nome); 
+        strcpy(p_endereco,p_passageiro->endereco); 
     }
     else{ 
-        *id = -1;
-        nome = NULL;  
-        endereço = NULL; 
+        *p_id = -1;
+        p_nome = NULL;  
+        p_endereco = NULL; 
     }
 }
 
 /*Põe novos atributos no passageiro*/
-void passageiro_atribui(Passageiro *passageiro, char *nome_novo, char *endereço_novo){ 
-    if (passageiro != NULL && verif_param(nome_novo,endereço_novo)){ 
-        strcpy(passageiro->nome, nome_novo); 
-        strcpy(passageiro->endereco, endereço_novo);
+void passageiro_atribui(Passageiro *p_passageiro, char *p_nomeNovo, char *p_enderecoNovo){ 
+    if (p_passageiro != NULL && verif_param(p_nomeNovo,p_enderecoNovo)){ 
+        strcpy(p_passageiro->nome, p_nomeNovo); 
+        strcpy(p_passageiro->endereco, p_enderecoNovo);
     }
 }
 
 /*Libera o espaço de memória do passageiro. Retorna 1 se foi possível liberar, 0 se não foi possível*/
-int libera_passageiro(Passageiro *passageiro){ 
-    if (passageiro != NULL){ 
-        free(passageiro->endereco); 
-        free(passageiro->nome); 
-        free(passageiro); 
-        passageiro = NULL; 
+int libera_passageiro(Passageiro *p_passageiro){ 
+    if (p_passageiro != NULL){ 
+        free(p_passageiro->endereco); 
+        free(p_passageiro->nome); 
+        free(p_passageiro); 
+        p_passageiro = NULL; 
         return 1; 
     }
     return 0; 
