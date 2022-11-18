@@ -44,6 +44,10 @@ void testa_cria_lista_codigos_reservas() {
     print_teste(0, "CódigosReservas gerado por vetor");
 }
 
+void testa_viagem_cria() {
+    TODO: "teste necessita das funções de Reserva";
+}
+
 void main(void) {
     testa_tabela_cria();
     testa_cria_lista_codigos_reservas();

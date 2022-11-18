@@ -39,7 +39,7 @@ Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, Co
 /* Libera a tabela de dispersão da memória. 1 se sucedido, 0 caso contrário. */
 int tabela_libera(TabelaViagens *p_tabela);
 
-/* Dado um vetor de Reserva, retorna o objeto Viagem. */
+/* Dado um vetor de Reserva, ordenado em relação à data, retorna o objeto Viagem. */
 Viagem *viagem_cria(Reserva **pp_reservas, int numeroReservas);
 
 /* Printa o itinerário de uma viagem. */

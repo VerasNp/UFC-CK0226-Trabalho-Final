@@ -58,6 +58,28 @@ TabelaViagens *tabela_cria(void) {
     return p_tabela;
 }
 
+
+/* Dado um vetor de Reserva, ordenado em relação à data, retorna o objeto Viagem. */
+Viagem *viagem_cria(Reserva **pp_reservas, int numeroReservas) {
+    if (pp_reservas == NULL || numeroReservas <= 0) return NULL;
+
+    Viagem *p_viagem = malloc(sizeof(Viagem));
+    Trecho *p_trecho = malloc(sizeof(Trecho));
+    if (p_viagem == NULL || p_trecho == NULL) return NULL;
+
+    // Mantém as reservas ordenadas em relação à data.
+    p_viagem->trechos = NULL;
+    for (int i=numeroReservas-1; i >= 0; i--) {
+        Trecho *p_trecho = malloc(sizeof(Trecho));
+        if (p_trecho == NULL) return NULL;
+
+        p_trecho->proximo = p_viagem->trechos;
+        p_trecho->reserva = pp_reservas[i];
+        p_viagem->trechos = p_trecho;
+    }
+    return p_viagem;
+}
+
 /* Dada uma viagem, retorna a lista encadeada com todos os códigos de reserva associados à viagem.
 Importante para a inserção na tabela hash.*/
 CodigosReservas *viagem_cria_lista_codigos_reservas(Viagem *p_viagem) {
