@@ -1,6 +1,7 @@
 #include "TabelaViagens.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define TAMANHO_TABELA 1000
 
@@ -56,6 +57,22 @@ TabelaViagens *tabela_cria(void) {
     p_tabela->tamanho = TAMANHO_TABELA;
 
     return p_tabela;
+}
+
+/* Recebe o código do passageiro e uma lista com todos os códigos de reserva de uma dada viagem e
+retorna um índice da tabela no qual a Viagem foi/será armazenada. */
+int tabela_indice(int codigoPassageiro, CodigosReservas *p_codigosReservas) {
+    int indice = 0;
+    int somatorioReservas = 0;
+    int tamanhoCodigos = get_tamanho_codigos_reservas(p_codigosReservas);
+    for (int i=0; i < tamanhoCodigos; i++) {
+        int *p_codigos = get_vetor_codigos_reservas(p_codigosReservas);
+        somatorioReservas += p_codigos[i];
+    }
+    somatorioReservas = somatorioReservas * (sqrt(5)-1) * 1000;
+
+    indice = (codigoPassageiro + somatorioReservas) % 1001;
+    return indice;
 }
 
 
