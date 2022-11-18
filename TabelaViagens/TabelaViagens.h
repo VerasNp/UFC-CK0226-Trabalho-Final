@@ -68,3 +68,6 @@ Reserva *get_reserva_trecho(Trecho *p_trecho);
 Trecho *get_proximo_trecho(Trecho *p_trecho);
 Viagem *get_viagem(NoViagem *p_noViagem);
 NoViagem *get_proximo_no_viagem(NoViagem *p_noViagem);
+
+/* Dada uma viagem, retorna o código do passageiro. */ 
+int *get_viagem_codigo_passageiro(Viagem *p_viagem);

@@ -22,6 +22,7 @@ struct viagem {
 struct no_viagem {
     Viagem *viagem;
     NoViagem *proximo;
+    NoViagem *anterior;
 };
 
 /* Necessário para a função de hash, que retorna o respectivo índice de uma viagem. */
@@ -64,15 +65,41 @@ retorna um índice da tabela no qual a Viagem foi/será armazenada. */
 int tabela_indice(int codigoPassageiro, CodigosReservas *p_codigosReservas) {
     int indice = 0;
     int somatorioReservas = 0;
-    int tamanhoCodigos = get_tamanho_codigos_reservas(p_codigosReservas);
+    int tamanhoCodigos = p_codigosReservas->tamanho;
     for (int i=0; i < tamanhoCodigos; i++) {
-        int *p_codigos = get_vetor_codigos_reservas(p_codigosReservas);
+        int *p_codigos = p_codigosReservas->codigos;
         somatorioReservas += p_codigos[i];
     }
-    somatorioReservas = somatorioReservas * (sqrt(5)-1) * 1000;
+    somatorioReservas = somatorioReservas * (sqrt(5)-1) * 1000; //
 
     indice = (codigoPassageiro + somatorioReservas) % 1001;
     return indice;
+}
+
+
+/* Insere a viagem no índice apropriado da tabela de dispersão. Retorna 1 se foi sucedida a 
+inserção, 0 caso contrário. */
+int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
+    CodigosReservas *p_codigos = viagem_cria_lista_codigos_reservas(p_viagem);
+    Reserva *p_reserva = p_viagem->trechos->reserva;
+
+    // int codigoPassageiro = get_reserva_codigo_passageiro(p_reserva); // Essa função deve ser importada de AgendaReservas.h
+    // int indice = tabela_indice(codigoPassageiro, p_codigos);
+    
+    // NoViagem *p_noAux = p_tabela->tabelaHash[indice];
+    // while (p_noAux != NULL) {
+    //     if (p_noAux->viagem == p_viagem) return 0; criar função para comparar viagens
+    //     p_noAux = p_noAux->proximo;
+    // }
+    // NoViagem *p_novoNoViagem = malloc(sizeof(NoViagem));
+    // if (p_novoNoViagem == NULL) return 0;
+
+    // p_novoNoViagem->proximo = p_tabela->tabelaHash[indice]->viagem;
+    // if (p_novoNoViagem->proximo != NULL) {
+    //     p_novoNoViagem->proximo->anterior = p_novoNoViagem;
+    // }
+    // p_tabela->tabelaHash[indice] = p_novoNoViagem;
+    return 1;
 }
 
 
@@ -212,4 +239,9 @@ Viagem *get_viagem(NoViagem *p_noViagem) {
 NoViagem *get_proximo_no_viagem(NoViagem *p_noViagem) {
     if (p_noViagem == NULL) return NULL;
     return p_noViagem->proximo;
+}
+
+/* Dada uma viagem, retorna o código do passageiro. */ 
+int *get_viagem_codigo_passageiro(Viagem *p_viagem) {
+
 }
