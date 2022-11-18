@@ -1,0 +1,8 @@
+# ninja log v5
+0	31	1668739701428300528	CMakeFiles/testa_reserva_viagem.dir/Reserva.c.o	c8f4c1d2ab305a49
+0	36	1668739301618273002	CMakeFiles/travel_reservation_test.dir/TestaReserva.c.o	995ef8106a3bd8fc
+0	36	1668740196145001250	CMakeFiles/testa_reserva_viagem.dir/TestaReserva.c.o	3a2bec316864900f
+36	67	1668740196175001253	testa_reserva_viagem	551715cd599aac4d
+0	34	1668743809458584207	CMakeFiles/testa_agenda.dir/TestaAgenda.c.o	c5fea02480600240
+0	39	1668743809461917542	CMakeFiles/testa_agenda.dir/Agenda.c.o	81a245c56518927b
+39	72	1668743809495250878	testa_agenda	86d64b03e31618c

@@ -1,0 +1,97 @@
+{
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/CMakeFiles/3.23.2/CMakeSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "cmake-build-debug/CMakeFiles/3.23.2/CMakeCCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Platform/UnixPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/opt/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/cmake-build-debug",
+		"source" : "/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

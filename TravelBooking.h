@@ -12,7 +12,6 @@ enum cod_assento {
  };
 
 typedef enum cod_assento Assento;
-typedef struct data Data;
 typedef struct voo Voo;
 typedef struct lista_voo ListaVoo;
 typedef struct passageiro Passageiro;

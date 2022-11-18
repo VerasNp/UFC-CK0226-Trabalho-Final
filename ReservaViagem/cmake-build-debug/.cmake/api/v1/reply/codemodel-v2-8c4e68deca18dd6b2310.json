@@ -1,0 +1,69 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "UFC-CK0226-Trabalho-Final",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "testa_agenda::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testa_agenda-Debug-1554cc6c5c7e4837a43b.json",
+					"name" : "testa_agenda",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testa_reserva::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testa_reserva-Debug-fcc8adf03962f17e1325.json",
+					"name" : "testa_reserva",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/cmake-build-debug",
+		"source" : "/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
