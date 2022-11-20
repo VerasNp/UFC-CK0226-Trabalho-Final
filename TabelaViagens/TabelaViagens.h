@@ -36,11 +36,17 @@ int tabela_atualiza_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
 especificados. */
 Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas);
 
+/* Retorna o número de viagens acumulados em um índice. */
+int tabela_tamanho_indice(TabelaViagens *p_tabela, int indice);
+
 /* Libera a tabela de dispersão da memória. 1 se sucedido, 0 caso contrário. */
 int tabela_libera(TabelaViagens *p_tabela);
 
 /* Dado um vetor de Reserva, ordenado em relação à data, retorna o objeto Viagem. */
 Viagem *viagem_cria(Reserva **pp_reservas, int numeroReservas);
+
+/* Compara os códigos de passageiros e de cada reserva */
+int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2);
 
 /* Printa o itinerário de uma viagem. */
 void viagem_printa_itinerario(Viagem *p_viagem);
@@ -70,4 +76,16 @@ Viagem *get_viagem(NoViagem *p_noViagem);
 NoViagem *get_proximo_no_viagem(NoViagem *p_noViagem);
 
 /* Dada uma viagem, retorna o código do passageiro. */ 
-int *get_viagem_codigo_passageiro(Viagem *p_viagem);
+int get_viagem_codigo_passageiro(Viagem *p_viagem);
+
+
+/* Todas as funções abaixo devem ser removidas futuramente. Implementadas apenas para teste. */
+
+/* Função quebra-galho, deve ser removida futuramente. */
+int get_reserva_codigo_passageiro(Reserva *p_reserva);
+
+/* Função quebra-galho, deve ser removida futuramente. */
+int get_reserva_codigo(Reserva *p_reserva);
+
+/* Função quebra-galho, deve ser removida futuramente. */
+Reserva *reserva_cria(int codigoReserva, int codigoPassageiro);

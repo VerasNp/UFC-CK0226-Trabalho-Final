@@ -7,7 +7,30 @@
 
 struct reserva { // essa struct será importada de AgendaReservas.h ou Reservas.h (ATUALIZAR ISSO)
     int codigo;
+    int codigoPassageiro;
 };
+
+/* Função quebra-galho, deve ser removida futuramente. */
+int get_reserva_codigo_passageiro(Reserva *p_reserva) {
+    if (p_reserva == NULL) return -1;
+    return p_reserva->codigoPassageiro;
+}
+
+/* Função quebra-galho, deve ser removida futuramente. */
+int get_reserva_codigo(Reserva *p_reserva) {
+    if (p_reserva == NULL) return -1;
+    return p_reserva->codigo;
+}
+
+/* Função quebra-galho, deve ser removida futuramente. */
+Reserva *reserva_cria(int codigoReserva, int codigoPassageiro) {
+    Reserva *p_reserva = malloc(sizeof(Reserva));
+    if (p_reserva == NULL) return NULL;
+
+    p_reserva->codigo = codigoReserva;
+    p_reserva->codigoPassageiro = codigoPassageiro;
+    return p_reserva;
+}
 
 struct trecho {
     Reserva *reserva;
@@ -76,29 +99,72 @@ int tabela_indice(int codigoPassageiro, CodigosReservas *p_codigosReservas) {
     return indice;
 }
 
+/* Retorna o número de viagens acumulados em um índice. */
+int tabela_tamanho_indice(TabelaViagens *p_tabela, int indice) {
+    int tamanho = 0;
+    NoViagem *p_noViagem = p_tabela->tabelaHash[indice];
+
+    while (p_noViagem->viagem != NULL) {
+        tamanho++;
+        p_noViagem = p_noViagem->proximo;
+    }
+    return tamanho;
+}
 
 /* Insere a viagem no índice apropriado da tabela de dispersão. Retorna 1 se foi sucedida a 
 inserção, 0 caso contrário. */
 int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
+    if (p_viagem == NULL) return 0;
     CodigosReservas *p_codigos = viagem_cria_lista_codigos_reservas(p_viagem);
     Reserva *p_reserva = p_viagem->trechos->reserva;
+    if (p_reserva == NULL) return 0; // Retorna 0 em caso de erro.
 
-    // int codigoPassageiro = get_reserva_codigo_passageiro(p_reserva); // Essa função deve ser importada de AgendaReservas.h
-    // int indice = tabela_indice(codigoPassageiro, p_codigos);
+    int codigoPassageiro = get_reserva_codigo_passageiro(p_reserva); // Essa função deve ser importada de AgendaReservas.h
+    int indice = tabela_indice(codigoPassageiro, p_codigos);
     
-    // NoViagem *p_noAux = p_tabela->tabelaHash[indice];
-    // while (p_noAux != NULL) {
-    //     if (p_noAux->viagem == p_viagem) return 0; criar função para comparar viagens
-    //     p_noAux = p_noAux->proximo;
-    // }
-    // NoViagem *p_novoNoViagem = malloc(sizeof(NoViagem));
-    // if (p_novoNoViagem == NULL) return 0;
+    NoViagem *p_noAux = p_tabela->tabelaHash[indice];
+    while (p_noAux != NULL) {
+        if (viagem_compara(p_noAux->viagem, p_viagem)) return 0;
+        p_noAux = p_noAux->proximo;
+    }
 
-    // p_novoNoViagem->proximo = p_tabela->tabelaHash[indice]->viagem;
-    // if (p_novoNoViagem->proximo != NULL) {
-    //     p_novoNoViagem->proximo->anterior = p_novoNoViagem;
-    // }
-    // p_tabela->tabelaHash[indice] = p_novoNoViagem;
+    NoViagem *p_novoNoViagem = malloc(sizeof(NoViagem));
+    if (p_novoNoViagem == NULL) return 0;
+
+    p_novoNoViagem->proximo = p_tabela->tabelaHash[indice];
+    p_novoNoViagem->viagem = p_viagem;
+    p_novoNoViagem->anterior = NULL;
+
+    if (p_novoNoViagem->proximo != NULL) {
+        p_novoNoViagem->proximo->anterior = p_novoNoViagem;
+    }
+    p_tabela->tabelaHash[indice] = p_novoNoViagem;
+    return 1;
+}
+
+/* Compara os códigos de passageiros e de cada reserva */
+int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2) {
+    if (p_viagem1 == NULL || p_viagem2 == NULL) return 0;
+
+    Trecho *p_trecho1 = p_viagem1->trechos;
+    Trecho *p_trecho2 = p_viagem2->trechos;
+
+    while (p_trecho1 != NULL) {
+        if (p_trecho2 == NULL) return 0; // Trecho2 é menor do que o trecho1. 
+        Reserva *p_reserva1 = p_trecho1->reserva;
+        Reserva *p_reserva2 = p_trecho2->reserva;
+        
+        int codigoReserva1 = get_reserva_codigo(p_reserva1);
+        int codigoReserva2 = get_reserva_codigo(p_reserva2);
+        int codigoPassageiro1 = get_reserva_codigo_passageiro(p_reserva1);
+        int codigoPassageiro2 = get_reserva_codigo_passageiro(p_reserva2);
+
+        if (codigoPassageiro1 != codigoPassageiro2 || codigoReserva1 != codigoReserva2) return 0;
+
+        p_trecho1 = p_trecho1->proximo;
+        p_trecho2 = p_trecho2->proximo;
+    }
+    if (p_trecho2 != NULL) return 0; // Trecho2 é maior do que o trecho1.  .
     return 1;
 }
 
@@ -242,6 +308,7 @@ NoViagem *get_proximo_no_viagem(NoViagem *p_noViagem) {
 }
 
 /* Dada uma viagem, retorna o código do passageiro. */ 
-int *get_viagem_codigo_passageiro(Viagem *p_viagem) {
-
+int get_viagem_codigo_passageiro(Viagem *p_viagem) {
+    Reserva *p_reserva = p_viagem->trechos->reserva;
+    return get_reserva_codigo_passageiro(p_reserva);
 }
