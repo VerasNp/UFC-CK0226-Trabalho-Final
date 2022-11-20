@@ -32,7 +32,11 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
 /* Atualiza a viagem na tabela de dispersão, retorna 1 se update sucedido, 0 caso contrário. */
 int tabela_atualiza_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
 
-/* Retorna a Viagem caso a pesquisa for sucedida, NULL se não encontrar uma Viagem com os códigos
+/* Retorna o NoViagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
+especificados. */
+NoViagem *tabela_pesquisa_no_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas);
+
+/* Retorna a Viagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
 especificados. */
 Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas);
 
@@ -47,6 +51,9 @@ Viagem *viagem_cria(Reserva **pp_reservas, int numeroReservas);
 
 /* Compara os códigos de passageiros e de cada reserva */
 int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2);
+
+/* Compara os códigos de passageiros e de cada reserva */
+int viagem_compara_codigo(Viagem *p_viagem, int codigoPassageiro, CodigosReservas *p_codigosReservas);
 
 /* Printa o itinerário de uma viagem. */
 void viagem_printa_itinerario(Viagem *p_viagem);

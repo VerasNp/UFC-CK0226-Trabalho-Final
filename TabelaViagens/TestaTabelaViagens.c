@@ -80,7 +80,8 @@ void testa_tabela_indice() {
     print_teste(indice4 == 75, "tabela_indice() - teste 2");
 }
 
-void testa_tabela_insere_viagem() {
+void testa_tabela_crud() {
+    /* INSERÇÃO */
     printf("- Testando tabela_insere_viagem()...\n");
     int tabelaInsereBool = 1;
 
@@ -110,8 +111,8 @@ void testa_tabela_insere_viagem() {
     Viagem *p_viagem4 = viagem_cria(pp_reservas4, 3); // índice = 115
     
 
-    int codigoPassageiro1 = get_viagem_codigo_passageiro(p_viagem1);
-    print_teste(codigoPassageiro1 == 1, "viagem_cria() codigoPassageiro");
+    int codigoPassageiro = get_viagem_codigo_passageiro(p_viagem1);
+    print_teste(codigoPassageiro == 1, "viagem_cria() codigoPassageiro");
     print_teste(!viagem_compara(p_viagem1, p_viagem2), "viagem_compara() - teste 1");
     print_teste(viagem_compara(p_viagem3, p_viagem3), "viagem_compara() - teste 2");
 
@@ -126,11 +127,24 @@ void testa_tabela_insere_viagem() {
     print_teste(tabela_insere_viagem(p_tabela, p_viagem4), "tabela_insere_viagem() - teste 3: Colisão. ");
     print_teste(tabela_tamanho_indice(p_tabela, 115) == 2, "tabela_insere_viagem() - teste 4: 2 viagens no índice 115. ");
 
+    /* PESQUISA */
+    printf("- Testando tabela_pesquisa_viagem()...\n");
+
+    CodigosReservas *p_codigosReservas1 = viagem_cria_lista_codigos_reservas(p_viagem2);
+    int codigoPassageiro1 = get_viagem_codigo_passageiro(p_viagem2);
+    Viagem *p_viagemPesquisada1 = tabela_pesquisa_viagem(p_tabela, codigoPassageiro1, p_codigosReservas1);
+    print_teste(viagem_compara(p_viagem2, p_viagemPesquisada1), "tabela_pesquisa_viagem() - teste 1 ");
+
+    CodigosReservas *p_codigosReservas2 = viagem_cria_lista_codigos_reservas(p_viagem4);
+    int codigoPassageiro2 = get_viagem_codigo_passageiro(p_viagem4);
+    Viagem *p_viagemPesquisada2 = tabela_pesquisa_viagem(p_tabela, codigoPassageiro2, p_codigosReservas2);
+    print_teste(viagem_compara(p_viagem4, p_viagemPesquisada2), "tabela_pesquisa_viagem() - teste 2: pesquisar viagem colidida. ");
+
 }
 
 void main(void) {
     testa_tabela_cria();
     testa_cria_lista_codigos_reservas();
     testa_tabela_indice();
-    testa_tabela_insere_viagem();
+    testa_tabela_crud();
 }

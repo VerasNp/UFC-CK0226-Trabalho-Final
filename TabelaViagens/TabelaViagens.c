@@ -142,6 +142,31 @@ int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
     return 1;
 }
 
+/* Retorna o NoViagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
+especificados. */
+NoViagem *tabela_pesquisa_no_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas) {
+    if (p_tabela == NULL || codigoPassageiro < 0 || p_codigosReservas == NULL) return NULL;
+
+    int indice = tabela_indice(codigoPassageiro, p_codigosReservas);
+    NoViagem *p_noViagem = p_tabela->tabelaHash[indice];
+
+
+    while (p_noViagem != NULL) {
+        if (viagem_compara_codigo(p_noViagem->viagem, codigoPassageiro, p_codigosReservas)) return p_noViagem;
+        p_noViagem = p_noViagem->proximo;
+    }
+    return NULL;
+}
+
+/* Retorna a Viagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
+especificados. */
+Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas) {
+    return tabela_pesquisa_no_viagem(p_tabela, codigoPassageiro, p_codigosReservas)->viagem;
+}
+
+/* Remove a viagem da tabela de dispersão. Retorna 1 se a remoção foi sucedida,, 0 caso contrário. */
+int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
+
 /* Compara os códigos de passageiros e de cada reserva */
 int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2) {
     if (p_viagem1 == NULL || p_viagem2 == NULL) return 0;
@@ -168,9 +193,35 @@ int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2) {
     return 1;
 }
 
+/* Compara os códigos de passageiros e de cada reserva */
+int viagem_compara_codigo(Viagem *p_viagem, int codigoPassageiro, CodigosReservas *p_codigosReservas) {
+    if (p_viagem == NULL || p_codigosReservas == NULL || codigoPassageiro < 0) return 0;
+
+    Trecho *p_trecho = p_viagem->trechos;
+    int tamanho = p_codigosReservas->tamanho;
+
+    int i = 0;
+    while (p_trecho != NULL) {
+        if (i >= tamanho) return 0; // p_codigos é menor doq as reservas em viagem. 
+        Reserva *p_reserva = p_trecho->reserva;
+        
+        int codigoReserva1 = get_reserva_codigo(p_reserva);
+        int codigoReserva2 = p_codigosReservas->codigos[i];
+        int codigoPassageiro1 = get_reserva_codigo_passageiro(p_reserva);
+        int codigoPassageiro2 = codigoPassageiro;
+
+        if (codigoPassageiro1 != codigoPassageiro2 || codigoReserva1 != codigoReserva2) return 0;
+
+        p_trecho = p_trecho->proximo;
+        i++;
+    }
+    if (i < tamanho) return 0; // Trecho2 é maior do que o trecho1.  .
+    return 1;
+}
 
 /* Dado um vetor de Reserva, ordenado em relação à data, retorna o objeto Viagem. */
 Viagem *viagem_cria(Reserva **pp_reservas, int numeroReservas) {
+
     if (pp_reservas == NULL || numeroReservas <= 0) return NULL;
 
     Viagem *p_viagem = malloc(sizeof(Viagem));
