@@ -16,12 +16,7 @@ void testa_tabela_cria() {
 
     for (int i = 0; i < tamanho; i++) {
         NoViagem **pp_tabelaHash = get_tabela_hash(p_tabela);
-        if (pp_tabelaHash[i] == NULL) {
-            print_teste(0, "Elementos inicializados.");
-            return;
-        }
-        Viagem *viagem = get_viagem(pp_tabelaHash[i]);
-        if (viagem != NULL) {
+        if (pp_tabelaHash[i] != NULL) {
             print_teste(0, "Elementos inicializados.");
             return;
         }
@@ -135,11 +130,25 @@ void testa_tabela_crud() {
     Viagem *p_viagemPesquisada1 = tabela_pesquisa_viagem(p_tabela, codigoPassageiro1, p_codigosReservas1);
     print_teste(viagem_compara(p_viagem2, p_viagemPesquisada1), "tabela_pesquisa_viagem() - teste 1 ");
 
-    CodigosReservas *p_codigosReservas2 = viagem_cria_lista_codigos_reservas(p_viagem4);
-    int codigoPassageiro2 = get_viagem_codigo_passageiro(p_viagem4);
+    CodigosReservas *p_codigosReservas2 = viagem_cria_lista_codigos_reservas(p_viagem2);
+    int codigoPassageiro2 = get_viagem_codigo_passageiro(p_viagem2);
     Viagem *p_viagemPesquisada2 = tabela_pesquisa_viagem(p_tabela, codigoPassageiro2, p_codigosReservas2);
-    print_teste(viagem_compara(p_viagem4, p_viagemPesquisada2), "tabela_pesquisa_viagem() - teste 2: pesquisar viagem colidida. ");
+    print_teste(viagem_compara(p_viagem2, p_viagemPesquisada2), "tabela_pesquisa_viagem() - teste 2: pesquisar viagem colidida. ");
 
+    /* REMOÇÃO */
+    printf("- Testando tabela_remove_viagem()...\n");
+    
+    CodigosReservas *p_codigosReservasRemovidas1 = viagem_cria_lista_codigos_reservas(p_viagem3);
+    int codigoPassageiroRemovido1 = get_viagem_codigo_passageiro(p_viagem3);
+    print_teste(tabela_remove_viagem(p_tabela, p_viagem3), "tabela_remove_viagem() - teste 1");
+    Viagem *p_viagemRemovida1 = tabela_pesquisa_viagem(p_tabela, codigoPassageiroRemovido1, p_codigosReservasRemovidas1);
+    print_teste(p_viagemRemovida1 == NULL, "tabela_remove_viagem() - teste 2: Viagem removida não se encontra na tabela. ");
+
+    CodigosReservas *p_codigosReservasRemovidas2 = viagem_cria_lista_codigos_reservas(p_viagem2);
+    int codigoPassageiroRemovido2 = get_viagem_codigo_passageiro(p_viagem2);
+    print_teste(tabela_remove_viagem(p_tabela, p_viagem2), "tabela_remove_viagem() - teste 3: remoção de viagem em colisão.");
+    Viagem *p_viagemRemovida2 = tabela_pesquisa_viagem(p_tabela, codigoPassageiroRemovido2, p_codigosReservasRemovidas2);
+    print_teste(p_viagemRemovida2 == NULL, "tabela_remove_viagem() - teste 4: Viagem removida não se encontra na tabela. ");
 }
 
 void main(void) {

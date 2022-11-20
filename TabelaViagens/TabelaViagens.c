@@ -32,6 +32,14 @@ Reserva *reserva_cria(int codigoReserva, int codigoPassageiro) {
     return p_reserva;
 }
 
+/* Função quebra-galho, deve ser removida futuramente. */
+int reserva_libera(Reserva *p_reserva) {
+    if (p_reserva == NULL) return 0;
+    free(p_reserva);
+    return 1;
+}
+
+
 struct trecho {
     Reserva *reserva;
     struct trecho *proximo;
@@ -59,6 +67,32 @@ struct tabela_viagens {
     NoViagem **tabelaHash;
 };
 
+int viagem_libera(Viagem *p_viagem) {
+    if (p_viagem == NULL) return 0;
+
+    Trecho *p_trechos = p_viagem->trechos;
+
+    while (p_trechos != NULL) {
+        if (!reserva_libera(p_trechos->reserva)) return 0;
+        Trecho *p_aux = p_trechos->proximo;
+        free(p_trechos);
+        p_trechos = p_aux;
+    }
+    
+    free(p_viagem);
+    return 1;
+}
+
+int no_viagem_libera(NoViagem *p_noViagem) {
+    if (p_noViagem == NULL) return 0;
+
+    if (viagem_libera(p_noViagem->viagem)) {
+        free(p_noViagem);
+        return 1;
+    }
+    
+    return 0;
+}
 
 /* cria a tabela hash. */
 TabelaViagens *tabela_cria(void) {
@@ -69,12 +103,7 @@ TabelaViagens *tabela_cria(void) {
     if (pp_tabelaHash == NULL) return NULL;
 
     for (int i = 0; i < TAMANHO_TABELA; i++) {
-        NoViagem *p_noViagem = malloc(sizeof(NoViagem));
-        if (p_noViagem == NULL) return NULL;
-        p_noViagem->proximo = NULL;
-        p_noViagem->viagem = NULL;
-
-        pp_tabelaHash[i] = p_noViagem;
+        pp_tabelaHash[i] = NULL;
     }
 
     p_tabela->tabelaHash = pp_tabelaHash;
@@ -104,7 +133,7 @@ int tabela_tamanho_indice(TabelaViagens *p_tabela, int indice) {
     int tamanho = 0;
     NoViagem *p_noViagem = p_tabela->tabelaHash[indice];
 
-    while (p_noViagem->viagem != NULL) {
+    while (p_noViagem != NULL) {
         tamanho++;
         p_noViagem = p_noViagem->proximo;
     }
@@ -161,11 +190,41 @@ NoViagem *tabela_pesquisa_no_viagem(TabelaViagens *p_tabela, int codigoPassageir
 /* Retorna a Viagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
 especificados. */
 Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas) {
-    return tabela_pesquisa_no_viagem(p_tabela, codigoPassageiro, p_codigosReservas)->viagem;
+    NoViagem *p_resultado = tabela_pesquisa_no_viagem(p_tabela, codigoPassageiro, p_codigosReservas);
+    if (p_resultado == NULL) return NULL;
+
+    return p_resultado->viagem;
 }
 
 /* Remove a viagem da tabela de dispersão. Retorna 1 se a remoção foi sucedida,, 0 caso contrário. */
-int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
+int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
+    int codigoPassageiro = get_viagem_codigo_passageiro(p_viagem);
+    CodigosReservas *p_codigosReservas = viagem_cria_lista_codigos_reservas(p_viagem);
+
+    NoViagem *p_noViagem = tabela_pesquisa_no_viagem(p_tabela, codigoPassageiro, p_codigosReservas);
+    if (p_noViagem == NULL) return 0;
+
+    if (p_noViagem->proximo != NULL) {
+        p_noViagem->proximo->anterior = p_noViagem->anterior;
+    }
+    if (p_noViagem->anterior != NULL) {
+        p_noViagem->anterior->proximo = p_noViagem->proximo;
+        no_viagem_libera(p_noViagem);
+        return 1;
+    }
+
+    // NoViagem era o primeiro nó da lista encadeada
+    int indice = tabela_indice(codigoPassageiro, p_codigosReservas);
+
+    if (p_noViagem->proximo == NULL) {
+        p_noViagem->viagem = NULL;
+        return 1;
+    }
+
+    p_tabela->tabelaHash[indice] = p_noViagem->proximo;
+    free(p_noViagem);
+    return 1;
+}
 
 /* Compara os códigos de passageiros e de cada reserva */
 int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2) {
