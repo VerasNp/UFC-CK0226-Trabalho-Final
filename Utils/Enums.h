@@ -1,6 +1,3 @@
-#ifndef UFC_CK0226_TRABALHO_FINAL_ENUMS_H
-#define UFC_CK0226_TRABALHO_FINAL_ENUMS_H
-
 enum CodigoAssento {
     A0, B0, C0,
     A1, B1, C1,
@@ -14,5 +11,3 @@ enum CodigoAssento {
     A9, B9, C9
 };
 typedef enum CodigoAssento CodigoAssento;
-
-#endif //UFC_CK0226_TRABALHO_FINAL_ENUMS_H

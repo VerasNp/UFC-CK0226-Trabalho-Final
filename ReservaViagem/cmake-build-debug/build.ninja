@@ -41,6 +41,45 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/cmake-build-debug/
 # =============================================================================
+# Object build statements for EXECUTABLE target testa_data
+
+
+#############################################
+# Order-only phony target for testa_data
+
+build cmake_object_order_depends_target_testa_data: phony || CMakeFiles/testa_data.dir
+
+build CMakeFiles/testa_data.dir/Data.c.o: C_COMPILER__testa_data_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Data.c || cmake_object_order_depends_target_testa_data
+  DEP_FILE = CMakeFiles/testa_data.dir/Data.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/.
+  OBJECT_DIR = CMakeFiles/testa_data.dir
+  OBJECT_FILE_DIR = CMakeFiles/testa_data.dir
+
+build CMakeFiles/testa_data.dir/TestaData.c.o: C_COMPILER__testa_data_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/TestaData.c || cmake_object_order_depends_target_testa_data
+  DEP_FILE = CMakeFiles/testa_data.dir/TestaData.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/.
+  OBJECT_DIR = CMakeFiles/testa_data.dir
+  OBJECT_FILE_DIR = CMakeFiles/testa_data.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target testa_data
+
+
+#############################################
+# Link the executable testa_data
+
+build testa_data: C_EXECUTABLE_LINKER__testa_data_Debug CMakeFiles/testa_data.dir/Data.c.o CMakeFiles/testa_data.dir/TestaData.c.o
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/testa_data.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = testa_data
+  TARGET_PDB = testa_data.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target testa_reserva
 
 
@@ -48,6 +87,20 @@ cmake_ninja_workdir = /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaVi
 # Order-only phony target for testa_reserva
 
 build cmake_object_order_depends_target_testa_reserva: phony || CMakeFiles/testa_reserva.dir
+
+build CMakeFiles/testa_reserva.dir/Data.c.o: C_COMPILER__testa_reserva_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Data.c || cmake_object_order_depends_target_testa_reserva
+  DEP_FILE = CMakeFiles/testa_reserva.dir/Data.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/.
+  OBJECT_DIR = CMakeFiles/testa_reserva.dir
+  OBJECT_FILE_DIR = CMakeFiles/testa_reserva.dir
+
+build CMakeFiles/testa_reserva.dir/Agenda.c.o: C_COMPILER__testa_reserva_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Agenda.c || cmake_object_order_depends_target_testa_reserva
+  DEP_FILE = CMakeFiles/testa_reserva.dir/Agenda.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/.
+  OBJECT_DIR = CMakeFiles/testa_reserva.dir
+  OBJECT_FILE_DIR = CMakeFiles/testa_reserva.dir
 
 build CMakeFiles/testa_reserva.dir/Reserva.c.o: C_COMPILER__testa_reserva_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Reserva.c || cmake_object_order_depends_target_testa_reserva
   DEP_FILE = CMakeFiles/testa_reserva.dir/Reserva.c.o.d
@@ -71,7 +124,7 @@ build CMakeFiles/testa_reserva.dir/TestaReserva.c.o: C_COMPILER__testa_reserva_D
 #############################################
 # Link the executable testa_reserva
 
-build testa_reserva: C_EXECUTABLE_LINKER__testa_reserva_Debug CMakeFiles/testa_reserva.dir/Reserva.c.o CMakeFiles/testa_reserva.dir/TestaReserva.c.o
+build testa_reserva: C_EXECUTABLE_LINKER__testa_reserva_Debug CMakeFiles/testa_reserva.dir/Data.c.o CMakeFiles/testa_reserva.dir/Agenda.c.o CMakeFiles/testa_reserva.dir/Reserva.c.o CMakeFiles/testa_reserva.dir/TestaReserva.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/testa_reserva.dir
   POST_BUILD = :
@@ -87,6 +140,20 @@ build testa_reserva: C_EXECUTABLE_LINKER__testa_reserva_Debug CMakeFiles/testa_r
 # Order-only phony target for testa_agenda
 
 build cmake_object_order_depends_target_testa_agenda: phony || CMakeFiles/testa_agenda.dir
+
+build CMakeFiles/testa_agenda.dir/Data.c.o: C_COMPILER__testa_agenda_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Data.c || cmake_object_order_depends_target_testa_agenda
+  DEP_FILE = CMakeFiles/testa_agenda.dir/Data.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/.
+  OBJECT_DIR = CMakeFiles/testa_agenda.dir
+  OBJECT_FILE_DIR = CMakeFiles/testa_agenda.dir
+
+build CMakeFiles/testa_agenda.dir/Reserva.c.o: C_COMPILER__testa_agenda_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Reserva.c || cmake_object_order_depends_target_testa_agenda
+  DEP_FILE = CMakeFiles/testa_agenda.dir/Reserva.c.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/.
+  OBJECT_DIR = CMakeFiles/testa_agenda.dir
+  OBJECT_FILE_DIR = CMakeFiles/testa_agenda.dir
 
 build CMakeFiles/testa_agenda.dir/Agenda.c.o: C_COMPILER__testa_agenda_Debug /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/Agenda.c || cmake_object_order_depends_target_testa_agenda
   DEP_FILE = CMakeFiles/testa_agenda.dir/Agenda.c.o.d
@@ -110,7 +177,7 @@ build CMakeFiles/testa_agenda.dir/TestaAgenda.c.o: C_COMPILER__testa_agenda_Debu
 #############################################
 # Link the executable testa_agenda
 
-build testa_agenda: C_EXECUTABLE_LINKER__testa_agenda_Debug CMakeFiles/testa_agenda.dir/Agenda.c.o CMakeFiles/testa_agenda.dir/TestaAgenda.c.o
+build testa_agenda: C_EXECUTABLE_LINKER__testa_agenda_Debug CMakeFiles/testa_agenda.dir/Data.c.o CMakeFiles/testa_agenda.dir/Reserva.c.o CMakeFiles/testa_agenda.dir/Agenda.c.o CMakeFiles/testa_agenda.dir/TestaAgenda.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/testa_agenda.dir
   POST_BUILD = :
@@ -153,7 +220,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /mnt/my_stuff/projects/UFC-CK0226-Trabalho-Final/ReservaViagem/cmake-build-debug
 
-build all: phony testa_reserva testa_agenda
+build all: phony testa_data testa_reserva testa_agenda
 
 # =============================================================================
 # Built-in targets

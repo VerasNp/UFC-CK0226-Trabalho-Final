@@ -16,7 +16,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
@@ -32,7 +33,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
@@ -41,14 +43,21 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "testa_agenda::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-testa_agenda-Debug-1554cc6c5c7e4837a43b.json",
+					"jsonFile" : "target-testa_agenda-Debug-94dd378ed28e8477bda8.json",
 					"name" : "testa_agenda",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "testa_data::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testa_data-Debug-72a9ce126c96cc363cfb.json",
+					"name" : "testa_data",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "testa_reserva::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-testa_reserva-Debug-fcc8adf03962f17e1325.json",
+					"jsonFile" : "target-testa_reserva-Debug-0ffec909479fc63c0263.json",
 					"name" : "testa_reserva",
 					"projectIndex" : 0
 				}
