@@ -1,4 +1,5 @@
-#ifndef UFC_CK0226_TRABALHO_FINAL_HEADERS_H
-#define UFC_CK0226_TRABALHO_FINAL_HEADERS_H
+typedef struct agenda Agenda;
+typedef struct passageiro Passageiro;
+typedef struct voo Voo;
+typedef struct reserva Reserva;
 typedef struct data Data;
-#endif //UFC_CK0226_TRABALHO_FINAL_HEADERS_H
