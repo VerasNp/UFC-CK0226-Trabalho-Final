@@ -43,6 +43,12 @@ int tabela_tamanho_indice(TabelaViagens *p_tabela, int indice);
 /* Libera a tabela de dispersão da memória. 1 se sucedido, 0 caso contrário. */
 int tabela_libera(TabelaViagens *p_tabela);
 
+/* Função retorna o percentual de índices ocupados(com viagem) na tabela hash. */
+float tabela_percentual_indices(TabelaViagens *p_tabela);
+
+/* Retorna o número da maior colisão/ocupação que ocorre na tabela. */
+int tabela_maior_colisao(TabelaViagens *p_tabela);
+
 /* Dado um vetor de Reserva, ordenado em relação à data, retorna o objeto Viagem. */
 Viagem *viagem_cria(Reserva **pp_reservas, int numeroReservas);
 

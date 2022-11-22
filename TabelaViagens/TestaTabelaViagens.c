@@ -135,6 +135,16 @@ void testa_tabela_crud() {
     Viagem *p_viagemPesquisada2 = tabela_pesquisa_viagem(p_tabela, codigoPassageiro2, p_codigosReservas2);
     print_teste(viagem_compara(p_viagem2, p_viagemPesquisada2), "tabela_pesquisa_viagem() - teste 2: pesquisar viagem colidida. ");
 
+    /* ESTATÍSTICAS */
+    printf("Testando funções de estatística...\n");
+    float percentual = tabela_percentual_indices(p_tabela); //0,002997
+    int maiorColisao = tabela_maior_colisao(p_tabela);
+
+    int valorPercentual = (percentual * 1000000); // 2997
+
+    print_teste(valorPercentual == 2997, "tabela_percentual_indices()");
+    print_teste(maiorColisao == 2, "tabela_maior_colisao");
+
     /* REMOÇÃO */
     printf("- Testando tabela_remove_viagem()...\n");
     

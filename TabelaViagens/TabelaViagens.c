@@ -97,8 +97,8 @@ int no_viagem_libera(NoViagem *p_noViagem) {
     return 1;
 }
 
+/* Libera a tabela de dispersão da memória. 1 se sucedido, 0 caso contrário. */
 int tabela_libera(TabelaViagens *p_tabela) {
-    NoViagem **pp_tabelaHash = p_tabela->tabelaHash;
     for (int i=0; i < TAMANHO_TABELA; i++) {
         if (!no_viagem_libera(p_tabela->tabelaHash[i])) {
             return 0;
@@ -246,6 +246,30 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
     p_noViagem->proximo = NULL;
     no_viagem_libera(p_noViagem);
     return 1;
+}
+
+/* Função retorna o percentual de índices ocupados(com viagem) na tabela hash. */
+float tabela_percentual_indices(TabelaViagens *p_tabela) {
+    int contador = 0;
+    for (int i=0; i < TAMANHO_TABELA; i++) {
+        if (p_tabela->tabelaHash[i] != NULL) contador++;
+    }
+    return ((float) contador)/TAMANHO_TABELA;
+}
+
+/* Retorna o número da maior colisão/ocupação que ocorre na tabela. */
+int tabela_maior_colisao(TabelaViagens *p_tabela) {
+    int maior = 0;
+    for (int i=0; i < TAMANHO_TABELA; i++) {
+        int tmpMaior = 0;
+        NoViagem *p_noViagem = p_tabela->tabelaHash[i];
+        while (p_noViagem != NULL) {
+            tmpMaior++;
+            p_noViagem = p_noViagem->proximo;
+        }
+        if (tmpMaior > maior) maior = tmpMaior;
+    }
+    return maior;
 }
 
 /* Compara os códigos de passageiros e de cada reserva */
