@@ -29,9 +29,6 @@ int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
 /* Remove a viagem da tabela de dispersão. Retorna 1 se a remoção foi sucedida,, 0 caso contrário. */
 int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
 
-/* Atualiza a viagem na tabela de dispersão, retorna 1 se update sucedido, 0 caso contrário. */
-int tabela_atualiza_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
-
 /* Retorna o NoViagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
 especificados. */
 NoViagem *tabela_pesquisa_no_viagem(TabelaViagens *p_tabela, int codigoPassageiro, CodigosReservas *p_codigosReservas);

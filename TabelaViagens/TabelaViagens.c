@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define TAMANHO_TABELA 1000
+#define TAMANHO_TABELA 1001
 
 struct reserva { // essa struct será importada de AgendaReservas.h ou Reservas.h (ATUALIZAR ISSO)
     int codigo;
@@ -84,14 +84,29 @@ int viagem_libera(Viagem *p_viagem) {
 }
 
 int no_viagem_libera(NoViagem *p_noViagem) {
-    if (p_noViagem == NULL) return 0;
+    if (p_noViagem == NULL) return 1;
 
-    if (viagem_libera(p_noViagem->viagem)) {
+    while (p_noViagem != NULL) {
+        if (!viagem_libera(p_noViagem->viagem)) {
+            return 0;
+        }
+        NoViagem *p_aux = p_noViagem->proximo;
         free(p_noViagem);
-        return 1;
+        p_noViagem = p_aux;
     }
-    
-    return 0;
+    return 1;
+}
+
+int tabela_libera(TabelaViagens *p_tabela) {
+    NoViagem **pp_tabelaHash = p_tabela->tabelaHash;
+    for (int i=0; i < TAMANHO_TABELA; i++) {
+        if (!no_viagem_libera(p_tabela->tabelaHash[i])) {
+            return 0;
+        }
+    }
+
+    free(p_tabela);
+    return 1;
 }
 
 /* cria a tabela hash. */
@@ -209,6 +224,8 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
     }
     if (p_noViagem->anterior != NULL) {
         p_noViagem->anterior->proximo = p_noViagem->proximo;
+        p_noViagem->anterior = NULL;
+        p_noViagem->proximo = NULL;
         no_viagem_libera(p_noViagem);
         return 1;
     }
@@ -217,12 +234,17 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
     int indice = tabela_indice(codigoPassageiro, p_codigosReservas);
 
     if (p_noViagem->proximo == NULL) {
-        p_noViagem->viagem = NULL;
+        p_tabela->tabelaHash[indice] = NULL;
+        p_noViagem->anterior = NULL;
+        p_noViagem->proximo = NULL;
+        no_viagem_libera(p_noViagem);
         return 1;
     }
 
     p_tabela->tabelaHash[indice] = p_noViagem->proximo;
-    free(p_noViagem);
+    p_noViagem->anterior = NULL;
+    p_noViagem->proximo = NULL;
+    no_viagem_libera(p_noViagem);
     return 1;
 }
 

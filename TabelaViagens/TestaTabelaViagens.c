@@ -149,6 +149,10 @@ void testa_tabela_crud() {
     print_teste(tabela_remove_viagem(p_tabela, p_viagem2), "tabela_remove_viagem() - teste 3: remoção de viagem em colisão.");
     Viagem *p_viagemRemovida2 = tabela_pesquisa_viagem(p_tabela, codigoPassageiroRemovido2, p_codigosReservasRemovidas2);
     print_teste(p_viagemRemovida2 == NULL, "tabela_remove_viagem() - teste 4: Viagem removida não se encontra na tabela. ");
+
+    printf("Testando tabela_libera()...\n");
+
+    print_teste(tabela_libera(p_tabela), "tabela_libera() - teste 1");
 }
 
 void main(void) {
