@@ -40,8 +40,8 @@ void leitura_voo(Voo *p_voo, int *p_codigo, char *p_origem, char *p_destino)
     return;
 
   *p_codigo = p_voo->codigo;
-  strcpy(p_origem,p_voo->origem);
-  strcpy(p_destino,p_voo->destino);
+  if (p_origem != NULL) strcpy(p_origem,p_voo->origem);
+  if (p_destino != NULL) strcpy(p_destino,p_voo->destino);
 }
 
 void libera_voo(Voo *p_voo){ 

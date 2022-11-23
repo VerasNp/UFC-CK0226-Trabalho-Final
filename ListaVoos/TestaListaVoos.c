@@ -115,7 +115,38 @@ void testa_tamanho_lista_valido(void){
     else printf("tete_tamanho_fila_valido: ERRO\n");
     libera_lista(p_lista); 
 }
+
+void testa_unicidade_de_codigos(void) {
+    ListaVoo *p_lista = cria_lista(); 
+
+    Voo *p_voo1 = cria_voo("Fortaleza","Natal");
+    Voo *p_voo2 = cria_voo("Fortaleza","Salvador");
+    Voo *p_voo3 = cria_voo("Campos de Jordão","Campinas");
+    Voo *p_voo4 = cria_voo("Manaus","Recife");
+    Voo *p_voo5 = cria_voo("Recife","Porto Alegre");
+
+    insere_voo(p_voo1, p_lista);
+    insere_voo(p_voo2, p_lista);
+    insere_voo(p_voo3, p_lista);
+    insere_voo(p_voo4, p_lista);
+    insere_voo(p_voo5, p_lista);
+
+    int codigo;
+    int boolReturn = 1;
+
+    for (int i=1; i <= 5; i++) {
+        printf("%d\n", i);
+        Voo *p_voo = retira_voo(p_lista, i);
+        leitura_voo(p_voo, &codigo, NULL, NULL);
+        if (codigo != i) boolReturn = 0;
+    }
+    if (boolReturn) printf("teste_unicidade_de_codigos: SUCESSO\n");
+    else printf("teste_unicidade_de_codigos: ERRO\n");
+
+}
+
 int main(){ 
+    testa_unicidade_de_codigos();
     testa_insere_voo_nulo(); 
     testa_insere_voo_valido(); 
     testa_retira_voo_nulo(); 

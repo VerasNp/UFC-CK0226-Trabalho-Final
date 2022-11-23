@@ -130,6 +130,7 @@ void print_fila(ListaVoo *p_lista)
     printf("%d-", codigoLeitura);
     p_tmp = p_tmp->proximo;
   }
+  printf("\n");
   free(p_origem); free(p_destino);
 }
 
