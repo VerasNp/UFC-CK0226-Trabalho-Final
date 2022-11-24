@@ -71,7 +71,14 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
         int cod_passageiro,
         Data *p_data);
 
-Reserva *insere_reserva(Agenda *p_primeira_agenda, Reserva *p_reserva);
+/**
+ * Insere uma reserva na agenda retornando NULL caso a inserção nao seja concluída e retornando a reserva inserida caso seja inserida na agenda com sucesso
+ * @param p_raizAgenda
+ * @param p_reserva
+ * @return p_reserva
+ * @return NULL
+ */
+Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva);
 
 Reserva *remove_reserva(Reserva *p_reserva);
 
@@ -82,6 +89,5 @@ Reserva *edita_reserva(
         Voo **pp_voo,
         CodigoAssento *p_codigoAssento);
 
-void ler_reserva(Reserva *p_reserva);
-
+char* ler_reserva(Reserva *reserva);
 

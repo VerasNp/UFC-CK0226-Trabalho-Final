@@ -152,7 +152,6 @@ static void test_insere_agenda() {
     print_teste(1, "insere_agenda()");
 }
 
-
 int main(void) {
     srand(time(NULL));
     test_cria_agenda();

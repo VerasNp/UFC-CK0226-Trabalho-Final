@@ -222,3 +222,22 @@ Reserva *busca_reserva_na_agenda(
             return NULL;
     }
 }
+
+/**
+ * Insere uma reserva na agenda retornando NULL caso a inserção nao seja concluída e retornando a reserva inserida caso seja inserida na agenda com sucesso
+ * @param p_raizAgenda
+ * @param p_reserva
+ * @return p_reserva
+ * @return NULL
+ */
+Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva) {
+    if (p_raizAgenda == NULL || p_reserva == NULL)
+        return NULL;
+
+    if (insere_agenda(p_raizAgenda, cria_agenda(p_reserva)) != NULL) {
+        return p_reserva;
+    } else {
+        return NULL;
+    }
+}
+

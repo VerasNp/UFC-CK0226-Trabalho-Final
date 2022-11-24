@@ -185,10 +185,21 @@ static void test_busca_reserva_na_agenda_cod_reserva() {
                 "test_busca_reserva_na_agenda_cod_reserva()", p_primeiraReserva);
 }
 
+/**
+ * Testa a inserçao de reservas em uma agenda
+ */
+static void test_insere_reserva(){
+    Reserva *p_primeiraReserva = gera_reserva();
+    Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
+    Reserva *p_segundaReserva = gera_reserva();
+    print_teste(insere_reserva(p_primeiraAgenda, p_segundaReserva) != NULL,  "test_insere_reserva()", p_primeiraReserva);
+}
+
 int main(void) {
     test_cria_reserva();
     test_libera_reserva();
     test_acessa_reserva();
     test_busca_reserva_na_agenda_cod_reserva();
+    test_insere_reserva();
     exit(EXIT_SUCCESS);
 }
