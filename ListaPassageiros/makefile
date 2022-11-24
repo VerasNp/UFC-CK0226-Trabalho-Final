@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = Passageiro.h ListaPassageiros.h PassageirosTeste.h ListaTeste.h
-OBJ = TestesPassageiro.o Passageiro.o ListaPassageiros.o PassageirosTeste.o ListaTeste.o
+DEPS = Passageiro.h ListaPassageiros.h
+OBJ = TestaPassageiro.o Passageiro.o ListaPassageiros.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

@@ -16,7 +16,7 @@ int verif_param(char *p_nome,char *p_endereco){
 }
 
 /*Cria novo passageiro. Retorna NULL se não foi possível criar*/
-Passageiro *aloca_passageiro(char *p_nome,char *p_endereco){ 
+Passageiro *passageiro_cria(char *p_nome,char *p_endereco){ 
     static int id; 
     if (verif_param(p_nome, p_endereco)){
         Passageiro *p_novoPass = (Passageiro *)malloc(sizeof(Passageiro)); 
@@ -58,7 +58,7 @@ void passageiro_atribui(Passageiro *p_passageiro, char *p_nomeNovo, char *p_ende
 }
 
 /*Libera o espaço de memória do passageiro. Retorna 1 se foi possível liberar, 0 se não foi possível*/
-int libera_passageiro(Passageiro *p_passageiro){ 
+int passageiro_libera(Passageiro *p_passageiro){ 
     if (p_passageiro != NULL){ 
         free(p_passageiro->endereco); 
         free(p_passageiro->nome); 
@@ -70,6 +70,6 @@ int libera_passageiro(Passageiro *p_passageiro){
 }
 
 /*Retorna o tamanho do TAD Passageiro*/
-int tamanho_passageiro(){ 
+int passageiro_tamanho(){ 
     return sizeof(Passageiro); 
 }

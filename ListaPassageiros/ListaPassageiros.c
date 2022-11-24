@@ -84,12 +84,12 @@ int libera_lista_passageiro(ListaPassageiro *p_lista){
         No *p_aux = p_lista->primeiro->proximo; 
         No *p_aux2 = p_lista->primeiro;  
         while(p_aux != NULL){ 
-            libera_passageiro(p_aux2->passageiro);
+            passageiro_libera(p_aux2->passageiro);
             free(p_aux2);  
             p_aux2 = p_aux; 
             p_aux = p_aux->proximo; 
         }
-        libera_passageiro(p_aux2->passageiro); 
+        passageiro_libera(p_aux2->passageiro); 
         free(p_aux2); 
         free(p_lista); 
         p_lista = NULL; 
