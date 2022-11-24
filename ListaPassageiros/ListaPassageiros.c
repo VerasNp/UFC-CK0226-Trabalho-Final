@@ -42,10 +42,10 @@ Passageiro *remover_passageiro(Lista *p_lista,int id){
 
         int idConsulta;
         char *p_nome = (char*)malloc(sizeof(char)*100);
-        char *p_endereço = (char*)malloc(sizeof(char)*300);
+        char *p_endereco = (char*)malloc(sizeof(char)*300);
 
         while(p_aux != NULL){ 
-            passageiro_acessa(p_aux->passageiro,&idConsulta,p_nome,p_endereço); 
+            passageiro_acessa(p_aux->passageiro,&idConsulta,p_nome,p_endereco); 
             if (idConsulta == id){ 
                 Passageiro *passageiro = p_aux->passageiro; 
                 p_aux2->proximo = p_aux->proximo; 
@@ -66,10 +66,10 @@ Passageiro *lista_busca(int id,Lista *p_lista){
 
         int idConsulta; 
         char *p_nome = (char*)malloc(sizeof(char)*100);  
-        char *p_endereço = (char *)malloc(sizeof(char)*300);
+        char *p_endereco = (char *)malloc(sizeof(char)*300);
 
         while(p_aux != NULL){ 
-            passageiro_acessa(p_aux->passageiro, &idConsulta,p_nome,p_endereço);
+            passageiro_acessa(p_aux->passageiro, &idConsulta,p_nome,p_endereco);
             if(idConsulta == id)
                 return p_aux->passageiro; 
             p_aux = p_aux->proximo;

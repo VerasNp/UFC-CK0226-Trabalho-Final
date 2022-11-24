@@ -125,7 +125,7 @@ void libera_passageiro_valido(){
     else printf("libera_passageiro_valido: ERRO\n");  
 }
 
-int main(){ 
+void testa_passageiros() { 
     aloca_passageiro_nulo(); 
     aloca_passageiro_valido(); 
     passageiro_acessa_nulo(); 
@@ -133,5 +133,4 @@ int main(){
     passageiro_atribui_valido(); 
     libera_passageiro_nulo(); 
     libera_passageiro_valido(); 
-    return 0; 
 }

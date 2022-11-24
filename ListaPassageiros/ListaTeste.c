@@ -113,7 +113,7 @@ void lista_quantidade_valido(){
     libera_lista(p_listaNova);
 }
 
-int main(){ 
+void testa_lista(){ 
     cria_lista_valido(); 
     incluir_lista_nulo(); 
     incluir_lista_valido(); 
@@ -125,5 +125,4 @@ int main(){
     libera_lista_nulo(); 
     lista_quantidade_nulo(); 
     lista_quantidade_valido();  
-    return 0; 
 }

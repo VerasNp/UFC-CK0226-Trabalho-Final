@@ -9,8 +9,8 @@ struct passageiro{
     char *endereco;
 };
 
-int verif_param(char *p_nome,char *p_endereço){ 
-    if (p_nome == NULL || p_endereço == NULL ||strlen(p_nome)>100 || strlen(p_endereço)>300)  
+int verif_param(char *p_nome,char *p_endereco){ 
+    if (p_nome == NULL || p_endereco == NULL ||strlen(p_nome)>100 || strlen(p_endereco)>300)  
         return 0;
     return 1; 
 }
