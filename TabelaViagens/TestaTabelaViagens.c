@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include "TabelaViagens.h"
+#include "Utils.h"
 #include <stdlib.h>
-
-void print_teste(int r, char texto[]) {
-    if (r) printf("   [SUCESSO] %s\n", texto);
-    else printf("   [ERRO] %s\n", texto);
-}
 
 void testa_tabela_cria() {
     printf("- Testando tabela_cria()...\n");
@@ -125,10 +121,10 @@ void testa_tabela_crud() {
     /* PESQUISA */
     printf("- Testando tabela_pesquisa_viagem()...\n");
 
-    CodigosReservas *p_codigosReservas1 = viagem_cria_lista_codigos_reservas(p_viagem2);
-    int codigoPassageiro1 = get_viagem_codigo_passageiro(p_viagem2);
+    CodigosReservas *p_codigosReservas1 = viagem_cria_lista_codigos_reservas(p_viagem1);
+    int codigoPassageiro1 = get_viagem_codigo_passageiro(p_viagem1);
     Viagem *p_viagemPesquisada1 = tabela_pesquisa_viagem(p_tabela, codigoPassageiro1, p_codigosReservas1);
-    print_teste(viagem_compara(p_viagem2, p_viagemPesquisada1), "tabela_pesquisa_viagem() - teste 1 ");
+    print_teste(viagem_compara(p_viagem1, p_viagemPesquisada1), "tabela_pesquisa_viagem() - teste 1 ");
 
     CodigosReservas *p_codigosReservas2 = viagem_cria_lista_codigos_reservas(p_viagem2);
     int codigoPassageiro2 = get_viagem_codigo_passageiro(p_viagem2);

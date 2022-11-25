@@ -1,0 +1,1 @@
+void print_teste(int r, char texto[]);
