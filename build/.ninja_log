@@ -1,0 +1,12 @@
+# ninja log v5
+0	45	1669399059906876840	CMakeFiles/testa_lista_voos.dir/Voos.c.o	229570d35e9ed310
+1	45	1669399059906876840	CMakeFiles/testa_voos.dir/Voos.c.o	6cb54fbc40f4c390
+1	72	1669399059934877448	CMakeFiles/testa_lista_voos.dir/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c.o	13cf8c6f57dfb276
+1	77	1669399059938877534	CMakeFiles/testa_voos.dir/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c.o	792fd402bff04e1b
+2	89	1669399059950877795	CMakeFiles/testa_voos.dir/TestaVoos.c.o	88969e78846c7c50
+1	94	1669399059954877881	CMakeFiles/testa_lista_voos.dir/TestaListaVoos.c.o	ec50ea790ab25b5d
+0	99	1669399059958877968	CMakeFiles/testa_lista_voos.dir/ListaVoos.c.o	613403f1be7e8c05
+89	132	1669399059990878662	testa_voos	16c7b5eccf61448e
+99	138	1669399059998878836	testa_lista_voos	22bff28b9580936a
+0	123	1669399144848707656	CMakeFiles/testa_lista_voos.dir/TestaListaVoos.c.o	ec50ea790ab25b5d
+123	148	1669399144876708256	testa_lista_voos	22bff28b9580936a

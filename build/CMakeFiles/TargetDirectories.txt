@@ -1,0 +1,4 @@
+/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build/CMakeFiles/edit_cache.dir
+/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build/CMakeFiles/rebuild_cache.dir
+/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build/CMakeFiles/testa_lista_voos.dir
+/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build/CMakeFiles/testa_voos.dir
