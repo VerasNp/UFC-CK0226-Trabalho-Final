@@ -1,0 +1,68 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "UFC-CK0226-Trabalho-Final",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "testa_lista_voos::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testa_lista_voos-Debug-63acce3dea1c88f47168.json",
+					"name" : "testa_lista_voos",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testa_voos::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testa_voos-Debug-f6379b32eda35801d22f.json",
+					"name" : "testa_voos",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
+		"source" : "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}
