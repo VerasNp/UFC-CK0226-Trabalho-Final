@@ -48,27 +48,40 @@ void acessa_reserva(
  * @return NULL
  * @return p_reservaEncontradaAgendaEsq
  * @return p_reservaEncontradaAgendaDir
+ * @return p_acessaReserva
  */
 Reserva *busca_reserva_na_agenda_cod_reserva(
         Agenda *p_raizAgenda,
         int idReserva);
 
-Reserva *busca_reserva_na_agenda(
-        Agenda *p_agenda,
-        int modo_busca,
-        int cod_reserva,
-        int cod_passageiro,
-        int cod_voo,
-        Data *p_data);
-
+/**
+ * Busca uma reserva baseado nos dados de código do passageiro e voo. Retorna NULL caso não encontre e a reserva caso a encontre
+ * @param p_raizAgenda
+ * @param idPassageiro
+ * @param idVoo
+ * @return NULL
+ * @return p_reservaEncontradaAgendaEsq
+ * @return p_reservaEncontradaAgendaDir
+ * @return p_acessaReserva
+ */
 Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
         Agenda *p_raizAgenda,
         int idPassageiro,
         int idVoo);
 
+/**
+ * Busca reserva baseando-se no código do passageiro e data da reserva, retorna NULL caso não seja encontrado e a reserva caso seja achado
+ * @param p_raizAgenda
+ * @param idPassageiro
+ * @param p_data
+ * @return NULL
+ * @return p_reservaEncontradaAgendaEsq
+ * @return p_reservaEncontradaAgendaDir
+ * @return p_acessaReserva
+ */
 Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
-        Agenda *p_raiz_agenda,
-        int cod_passageiro,
+        Agenda *p_raizAgenda,
+        int idPassageiro,
         Data *p_data);
 
 /**
@@ -80,14 +93,19 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
  */
 Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva);
 
-Reserva *remove_reserva(Reserva *p_reserva);
-
+/**
+ * Edita valores de data e assento da reserva.
+ * Retorna NULL caso ou a reserva ou data ou código do assento tenha valor nulo e retorna o valor novo da reserva com os valores atualizados caso tudo ocorra corretamente
+ * @param p_reserva
+ * @param p_dataViagem
+ * @param codigoAssento
+ * @return NULL
+ * @return p_reserva
+ */
 Reserva *edita_reserva(
         Reserva *p_reserva,
-        Data *p_data_viagem,
-        Passageiro **pp_passageiro,
-        Voo **pp_voo,
-        CodigoAssento *p_codigoAssento);
+        Data *p_dataViagem,
+        CodigoAssento codigoAssento);
 
 char* ler_reserva(Reserva *reserva);
 

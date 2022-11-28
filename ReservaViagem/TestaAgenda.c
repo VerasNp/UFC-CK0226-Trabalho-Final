@@ -19,19 +19,6 @@ struct voo {
     char *origem;
     char *destino;
 };
-// ===========================
-
-// TODO: Apoes a funcao de liberar agenda for implementada esta sera a nova funcao para exibir o resultado de testes
-///**
-// * Renderiza resultado do teste
-// * @param r
-// * @param texto
-// */
-//static void print_teste(int r, char texto[], Agenda *p_agenda) {
-//    libera_agenda(&p_agenda);
-//    if (r) printf("   [SUCESSO] %s\n", texto);
-//    else printf("   [ERRO] %s\n", texto);
-//}
 
 /**
  * Renderiza resultado do teste
@@ -152,11 +139,39 @@ static void test_insere_agenda() {
     print_teste(1, "insere_agenda()");
 }
 
+static void test_remove_agenda() {
+    Reserva *p_primeiraReserva = gera_reserva();
+
+    Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
+
+    if (insere_agenda(NULL, p_primeiraAgenda) == NULL)
+        print_teste(0, "insere_agenda()");
+
+    Reserva *p_segundaReserva = gera_reserva();
+
+    Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
+
+    if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
+        print_teste(0, "insere_agenda()");
+
+    Reserva *p_terceiraReserva = gera_reserva();
+
+    Agenda *p_terceiraAgenda = cria_agenda(p_terceiraReserva);
+
+    if (insere_agenda(p_primeiraAgenda, p_terceiraAgenda) == NULL)
+        print_teste(0, "insere_agenda()");
+
+    Agenda *agenda = remove_agenda(p_primeiraAgenda, p_segundaReserva);
+
+    print_teste(agenda != NULL,"test_remove_agenda()");
+}
+
 int main(void) {
-    srand(time(NULL));
+    srand(time(0));
     test_cria_agenda();
     test_acessa_agenda();
     test_libera_agenda();
     test_insere_agenda();
+    test_remove_agenda();
     exit(EXIT_SUCCESS);
 }

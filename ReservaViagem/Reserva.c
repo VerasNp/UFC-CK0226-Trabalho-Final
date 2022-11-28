@@ -2,6 +2,8 @@
 #include "../Utils/Enums.h"
 #include "Data.h"
 #include "Agenda.h"
+#include "../ListaPassageiros/Passageiro.h"
+#include "../ListaVoos/Voos.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -126,6 +128,7 @@ int libera_reserva(Reserva **pp_reserva) {
  * @return NULL
  * @return p_reservaEncontradaAgendaEsq
  * @return p_reservaEncontradaAgendaDir
+ * @return p_acessaReserva
  */
 Reserva *busca_reserva_na_agenda_cod_reserva(Agenda *p_raizAgenda, int idReserva) {
     if (p_raizAgenda == NULL)
@@ -159,6 +162,16 @@ Reserva *busca_reserva_na_agenda_cod_reserva(Agenda *p_raizAgenda, int idReserva
     };
 }
 
+/**
+ * Busca uma reserva baseado nos dados de código do passageiro e voo. Retorna NULL caso não encontre e a reserva caso a encontre
+ * @param p_raizAgenda
+ * @param idPassageiro
+ * @param idVoo
+ * @return NULL
+ * @return p_reservaEncontradaAgendaEsq
+ * @return p_reservaEncontradaAgendaDir
+ * @return p_acessaReserva
+ */
 Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
         Agenda *p_raizAgenda,
         int idPassageiro,
@@ -169,7 +182,6 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
     Reserva *p_acessaReserva;
     Agenda *p_acessaAgendaEsquerda;
     Agenda *p_acessaAgendaDireita;
-
     acessa_agenda(
             p_raizAgenda,
             &p_acessaReserva,
@@ -181,7 +193,6 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
-
     acessa_reserva(
             p_acessaReserva,
             &acessaId,
@@ -190,37 +201,110 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
             &p_acessaVoo,
             &acessaAssento);
 
-    // TODO: Necessario acessa passageiro e voo
+    int p_acessaIdVoo;
+    char *p_acessaOrigemVoo = (char *)malloc(sizeof(char)*300);
+    char *p_acessaDestinoVoo = (char *)malloc(sizeof(char)*300);
+    leitura_voo(
+            p_acessaVoo,
+            &p_acessaIdVoo,
+            p_acessaOrigemVoo,
+            p_acessaDestinoVoo);
+
+    int p_acessaIdPassageiro;
+    char *p_acessaNomePassageiro = (char *)malloc(sizeof(char)*300);
+    char *p_acessaEnderecoPassageiro = (char *)malloc(sizeof(char)*300);
+    passageiro_acessa(
+            p_acessaPassageiro,
+            &p_acessaIdPassageiro,
+            p_acessaNomePassageiro,
+            p_acessaEnderecoPassageiro);
+
+    if (p_acessaIdPassageiro == idPassageiro && p_acessaIdVoo == idVoo)
+        return p_acessaReserva;
+
+    Reserva *p_reservaEncontradaAgendaEsq = busca_reserva_na_agenda_cod_passageiro_cod_voo(
+            p_acessaAgendaEsquerda,
+            idPassageiro,
+            idVoo);
+    if (p_reservaEncontradaAgendaEsq != NULL) {
+        return p_reservaEncontradaAgendaEsq;
+    };
+
+    Reserva *p_reservaEncontradaAgendaDir = busca_reserva_na_agenda_cod_passageiro_cod_voo(
+            p_acessaAgendaDireita,
+            idPassageiro,
+            idVoo);
+    if (p_reservaEncontradaAgendaDir != NULL) {
+        return p_reservaEncontradaAgendaDir;
+    };
 }
 
+/**
+ * Busca reserva baseando-se no código do passageiro e data da reserva, retorna NULL caso não seja encontrado e a reserva caso seja achado
+ * @param p_raizAgenda
+ * @param idPassageiro
+ * @param p_data
+ * @return NULL
+ * @return p_reservaEncontradaAgendaEsq
+ * @return p_reservaEncontradaAgendaDir
+ * @return p_acessaReserva
+ */
 Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
-        Agenda *p_raiz_agenda,
-        int cod_passageiro,
+        Agenda *p_raizAgenda,
+        int idPassageiro,
         Data *p_data) {
-    // TODO: NMecessario acessa passageiro
-    return NULL;
-}
+    if (p_raizAgenda == NULL)
+        return NULL;
 
-// TODO: Necessario implementar busca_reserva_na_agenda_cod_passageiro_cod_voo e  busca_reserva_na_agenda_cod_passageiro_data_viagem
-Reserva *busca_reserva_na_agenda(
-        Agenda *p_agenda,
-        int modo_busca,
-        int cod_reserva,
-        int cod_passageiro,
-        int cod_voo,
-        Data *p_data) {
-    switch (modo_busca) {
-        case 0:
-            return NULL;
-        case 1:
-            return busca_reserva_na_agenda_cod_reserva(p_agenda, cod_reserva);
-        case 2:
-            return busca_reserva_na_agenda_cod_passageiro_cod_voo(p_agenda, cod_passageiro, cod_voo);
-        case 3:
-            return busca_reserva_na_agenda_cod_passageiro_data_viagem(p_agenda, cod_passageiro, p_data);
-        default:
-            return NULL;
-    }
+    Reserva *p_acessaReserva;
+    Agenda *p_acessaAgendaEsquerda;
+    Agenda *p_acessaAgendaDireita;
+    acessa_agenda(
+            p_raizAgenda,
+            &p_acessaReserva,
+            &p_acessaAgendaEsquerda,
+            &p_acessaAgendaDireita);
+
+    int acessaId;
+    Data *p_acessaData;
+    Passageiro *p_acessaPassageiro;
+    Voo *p_acessaVoo;
+    CodigoAssento acessaAssento;
+    acessa_reserva(
+            p_acessaReserva,
+            &acessaId,
+            &p_acessaData,
+            &p_acessaPassageiro,
+            &p_acessaVoo,
+            &acessaAssento);
+
+    int p_acessaIdPassageiro;
+    char *p_acessaNomePassageiro = (char *)malloc(sizeof(char)*300);
+    char *p_acessaEnderecoPassageiro = (char *)malloc(sizeof(char)*300);
+    passageiro_acessa(
+            p_acessaPassageiro,
+            &p_acessaIdPassageiro,
+            p_acessaNomePassageiro,
+            p_acessaEnderecoPassageiro);
+
+    if (p_acessaIdPassageiro == idPassageiro && comparar_datas(p_acessaData, p_data) == 0)
+        return p_acessaReserva;
+
+    Reserva *p_reservaEncontradaAgendaEsq = busca_reserva_na_agenda_cod_passageiro_data_viagem(
+            p_acessaAgendaEsquerda,
+            idPassageiro,
+            p_data);
+    if (p_reservaEncontradaAgendaEsq != NULL) {
+        return p_reservaEncontradaAgendaEsq;
+    };
+
+    Reserva *p_reservaEncontradaAgendaDir = busca_reserva_na_agenda_cod_passageiro_data_viagem(
+            p_acessaAgendaDireita,
+            idPassageiro,
+            p_data);
+    if (p_reservaEncontradaAgendaDir != NULL) {
+        return p_reservaEncontradaAgendaDir;
+    };
 }
 
 /**
@@ -241,3 +325,24 @@ Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva) {
     }
 }
 
+/**
+ * Edita valores de data e assento da reserva.
+ * Retorna NULL caso ou a reserva ou data ou código do assento tenha valor nulo e retorna o valor novo da reserva com os valores atualizados caso tudo ocorra corretamente
+ * @param p_reserva
+ * @param p_dataViagem
+ * @param codigoAssento
+ * @return NULL
+ * @return p_reserva
+ */
+Reserva *edita_reserva(
+        Reserva *p_reserva,
+        Data *p_dataViagem,
+        CodigoAssento codigoAssento) {
+    if (p_reserva == NULL || p_dataViagem == NULL || (codigoAssento < 0 || codigoAssento > C9))
+        return NULL;
+
+    (*(p_reserva)).p_data = p_dataViagem;
+    (*(p_reserva)).codigoAssento = codigoAssento;
+
+    return p_reserva;
+}

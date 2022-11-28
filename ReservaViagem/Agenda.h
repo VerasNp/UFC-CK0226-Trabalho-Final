@@ -41,3 +41,5 @@ void acessa_agenda(
  * @return 1
  */
 int libera_agenda(Agenda **pp_agenda);
+
+Agenda *remove_agenda(Agenda *p_raizAgenda, Reserva *p_reserva);

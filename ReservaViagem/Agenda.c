@@ -58,35 +58,34 @@ void acessa_agenda(
  * @return 1
  */
 int libera_agenda(Agenda **pp_agenda) {
-    // TODO: Fazer logica da libera memoria da agenda
-//    if (pp_agenda == NULL)
-//        return 0;
-//
-//    Reserva *p_acessaReserva;
-//    Agenda *p_acessaAgendaEsquerda;
-//    Agenda *p_acessaAgendaDireita;
-//
-//    acessa_agenda(
-//            *pp_agenda,
-//            &p_acessaReserva,
-//            &p_acessaAgendaEsquerda,
-//            &p_acessaAgendaDireita);
-//
-//    while(p_agendaEsquerda != NULL) {
-//        free(p_agendaEsquerda);
-//        p_agendaEsquerda = NULL;
-//        p_agendaEsquerda = (*(pp_agenda))->p_esquerda;
-//    }
-//
-//    while(p_agendaDireita != NULL) {
-//        free(p_agendaDireita);
-//        p_agendaDireita = NULL;
-//        p_agendaDireita = (*(pp_agenda))->p_esquerda;
-//    }
-//
-//    free(*pp_agenda);
-//    pp_agenda = NULL;
-//    return 1;
+    if (pp_agenda == NULL)
+        return 0;
+
+    Reserva *p_acessaReserva;
+    Agenda *p_acessaAgendaEsquerda;
+    Agenda *p_acessaAgendaDireita;
+
+    acessa_agenda(
+            *pp_agenda,
+            &p_acessaReserva,
+            &p_acessaAgendaEsquerda,
+            &p_acessaAgendaDireita);
+
+    while(p_acessaAgendaEsquerda != NULL) {
+        free(p_acessaAgendaEsquerda);
+        p_acessaAgendaEsquerda = NULL;
+        p_acessaAgendaEsquerda = (*(pp_agenda))->p_esquerda;
+    }
+
+    while(p_acessaAgendaDireita != NULL) {
+        free(p_acessaAgendaDireita);
+        p_acessaAgendaDireita = NULL;
+        p_acessaAgendaDireita = (*(pp_agenda))->p_esquerda;
+    }
+
+    free(*pp_agenda);
+    pp_agenda = NULL;
+    return 1;
 };
 
 /**
@@ -151,4 +150,65 @@ Agenda *insere_agenda(Agenda *p_agenda, Agenda *p_novaAgenda) {
             }
         }
     }
+}
+
+Agenda *minimo(Agenda *p_raizAgenda) {
+    if ((*(p_raizAgenda)).p_esquerda == NULL) {
+        return p_raizAgenda;
+    } else {
+        return minimo((*(p_raizAgenda)).p_esquerda);
+    }
+}
+
+Agenda *remove_agenda(Agenda *p_raizAgenda, Reserva *p_reserva) {
+    if (p_raizAgenda == NULL)
+        return NULL;
+
+    int acessaIdReservaRaizAgenda;
+    Data *p_acessaDataReservaRaizAgenda;
+    Passageiro *p_acessaPassageiroReservaRaizAgenda;
+    Voo *p_acessaVooReservaRaizAgenda;
+    CodigoAssento acessaAssentoReservaRaizAgenda;
+    acessa_reserva(
+            (*(p_raizAgenda)).p_reserva,
+            &acessaIdReservaRaizAgenda,
+            &p_acessaDataReservaRaizAgenda,
+            &p_acessaPassageiroReservaRaizAgenda,
+            &p_acessaVooReservaRaizAgenda,
+            &acessaAssentoReservaRaizAgenda);
+
+    int acessaId;
+    Data *p_acessaData;
+    Passageiro *p_acessaPassageiro;
+    Voo *p_acessaVoo;
+    CodigoAssento acessaAssento;
+    acessa_reserva(
+            p_reserva,
+            &acessaId,
+            &p_acessaData,
+            &p_acessaPassageiro,
+            &p_acessaVoo,
+            &acessaAssento);
+
+    if (comparar_datas(p_acessaData, p_acessaDataReservaRaizAgenda) < 0)
+        (*(p_raizAgenda)).p_esquerda = remove_agenda((*(p_raizAgenda)).p_esquerda, p_reserva);
+
+    else if (comparar_datas(p_acessaData, p_acessaDataReservaRaizAgenda) > 0)
+        (*(p_raizAgenda)).p_direita = remove_agenda((*(p_raizAgenda)).p_direita, p_reserva);
+
+    else {
+        if ((*(p_raizAgenda)).p_esquerda == NULL) {
+            Agenda *temp = (*(p_raizAgenda)).p_direita;
+            libera_agenda(&p_raizAgenda);
+            return temp;
+        } else if((*(p_raizAgenda)).p_direita == NULL) {
+            Agenda *temp = (*(p_raizAgenda)).p_esquerda;
+            libera_agenda(&p_raizAgenda);
+            return temp;
+        }
+        Agenda *temp = minimo((*(p_raizAgenda)).p_direita);
+        (*(p_raizAgenda)).p_reserva = (*(temp)).p_reserva;
+        (*(p_raizAgenda)).p_direita = remove_agenda((*(p_raizAgenda)).p_direita, (*(temp)).p_reserva);
+    }
+    return p_raizAgenda;
 }

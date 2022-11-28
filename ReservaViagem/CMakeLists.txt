@@ -4,6 +4,8 @@ project(UFC-CK0226-Trabalho-Final C)
 set(CMAKE_CXX_STANDARD 14)
 
 include_directories(.)
+include_directories(../ListaVoos)
+include_directories(../ListaPassageiros)
 
 add_executable(
         testa_data
@@ -14,6 +16,10 @@ add_executable(
 
 add_executable(
         testa_reserva
+        ../ListaVoos/Voos.h
+        ../ListaVoos/Voos.c
+        ../ListaPassageiros/Passageiro.h
+        ../ListaPassageiros/Passageiro.c
         Data.h
         Data.c
         Agenda.h
@@ -24,6 +30,10 @@ add_executable(
 
 add_executable(
         testa_agenda
+        ../ListaVoos/Voos.h
+        ../ListaVoos/Voos.c
+        ../ListaPassageiros/Passageiro.h
+        ../ListaPassageiros/Passageiro.c
         Data.h
         Data.c
         Reserva.h
