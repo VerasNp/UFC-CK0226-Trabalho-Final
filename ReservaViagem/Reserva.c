@@ -346,3 +346,64 @@ Reserva *edita_reserva(
 
     return p_reserva;
 }
+
+/**
+ * Lê dados de uma reserva e os exibe na tela
+ * @param p_reserva
+ * @return NULL
+ */
+char* ler_reserva(Reserva *p_reserva) {
+    if (p_reserva == NULL)
+        return NULL;
+
+    int acessaId;
+    Data *p_acessaData;
+    Passageiro *p_acessaPassageiro;
+    Voo *p_acessaVoo;
+    CodigoAssento acessaAssento;
+    acessa_reserva(
+            p_reserva,
+            &acessaId,
+            &p_acessaData,
+            &p_acessaPassageiro,
+            &p_acessaVoo,
+            &acessaAssento);
+
+    int p_acessaIdVoo;
+    char *p_acessaOrigemVoo = (char *)malloc(sizeof(char)*300);
+    char *p_acessaDestinoVoo = (char *)malloc(sizeof(char)*300);
+    leitura_voo(
+            p_acessaVoo,
+            &p_acessaIdVoo,
+            p_acessaOrigemVoo,
+            p_acessaDestinoVoo);
+
+    int p_acessaIdPassageiro;
+    char *p_acessaNomePassageiro = (char *)malloc(sizeof(char)*300);
+    char *p_acessaEnderecoPassageiro = (char *)malloc(sizeof(char)*300);
+    passageiro_acessa(
+            p_acessaPassageiro,
+            &p_acessaIdPassageiro,
+            p_acessaNomePassageiro,
+            p_acessaEnderecoPassageiro);
+
+    int dia;
+    int mes;
+    int ano;
+    acessa_data(
+            p_acessaData,
+            &dia,
+            &mes,
+            &ano);
+
+    printf("Código da reserva: %d \n", acessaId);
+    printf("Data da reserva: %d/%d/%d \n", dia, mes, ano);
+    printf("Dados do passageiro:\n");
+    printf("\tCódigo: %d\n", p_acessaIdPassageiro);
+    printf("\tNome: %s\n", p_acessaNomePassageiro);
+    printf("\tEndereço: %s\n", p_acessaEnderecoPassageiro);
+    printf("Dados do voo:\n");
+    printf("\tCódigo: %d\n", p_acessaIdVoo);
+    printf("\tOrigem: %s\n", p_acessaOrigemVoo);
+    printf("\tDestino: %s\n", p_acessaDestinoVoo);
+}

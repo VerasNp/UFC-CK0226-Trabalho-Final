@@ -264,6 +264,9 @@ static void test_insere_reserva(){
     print_teste(insere_reserva(p_primeiraAgenda, p_segundaReserva) != NULL,  "test_insere_reserva()");
 }
 
+/**
+ * Testa edição de dados de uma reserva
+ */
 static void test_edita_reserva() {
     Reserva *p_reserva = gera_reserva(NULL);
 
@@ -303,6 +306,15 @@ static void test_edita_reserva() {
             "test_edita_reserva()");
 }
 
+/**
+ * Testa leitura dos dados de reserva e assim exeibição dos mesmos
+ */
+static void test_ler_reserva(){
+    Reserva *p_reserva = gera_reserva(NULL);
+
+    print_teste(ler_reserva(p_reserva) != NULL, "test_ler_reserva()");
+}
+
 int main(void) {
     srand(time(0));
     test_cria_reserva();
@@ -313,5 +325,6 @@ int main(void) {
     test_busca_reserva_na_agenda_cod_passageiro_data_viagem();
     test_insere_reserva();
     test_edita_reserva();
+    test_ler_reserva();
     exit(EXIT_SUCCESS);
 }

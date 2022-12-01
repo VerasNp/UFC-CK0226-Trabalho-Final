@@ -107,5 +107,10 @@ Reserva *edita_reserva(
         Data *p_dataViagem,
         CodigoAssento codigoAssento);
 
-char* ler_reserva(Reserva *reserva);
+/**
+ * Lê dados de uma reserva e os exibe na tela
+ * @param p_reserva
+ * @return NULL
+ */
+char* ler_reserva(Reserva *p_reserva);
 
