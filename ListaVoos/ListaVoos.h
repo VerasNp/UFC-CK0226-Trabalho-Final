@@ -1,13 +1,5 @@
 #include "Voos.h" 
 
-/** @brief Nós da lista encadeado
- */
-typedef struct no_voo NoVoo;
-
-/** @brief Lista encadeada de voos 
- */
-typedef struct lista_voo ListaVoo;
-
 /**
  * @brief Aloca memória para um novo nó
  * 

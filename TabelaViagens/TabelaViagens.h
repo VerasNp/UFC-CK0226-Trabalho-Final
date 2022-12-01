@@ -1,19 +1,4 @@
-// #include "AgendaReservas.h"
-
-// Placeholder para a struct
-typedef struct reserva Reserva;
-
-typedef struct trecho Trecho;
-
-typedef struct viagem Viagem;
-
-/* Necessário para lidar com conflitos na tabela de dispersão. */
-typedef struct no_viagem NoViagem;
-
-/* Necessário para a função de hash, que retorna o respectivo índice de uma viagem. */
-typedef struct lista_codigos_reservas CodigosReservas;
-
-typedef struct tabela_viagens TabelaViagens;
+#include "../Utils/Headers.h"
 
 /* cria a tabela hash. */
 TabelaViagens *tabela_cria(void);

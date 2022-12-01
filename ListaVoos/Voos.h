@@ -1,5 +1,4 @@
-/*TAD voos*/
-typedef struct voo Voo;
+#include "../Utils/Headers.h"
 
 /**
  * @brief aloca a memória ocupada pelo voo

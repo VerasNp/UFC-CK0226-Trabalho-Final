@@ -1,43 +1,17 @@
 [
 {
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_lista_voos.dir/Voos.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/Voos.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/Voos.c"
+  "directory": "/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/build",
+  "command": "/usr/bin/gcc  -I\"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/../Utils\" -I\"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/.\" -g -o CMakeFiles/testa_tabela_viagens.dir/TabelaViagens.c.o -c \"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/TabelaViagens.c\"",
+  "file": "/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/TabelaViagens.c"
 },
-
 {
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_lista_voos.dir/ListaVoos.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/ListaVoos.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/ListaVoos.c"
+  "directory": "/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/build",
+  "command": "/usr/bin/gcc  -I\"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/../Utils\" -I\"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/.\" -g -o CMakeFiles/testa_tabela_viagens.dir/home/israelmendes/Documentos/Trabalho_final/UFC-CK0226-Trabalho-Final/Utils/Utils.c.o -c \"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/Utils/Utils.c\"",
+  "file": "/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/Utils/Utils.c"
 },
-
 {
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_lista_voos.dir/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c"
-},
-
-{
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_lista_voos.dir/TestaListaVoos.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/TestaListaVoos.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/TestaListaVoos.c"
-},
-
-{
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_voos.dir/Voos.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/Voos.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/Voos.c"
-},
-
-{
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_voos.dir/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/Utils/Utils.c"
-},
-
-{
-  "directory": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build",
-  "command": "/usr/bin/gcc  -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/../Utils -I/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/.  -g   -o CMakeFiles/testa_voos.dir/TestaVoos.c.o   -c /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/TestaVoos.c",
-  "file": "/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos/TestaVoos.c"
+  "directory": "/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/build",
+  "command": "/usr/bin/gcc  -I\"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/../Utils\" -I\"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/.\" -g -o CMakeFiles/testa_tabela_viagens.dir/TestaTabelaViagens.c.o -c \"/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/TestaTabelaViagens.c\"",
+  "file": "/home/israelmendes/Documentos/Trabalho final/UFC-CK0226-Trabalho-Final/TabelaViagens/TestaTabelaViagens.c"
 }
 ]

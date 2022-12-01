@@ -86,7 +86,7 @@ int libera_agenda(Agenda **pp_agenda) {
 //
 //    free(*pp_agenda);
 //    pp_agenda = NULL;
-//    return 1;
+   return 1;
 };
 
 /**
