@@ -37,3 +37,6 @@ int libera_data(Data **p_data);
  * @return 1
  */
 int comparar_datas(Data *p_data1, Data *p_data2);
+
+/* Retorna o tamanho da Data. */
+int tamanho_data();

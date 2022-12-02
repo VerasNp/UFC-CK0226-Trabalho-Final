@@ -22,7 +22,7 @@ Reserva *cria_reserva(
  * @return 0
  * @return 1
  */
-int libera_reserva(Reserva **pp_reserva);
+int libera_reserva(Reserva *p_reserva);
 
 /**
  * Acessa dados da reserva armazenados em dado lugar da memoria
@@ -91,3 +91,8 @@ Reserva *edita_reserva(
 
 char* ler_reserva(Reserva *reserva);
 
+/* Retorna o id da reserva. */
+int get_reserva_codigo(Reserva *p_reserva);
+
+/* Retorna o id do passageiro. */
+int get_reserva_codigo_passageiro(Reserva *p_reserva);

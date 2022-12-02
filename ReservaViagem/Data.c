@@ -63,7 +63,7 @@ int libera_data(Data **p_data) {
     if (p_data == NULL) {
         return 0;
     }
-
+    if (*p_data == NULL) printf("sabia\n");
     free(*p_data);
     *p_data = NULL;
 
@@ -92,4 +92,9 @@ int comparar_datas(Data *p_data1, Data *p_data2) {
             p_data1->ano == p_data2->ano && p_data1->mes == p_data2->mes && p_data1->dia > p_data2->dia)
         return 1;
     else return -1;
+}
+
+/* Retorna o tamanho da Data. */
+int tamanho_data() {
+    return sizeof(Data);
 }

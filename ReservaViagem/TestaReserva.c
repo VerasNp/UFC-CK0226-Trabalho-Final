@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../ListaPassageiros/Passageiro.h"
+#include "../ListaVoos/Voos.h"
 #include <time.h>
 
 // Temp structs =====
@@ -26,7 +28,7 @@ struct voo {
  * @param texto
  */
 static void print_teste(int r, char texto[], Reserva *p_reserva) {
-    libera_reserva(&p_reserva);
+//    libera_reserva(&p_reserva);
     if (r) printf("   [SUCESSO] %s\n", texto);
     else printf("   [ERRO] %s\n", texto);
 }
@@ -57,15 +59,19 @@ Reserva *gera_reserva() {
             rand() % 11 + 1,
             rand() % 2019 + 1);
 
-    Passageiro *p_passageiro = (Passageiro *) malloc(sizeof(Passageiro));
-    p_passageiro->id = id;
-    p_passageiro->nome = p_passageiroNome;
-    p_passageiro->endereco = p_passageiroEndereco;
+//    Passageiro *p_passageiro = (Passageiro *) malloc(sizeof(Passageiro));
+//    p_passageiro->id = id;
+//    p_passageiro->nome = p_passageiroNome;
+//    p_passageiro->endereco = p_passageiroEndereco;
 
-    Voo *p_voo = (Voo *) malloc(sizeof(Voo));
-    p_voo->id = id;
-    p_voo->origem = p_vooOrigem;
-    p_voo->destino = p_vooDestino;
+//    Voo *p_voo = (Voo *) malloc(sizeof(Voo));
+//    p_voo->id = id;
+//    p_voo->origem = p_vooOrigem;
+//    p_voo->destino = p_vooDestino;
+
+    Passageiro *p_passageiro = passageiro_cria(p_passageiroNome, p_passageiroEndereco);
+
+    Voo *p_voo = cria_voo(p_vooOrigem, p_vooDestino);
 
     return cria_reserva(
             p_data,
@@ -87,7 +93,7 @@ static void test_cria_reserva() {
  */
 static void test_libera_reserva() {
     Reserva *p_reserva = gera_reserva();
-    print_teste(libera_reserva(&p_reserva), "test_libera_reserva()", NULL);
+    print_teste(libera_reserva(p_reserva), "test_libera_reserva()", NULL);
 }
 
 /**
