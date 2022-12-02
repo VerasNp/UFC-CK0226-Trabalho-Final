@@ -1,6 +1,6 @@
 #include "../Utils/Headers.h"
-#include "../Utils/Enums.h"
 #include "Data.h"
+#include "Reserva.h"
 #include "Agenda.h"
 #include <stdio.h>
 #include <stdlib.h>

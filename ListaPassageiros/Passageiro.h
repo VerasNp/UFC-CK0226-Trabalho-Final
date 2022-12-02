@@ -1,4 +1,4 @@
-#include "../Utils/Headers.h"
+#include "Utils/Headers.h"
 
 /*Cria novo passageiro. Retorna NULL se não foi possível criar*/
 Passageiro *passageiro_cria(char *p_nome,char *p_endereco); 

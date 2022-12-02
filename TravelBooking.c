@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Utils/Enums.h"
-#include "Utils/Headers.h"
+#include "Enums.h"
+#include "Headers.h"
 
 struct voo {
   int codigo;

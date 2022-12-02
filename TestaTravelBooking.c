@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Utils/Enums.h"
-#include "ReservaViagem/Data.h"
-#include "ReservaViagem/Agenda.h"
-#include "ListaPassageiros.h"
-#include "ListaVoos/ListaVoos.h"
 #include "Utils/Utils.h"
+#include "ListaPassageiros/Passageiro.h"
+#include "ListaPassageiros/ListaPassageiros.h"
+#include "ListaVoos/ListaVoos.h"
+#include "ReservaViagem/Data.h"
 #include "ReservaViagem/Reserva.h" 
-#include "ReservaViagem/Agenda.h"
+#include "ReservaViagem/Agenda.h" 
 
 void testa_crud_agenda(void){
   printf("- Testando crud_agenda()...\n");

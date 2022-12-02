@@ -1,4 +1,4 @@
-enum CodigoAssento {
+enum EnumCodigoAssento {
     A0, B0, C0,
     A1, B1, C1,
     A2, B2, C2,
@@ -10,4 +10,5 @@ enum CodigoAssento {
     A8, B8, C8,
     A9, B9, C9
 };
-typedef enum CodigoAssento CodigoAssento;
+
+typedef enum EnumCodigoAssento CodigoAssento;

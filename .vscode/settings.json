@@ -10,6 +10,7 @@
         "data.h": "c",
         "string.h": "c",
         "stdlib.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "reserva.h": "c"
     }
 }
