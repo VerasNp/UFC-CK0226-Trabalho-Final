@@ -59,13 +59,12 @@ void acessa_data(Data *p_data, int *dia, int *mes, int *ano) {
  * @return 0
  * @return 1
  */
-int libera_data(Data **p_data) {
+int libera_data(Data *p_data) {
     if (p_data == NULL) {
         return 0;
     }
-    if (*p_data == NULL) printf("sabia\n");
-    free(*p_data);
-    *p_data = NULL;
+    free(p_data);
+    p_data = NULL;
 
     return 1;
 }

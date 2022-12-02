@@ -26,7 +26,7 @@ void acessa_data(Data *p_data, int *dia, int *mes, int *ano);
  * @return 0
  * @return 1
  */
-int libera_data(Data **p_data);
+int libera_data(Data *p_data);
 
 /**
  * Compara duas datas e retorna 0 se as duas datas sao iguais, -1 caso a primeira data seja menor que a segunda e 1 caso a primeira data seja maior que a segunda

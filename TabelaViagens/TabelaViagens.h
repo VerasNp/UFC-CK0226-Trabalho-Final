@@ -1,7 +1,7 @@
-// #include "AgendaReservas.h"
+#include "../Utils/Headers.h"
 
 // Placeholder para a struct
-typedef struct reserva Reserva;
+// typedef struct reserva Reserva;
 
 typedef struct trecho Trecho;
 
@@ -97,5 +97,4 @@ int get_reserva_codigo_passageiro(Reserva *p_reserva);
 /* Função quebra-galho, deve ser removida futuramente. */
 int get_reserva_codigo(Reserva *p_reserva);
 
-/* Função quebra-galho, deve ser removida futuramente. */
-Reserva *reserva_cria(int codigoReserva, int codigoPassageiro);
+void tabela_printa_indices(TabelaViagens *p_tabela);

@@ -22,7 +22,7 @@ Reserva *cria_reserva(
  * @return 0
  * @return 1
  */
-int libera_reserva(Reserva *p_reserva);
+int libera_reserva(Reserva *p_reserva, int passageiroJaLiberado);
 
 /**
  * Acessa dados da reserva armazenados em dado lugar da memoria

@@ -1,4 +1,8 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
-    "cmake.sourceDirectory": "${workspaceFolder}/TabelaViagens"
+    "cmake.sourceDirectory": "${workspaceFolder}/TabelaViagens",
+    "files.associations": {
+        "enums.h": "c",
+        "passageiro.h": "c"
+    }
 }

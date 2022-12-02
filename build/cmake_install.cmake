@@ -1,4 +1,4 @@
-# Install script for directory: /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos
+# Install script for directory: /home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/TabelaViagens
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

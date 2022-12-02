@@ -1,7 +1,19 @@
 #include <stdio.h>
 #include "TabelaViagens.h"
-#include "Utils.h"
+#include "../ReservaViagem/Reserva.h"
+#include "../ListaPassageiros/Passageiro.h"
+#include "../ReservaViagem/Data.h"
+#include "../ListaVoos/Voos.h"
+#include "../Utils/Utils.h"
 #include <stdlib.h>
+
+/* Função auxiliar para os testes. */
+Reserva *reserva_padrao_cria(Passageiro *p_passageiro) {
+    if (p_passageiro == NULL) return NULL;
+    Data *p_data = cria_data(13,2,2022);
+    Voo *p_voo = cria_voo("Fortaleza", "Japão");
+    return cria_reserva(p_data, p_passageiro, p_voo, A3);
+}
 
 void testa_tabela_cria() {
     printf("- Testando tabela_cria()...\n");
@@ -71,52 +83,68 @@ void testa_tabela_indice() {
     print_teste(indice4 == 75, "tabela_indice() - teste 2");
 }
 
+// cria passageiros e libera para aumentar o id do próximo passageiro a ser criado.
+void aumenta_o_indice_dos_passageiros(int aumento) {
+    for (int i=0; i < aumento; i++) {
+        Passageiro *p_tmpPassageiro = passageiro_cria("a", "a");
+        passageiro_libera(p_tmpPassageiro);
+    }
+}
+
 void testa_tabela_crud() {
     /* INSERÇÃO */
     printf("- Testando tabela_insere_viagem()...\n");
     int tabelaInsereBool = 1;
 
     Reserva **pp_reservas1 = malloc(sizeof(Reserva *)*3);
-    pp_reservas1[0] = reserva_cria(1,1);
-    pp_reservas1[1] = reserva_cria(2,1);
-    pp_reservas1[2] = reserva_cria(3,1);
+    Passageiro *p_passageiro1 = passageiro_cria("Benício", "Siqueira");
+    pp_reservas1[0] = reserva_padrao_cria(p_passageiro1); // 1-1
+    pp_reservas1[1] = reserva_padrao_cria(p_passageiro1); // 1-2
+    pp_reservas1[2] = reserva_padrao_cria(p_passageiro1); // 1-3
 
     Reserva **pp_reservas2 = malloc(sizeof(Reserva *)*2);
-    pp_reservas2[0] = reserva_cria(4,2);
-    pp_reservas2[1] = reserva_cria(5,2);
+    Passageiro *p_passageiro2 = passageiro_cria("Bruno", "Parangaba");
+    pp_reservas2[0] = reserva_padrao_cria(p_passageiro2); // 2-4
+    pp_reservas2[1] = reserva_padrao_cria(p_passageiro2); // 2-5
 
     Reserva **pp_reservas3 = malloc(sizeof(Reserva *)*4);
-    pp_reservas3[0] = reserva_cria(6,3);
-    pp_reservas3[1] = reserva_cria(7,3);
-    pp_reservas3[2] = reserva_cria(8,3);
-    pp_reservas3[3] = reserva_cria(9,3);
+    aumenta_o_indice_dos_passageiros(67); // para fazer com que o próximo id seja o 70 e haja colisão na tabela.
+    Passageiro *p_passageiro3 = passageiro_cria("Robinho", "Fortaleza"); // id = 70
+
+    pp_reservas3[0] = reserva_padrao_cria(p_passageiro3); // 70-6
+    pp_reservas3[1] = reserva_padrao_cria(p_passageiro3); // 70-7
+    pp_reservas3[2] = reserva_padrao_cria(p_passageiro3); // 70-8
+    pp_reservas3[3] = reserva_padrao_cria(p_passageiro3); // 70-9
 
     Reserva **pp_reservas4 = malloc(sizeof(Reserva *)*3);
-    pp_reservas4[0] = reserva_cria(1,707);
-    pp_reservas4[1] = reserva_cria(2,707);
-    pp_reservas4[2] = reserva_cria(3,707);
+    Passageiro *p_passageiro4 = passageiro_cria("Roberta", "Aldeota");
+    pp_reservas4[0] = reserva_padrao_cria(p_passageiro4); // 71-10
+    pp_reservas4[1] = reserva_padrao_cria(p_passageiro4); // 71-11
+    pp_reservas4[2] = reserva_padrao_cria(p_passageiro4); // 71-12
 
-    Viagem *p_viagem1 = viagem_cria(pp_reservas1, 3);
-    Viagem *p_viagem2 = viagem_cria(pp_reservas2, 2); // índice = 115
-    Viagem *p_viagem3 = viagem_cria(pp_reservas3, 4);
-    Viagem *p_viagem4 = viagem_cria(pp_reservas4, 3); // índice = 115
+    Viagem *p_viagem1 = viagem_cria(pp_reservas1, 3); // índice 410
+    Viagem *p_viagem2 = viagem_cria(pp_reservas2, 2); // índice 115
+    Viagem *p_viagem3 = viagem_cria(pp_reservas3, 4); // índice 115 colisão
+    Viagem *p_viagem4 = viagem_cria(pp_reservas4, 3); // índice 821
     
 
     int codigoPassageiro = get_viagem_codigo_passageiro(p_viagem1);
     print_teste(codigoPassageiro == 1, "viagem_cria() codigoPassageiro");
-    print_teste(!viagem_compara(p_viagem1, p_viagem2), "viagem_compara() - teste 1");
-    print_teste(viagem_compara(p_viagem3, p_viagem3), "viagem_compara() - teste 2");
+    print_teste(!viagem_compara(p_viagem1, p_viagem2), "viagem_compara() - teste 1: viagens diferentes.");
+    print_teste(viagem_compara(p_viagem3, p_viagem3), "viagem_compara() - teste 2: viagens iguais.");
 
     TabelaViagens *p_tabela = tabela_cria();
     if (!tabela_insere_viagem(p_tabela, p_viagem1)) tabelaInsereBool = 0;
     if (!tabela_insere_viagem(p_tabela, p_viagem2)) tabelaInsereBool = 0;
-    if (!tabela_insere_viagem(p_tabela, p_viagem3)) tabelaInsereBool = 0;
+    if (!tabela_insere_viagem(p_tabela, p_viagem4)) tabelaInsereBool = 0;
 
-    print_teste(tabelaInsereBool, "tabela_insere_viagem() - teste 1");
-    print_teste(!tabela_insere_viagem(p_tabela, p_viagem3), "tabela_insere_viagem() - teste 2: Não inserir viagens iguais. ");
 
-    print_teste(tabela_insere_viagem(p_tabela, p_viagem4), "tabela_insere_viagem() - teste 3: Colisão. ");
+    print_teste(tabelaInsereBool, "tabela_insere_viagem() - teste 1: 3 Viagens inseridas.");
+    print_teste(!tabela_insere_viagem(p_tabela, p_viagem4), "tabela_insere_viagem() - teste 2: Não inserir viagens iguais. ");
+
+    print_teste(tabela_insere_viagem(p_tabela, p_viagem3), "tabela_insere_viagem() - teste 3: Colisão. ");
     print_teste(tabela_tamanho_indice(p_tabela, 115) == 2, "tabela_insere_viagem() - teste 4: 2 viagens no índice 115. ");
+
 
     /* PESQUISA */
     printf("- Testando tabela_pesquisa_viagem()...\n");
@@ -158,7 +186,7 @@ void testa_tabela_crud() {
 
     printf("Testando tabela_libera()...\n");
 
-    print_teste(tabela_libera(p_tabela), "tabela_libera() - teste 1");
+     print_teste(tabela_libera(p_tabela), "tabela_libera() - teste 1");
 }
 
 void main(void) {

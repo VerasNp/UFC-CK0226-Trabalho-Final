@@ -89,12 +89,17 @@ void acessa_reserva(
  * @return 0
  * @return 1
  */
-int libera_reserva(Reserva *p_reserva) {
+int libera_reserva(Reserva *p_reserva, int passageiroJaLiberado) {
     if (p_reserva == NULL)
         return 1;
     int liberaCorretamente = 1;
-    if(!passageiro_libera(p_reserva->p_passageiro)) liberaCorretamente = 0;
-    if(!libera_data(&p_reserva->p_data)) liberaCorretamente = 0;
+
+    // É preciso saber se existe outras reservas ativas com o passageiro para decidir se libera ou não o passageiro.
+//    if (!passageiroJaLiberado) {
+//        if(!passageiro_libera(p_reserva->p_passageiro)) liberaCorretamente = 0;
+//    }
+
+    if(!libera_data(p_reserva->p_data)) liberaCorretamente = 0;
     if(!libera_voo(p_reserva->p_voo)) liberaCorretamente = 0;
     free(p_reserva);
     p_reserva = NULL;

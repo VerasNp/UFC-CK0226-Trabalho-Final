@@ -2,35 +2,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include "../ReservaViagem/Reserva.h"
+#include "../ListaPassageiros/Passageiro.h"
+#include "../ReservaViagem/Data.h"
+#include "../ListaVoos/Voos.h"
 
 #define TAMANHO_TABELA 1001
 
-struct reserva { // essa struct será importada de AgendaReservas.h ou Reservas.h (ATUALIZAR ISSO)
-    int codigo;
-    int codigoPassageiro;
-};
-
-/* Função quebra-galho, deve ser removida futuramente. */
-int get_reserva_codigo_passageiro(Reserva *p_reserva) {
-    if (p_reserva == NULL) return -1;
-    return p_reserva->codigoPassageiro;
-}
-
-/* Função quebra-galho, deve ser removida futuramente. */
-int get_reserva_codigo(Reserva *p_reserva) {
-    if (p_reserva == NULL) return -1;
-    return p_reserva->codigo;
-}
-
-/* Função quebra-galho, deve ser removida futuramente. */
-Reserva *reserva_cria(int codigoReserva, int codigoPassageiro) {
-    Reserva *p_reserva = malloc(sizeof(Reserva));
-    if (p_reserva == NULL) return NULL;
-
-    p_reserva->codigo = codigoReserva;
-    p_reserva->codigoPassageiro = codigoPassageiro;
-    return p_reserva;
-}
 
 /* Função quebra-galho, deve ser removida futuramente. */
 int reserva_libera(Reserva *p_reserva) {
@@ -71,14 +49,16 @@ int viagem_libera(Viagem *p_viagem) {
     if (p_viagem == NULL) return 0;
 
     Trecho *p_trechos = p_viagem->trechos;
+    int passageiroJaLiberado = 0;
 
     while (p_trechos != NULL) {
-        if (!reserva_libera(p_trechos->reserva)) return 0;
+        if (!libera_reserva(p_trechos->reserva, passageiroJaLiberado)) return 0;
+        passageiroJaLiberado = 1;
         Trecho *p_aux = p_trechos->proximo;
         free(p_trechos);
         p_trechos = p_aux;
     }
-    
+
     free(p_viagem);
     return 1;
 }
@@ -165,7 +145,7 @@ int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
 
     int codigoPassageiro = get_reserva_codigo_passageiro(p_reserva); // Essa função deve ser importada de AgendaReservas.h
     int indice = tabela_indice(codigoPassageiro, p_codigos);
-    
+
     NoViagem *p_noAux = p_tabela->tabelaHash[indice];
     while (p_noAux != NULL) {
         if (viagem_compara(p_noAux->viagem, p_viagem)) return 0;
@@ -248,6 +228,13 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
     return 1;
 }
 
+void tabela_printa_indices(TabelaViagens *p_tabela) {
+    printf("Printando índices com viagens...\n");
+    for (int i=0; i < TAMANHO_TABELA; i++) {
+        if (p_tabela->tabelaHash[i] != NULL) printf("[%d]\n", i);
+    }
+}
+
 /* Função retorna o percentual de índices ocupados(com viagem) na tabela hash. */
 float tabela_percentual_indices(TabelaViagens *p_tabela) {
     int contador = 0;
@@ -293,6 +280,7 @@ int viagem_compara(Viagem *p_viagem1, Viagem *p_viagem2) {
 
         p_trecho1 = p_trecho1->proximo;
         p_trecho2 = p_trecho2->proximo;
+
     }
     if (p_trecho2 != NULL) return 0; // Trecho2 é maior do que o trecho1.  .
     return 1;
@@ -366,7 +354,7 @@ CodigosReservas *viagem_cria_lista_codigos_reservas(Viagem *p_viagem) {
             tamanho = tamanho * 2;
             p_listaCodigos = realloc(p_listaCodigos, tamanho);
         }
-        p_listaCodigos[i++] = p_trechoAux->reserva->codigo;
+        p_listaCodigos[i++] = get_reserva_codigo(p_trechoAux->reserva);
         p_trechoAux = p_trechoAux->proximo;
     }
 

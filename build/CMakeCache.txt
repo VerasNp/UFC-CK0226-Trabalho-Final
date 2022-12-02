@@ -186,7 +186,7 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 UFC-CK0226-Trabalho-Final_BINARY_DIR:STATIC=/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/build
 
 //Value Computed by CMake
-UFC-CK0226-Trabalho-Final_SOURCE_DIR:STATIC=/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos
+UFC-CK0226-Trabalho-Final_SOURCE_DIR:STATIC=/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/TabelaViagens
 
 
 ########################
@@ -255,7 +255,7 @@ CMAKE_GENERATOR_PLATFORM:INTERNAL=
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/ListaVoos
+CMAKE_HOME_DIRECTORY:INTERNAL=/home/brunossaunders/Documentos/disciplinas_UFC/2_semestre/programação/Trabalho_Final/UFC-CK0226-Trabalho-Final/TabelaViagens
 //Install .so files without execute permission.
 CMAKE_INSTALL_SO_NO_EXE:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
