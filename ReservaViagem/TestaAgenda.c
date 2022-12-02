@@ -161,9 +161,8 @@ static void test_remove_agenda() {
     if (insere_agenda(p_primeiraAgenda, p_terceiraAgenda) == NULL)
         print_teste(0, "insere_agenda()");
 
-    Agenda *agenda = remove_agenda(p_primeiraAgenda, p_segundaReserva);
 
-    print_teste(agenda != NULL,"test_remove_agenda()");
+    print_teste(remove_agenda(p_primeiraAgenda,NULL, p_segundaReserva),"test_remove_agenda()");
 }
 
 int main(void) {

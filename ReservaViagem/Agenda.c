@@ -58,34 +58,18 @@ void acessa_agenda(
  * @return 1
  */
 int libera_agenda(Agenda **pp_agenda) {
-    if (pp_agenda == NULL)
+    static int i;
+    if (pp_agenda == NULL && i == 0)
         return 0;
-
-    Reserva *p_acessaReserva;
-    Agenda *p_acessaAgendaEsquerda;
-    Agenda *p_acessaAgendaDireita;
-
-    acessa_agenda(
-            *pp_agenda,
-            &p_acessaReserva,
-            &p_acessaAgendaEsquerda,
-            &p_acessaAgendaDireita);
-
-    while(p_acessaAgendaEsquerda != NULL) {
-        free(p_acessaAgendaEsquerda);
-        p_acessaAgendaEsquerda = NULL;
-        p_acessaAgendaEsquerda = (*(pp_agenda))->p_esquerda;
+    else if(*pp_agenda != NULL){
+        i++; 
+        libera_agenda(&((*pp_agenda)->p_esquerda)); 
+        libera_agenda(&((*pp_agenda)->p_direita));
+        libera_reserva(&((*pp_agenda)->p_reserva));
+        free(*pp_agenda);
+        pp_agenda = NULL;
+        return 1;
     }
-
-    while(p_acessaAgendaDireita != NULL) {
-        free(p_acessaAgendaDireita);
-        p_acessaAgendaDireita = NULL;
-        p_acessaAgendaDireita = (*(pp_agenda))->p_esquerda;
-    }
-
-    free(*pp_agenda);
-    pp_agenda = NULL;
-    return 1;
 };
 
 /**
@@ -160,9 +144,9 @@ Agenda *minimo(Agenda *p_raizAgenda) {
     }
 }
 
-Agenda *remove_agenda(Agenda *p_raizAgenda, Reserva *p_reserva) {
+int remove_agenda(Agenda *p_raizAgenda,Agenda *p_raizAgendaPai, Reserva *p_reserva) { // p_raizAgendaPai na primeira chamada será NULL
     if (p_raizAgenda == NULL)
-        return NULL;
+        return 0;
 
     int acessaIdReservaRaizAgenda;
     Data *p_acessaDataReservaRaizAgenda;
@@ -191,24 +175,59 @@ Agenda *remove_agenda(Agenda *p_raizAgenda, Reserva *p_reserva) {
             &acessaAssento);
 
     if (comparar_datas(p_acessaData, p_acessaDataReservaRaizAgenda) < 0)
-        (*(p_raizAgenda)).p_esquerda = remove_agenda((*(p_raizAgenda)).p_esquerda, p_reserva);
+        remove_agenda((*(p_raizAgenda)).p_esquerda,p_raizAgenda, p_reserva);
 
     else if (comparar_datas(p_acessaData, p_acessaDataReservaRaizAgenda) > 0)
-        (*(p_raizAgenda)).p_direita = remove_agenda((*(p_raizAgenda)).p_direita, p_reserva);
+        remove_agenda((*(p_raizAgenda)).p_direita,p_raizAgenda, p_reserva);
 
     else {
-        if ((*(p_raizAgenda)).p_esquerda == NULL) {
-            Agenda *temp = (*(p_raizAgenda)).p_direita;
-            libera_agenda(&p_raizAgenda);
-            return temp;
-        } else if((*(p_raizAgenda)).p_direita == NULL) {
-            Agenda *temp = (*(p_raizAgenda)).p_esquerda;
-            libera_agenda(&p_raizAgenda);
-            return temp;
+        if (acessaId == acessaIdReservaRaizAgenda) {
+            if ((*(p_raizAgenda)).p_esquerda == NULL) {
+                if((*(p_raizAgendaPai)).p_direita == p_raizAgenda){ 
+                    p_raizAgendaPai->p_direita = p_raizAgenda->p_direita;
+                }
+                else{ 
+                    p_raizAgendaPai->p_esquerda = p_raizAgenda->p_direita; 
+                }
+                p_raizAgenda->p_direita = NULL; 
+                libera_agenda(&p_raizAgenda);
+                return 1;
+            } else if((*(p_raizAgenda)).p_direita == NULL) {
+                if (p_raizAgendaPai->p_direita == p_raizAgenda){ 
+                    p_raizAgendaPai->p_direita = p_raizAgenda->p_esquerda; 
+                }
+                else{ 
+                    p_raizAgendaPai->p_esquerda = p_raizAgenda->p_direita; 
+                }
+                p_raizAgenda->p_esquerda = NULL; 
+                libera_agenda(&p_raizAgenda);
+                return 1;
+            }
+            else{ 
+                Agenda *temp = p_raizAgenda->p_direita;
+                Agenda *aux = NULL;
+                while(temp->p_esquerda != NULL){ 
+                    aux = temp; 
+                    temp = temp->p_esquerda; 
+                }
+                if (p_raizAgenda->p_direita != temp){
+                    aux->p_esquerda = temp->p_direita; 
+                    temp->p_direita = p_raizAgenda->p_direita;
+                }
+
+                if (p_raizAgendaPai->p_direita == p_raizAgenda){ 
+                    p_raizAgendaPai->p_direita = temp; 
+                }
+                else p_raizAgendaPai->p_esquerda = p_raizAgenda; {
+                    p_raizAgendaPai->p_esquerda = temp; 
+                }
+                temp->p_esquerda = p_raizAgenda->p_esquerda; 
+                p_raizAgenda->p_direita = NULL; 
+                p_raizAgenda->p_esquerda = NULL; 
+                libera_agenda(&p_raizAgenda);  
+                return 1; 
+            }
         }
-        Agenda *temp = minimo((*(p_raizAgenda)).p_direita);
-        (*(p_raizAgenda)).p_reserva = (*(temp)).p_reserva;
-        (*(p_raizAgenda)).p_direita = remove_agenda((*(p_raizAgenda)).p_direita, (*(temp)).p_reserva);
+        else remove_agenda((*(p_raizAgenda)).p_esquerda, p_raizAgenda,p_reserva);
     }
-    return p_raizAgenda;
 }
