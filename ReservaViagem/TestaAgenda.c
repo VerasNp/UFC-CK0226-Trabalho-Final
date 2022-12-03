@@ -1,24 +1,12 @@
 #include "Agenda.h"
 #include "Reserva.h"
 #include "Data.h"
+#include "../ListaPassageiros/Passageiro.h"
+#include "../ListaVoos/Voos.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-
-
-// Structs temp =============
-struct passageiro {
-    int id;
-    char *nome;
-    char *endereco;
-};
-
-struct voo {
-    int id;
-    char *origem;
-    char *destino;
-};
 
 /**
  * Renderiza resultado do teste
@@ -54,15 +42,9 @@ Reserva *gera_reserva() {
             rand() % 11 + 1,
             rand() % 2019 + 1);
 
-    Passageiro *p_passageiro = (Passageiro *) malloc(sizeof(Passageiro));
-    p_passageiro->id = id;
-    p_passageiro->nome = p_passageiroNome;
-    p_passageiro->endereco = p_passageiroEndereco;
+    Passageiro *p_passageiro = passageiro_cria(p_passageiroNome, p_passageiroEndereco);
 
-    Voo *p_voo = (Voo *) malloc(sizeof(Voo));
-    p_voo->id = id;
-    p_voo->origem = p_vooOrigem;
-    p_voo->destino = p_vooDestino;
+    Voo *p_voo = cria_voo(p_vooOrigem, p_vooDestino);
 
     return cria_reserva(
             p_data,
@@ -103,7 +85,6 @@ static void test_acessa_agenda() {
  * Teste para liberaçao de espaçco de memoria ocupado por agenda
  */
 static void test_libera_agenda() {
-    // TODO: Teste para uma arvore maior
     Reserva *p_reserva = gera_reserva();
     Agenda *p_agenda = cria_agenda(p_reserva);
 

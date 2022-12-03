@@ -6,8 +6,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../ListaPassageiros/Passageiro.h"
-#include "../ListaVoos/Voos.h"
 #include <time.h>
 
 /**
@@ -46,11 +44,6 @@ Reserva *gera_reserva(Data *p_data) {
                 rand() % 2019 + 1);
     }
 
-    Data *p_data = cria_data(
-            rand() % 30 + 1,
-            rand() % 11 + 1,
-            rand() % 2019 + 1);
-
     Passageiro *p_passageiro = passageiro_cria(p_passageiroNome, p_passageiroEndereco);
 
     Voo *p_voo = cria_voo(p_vooOrigem, p_vooDestino);
@@ -75,14 +68,13 @@ static void test_cria_reserva() {
  */
 static void test_libera_reserva() {
     Reserva *p_reserva = gera_reserva(NULL);
-    print_teste(libera_reserva(&p_reserva), "test_libera_reserva()");
+    print_teste(libera_reserva(p_reserva, 0), "test_libera_reserva()");
 }
 
 /**
  * Testa acessar dados da reserva armazenados em dado canto da memoria
  */
 static void test_acessa_reserva() {
-    int id = 1;
     char p_passageiroNome[100] = "Teste Nome";
     char p_passageiroEndereco[100] = "Teste Endereco";
     char p_vooOrigem[100] = "Teste Origem";
@@ -90,15 +82,9 @@ static void test_acessa_reserva() {
 
     Data *p_data = cria_data(1, 1, 1);
 
-    Passageiro *p_passageiro = (Passageiro *) malloc(sizeof(Passageiro));
-    p_passageiro->id = id;
-    p_passageiro->nome = p_passageiroNome;
-    p_passageiro->endereco = p_passageiroEndereco;
+    Passageiro *p_passageiro = passageiro_cria(p_passageiroNome, p_passageiroEndereco);
 
-    Voo *p_voo = (Voo *) malloc(sizeof(Voo));
-    p_voo->id = id;
-    p_voo->origem = p_vooOrigem;
-    p_voo->destino = p_vooDestino;
+    Voo *p_voo = cria_voo(p_vooOrigem, p_vooDestino);
 
     Reserva *p_reserva = cria_reserva(
             p_data,
@@ -111,7 +97,6 @@ static void test_acessa_reserva() {
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
-
     acessa_reserva(
             p_reserva,
             &acessaId,
@@ -123,20 +108,37 @@ static void test_acessa_reserva() {
     int acessaDataDia;
     int acessaDataMes;
     int acessaDataAno;
-
     acessa_data(
             p_acessaData,
             &acessaDataDia,
             &acessaDataMes,
             &acessaDataAno);
 
+    int acessaPassageiroId;
+    char *p_acessaPassageiroNome = (char *)malloc(sizeof(char)*100);
+    char *p_acessaPassageiroEndereco = (char *)malloc(sizeof(char)*300);
+    passageiro_acessa(
+            p_acessaPassageiro,
+            &acessaPassageiroId,
+            p_acessaPassageiroNome,
+            p_acessaPassageiroEndereco);
+
+    int acessaVooId;
+    char *p_acessaPassageiroOrigem = (char *)malloc(sizeof(char)*300);
+    char *p_acessaPassageiroDestino = (char *)malloc(sizeof(char)*300);
+    leitura_voo(
+            p_acessaVoo,
+            &acessaVooId,
+            p_acessaPassageiroOrigem,
+            p_acessaPassageiroDestino);
+
     if (acessaDataDia != 1 ||
         acessaDataMes != 1 ||
         acessaDataAno != 1 ||
-        strcmp(p_acessaPassageiro->nome, "Teste Nome") != 0 ||
-        strcmp(p_acessaPassageiro->endereco, "Teste Endereco") != 0 ||
-        strcmp(p_acessaVoo->origem, "Teste Origem") != 0 ||
-        strcmp(p_acessaVoo->destino, "Teste Destino") != 0 ||
+        strcmp(p_acessaPassageiroNome, "Teste Nome") != 0 ||
+        strcmp(p_acessaPassageiroEndereco, "Teste Endereco") != 0 ||
+        strcmp(p_acessaPassageiroOrigem, "Teste Origem") != 0 ||
+        strcmp(p_acessaPassageiroDestino, "Teste Destino") != 0 ||
         acessaAssento != A0) {
         print_teste(0, "test_acessa_reserva()");
     } else {
@@ -237,7 +239,7 @@ static void test_busca_reserva_na_agenda_cod_passageiro_data_viagem() {
     if (insere_agenda(p_primeiraAgenda, p_terceiraAgenda) == NULL)
         print_teste(0, "insere_agenda()");
 
-    Data *p_dataProcurar = cria_data(12, 4, 2022);
+    Data *p_dataProcurar = cria_data(12, 2, 2022);
 
     print_teste(
             busca_reserva_na_agenda_cod_passageiro_data_viagem(p_primeiraAgenda, 11, p_dataProcurar) != NULL,

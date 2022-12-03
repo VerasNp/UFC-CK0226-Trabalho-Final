@@ -1,4 +1,5 @@
 #include "../Utils/Enums.h"
+#include "../Utils/Headers.h"
 
 /**
  * Criaçao individual de uma reserva.

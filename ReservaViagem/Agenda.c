@@ -65,7 +65,7 @@ int libera_agenda(Agenda **pp_agenda) {
         i++; 
         libera_agenda(&((*pp_agenda)->p_esquerda)); 
         libera_agenda(&((*pp_agenda)->p_direita));
-        libera_reserva(&((*pp_agenda)->p_reserva));
+        libera_reserva(((*pp_agenda)->p_reserva), 0);
         free(*pp_agenda);
         pp_agenda = NULL;
         return 1;

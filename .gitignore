@@ -2,7 +2,7 @@
 cmake-build-debug/
 .vscode
 build/
-.idea
+.idea/
 
 ##### Windows
 # Windows thumbnail cache files
