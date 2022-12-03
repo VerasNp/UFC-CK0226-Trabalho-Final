@@ -1,6 +1,7 @@
 ## Users add
 cmake-build-debug/
 .vscode
+build/
 
 ##### Windows
 # Windows thumbnail cache files

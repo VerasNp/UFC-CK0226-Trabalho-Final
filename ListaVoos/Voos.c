@@ -44,11 +44,17 @@ void leitura_voo(Voo *p_voo, int *p_codigo, char *p_origem, char *p_destino)
   if (p_destino != NULL) strcpy(p_destino,p_voo->destino);
 }
 
-void libera_voo(Voo *p_voo){ 
+int libera_voo(Voo *p_voo){
     if (p_voo == NULL)
-        return; 
+        return 0;
     free(p_voo->origem); 
     free(p_voo->destino); 
     free(p_voo); 
-    p_voo = NULL; 
+    p_voo = NULL;
+    return 1;
+}
+
+/* retorna o tamanho do vôo. */
+int tamanho_voo(void) {
+  return sizeof(Voo);
 }

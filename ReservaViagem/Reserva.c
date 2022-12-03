@@ -89,36 +89,21 @@ void acessa_reserva(
  * @return 0
  * @return 1
  */
-int libera_reserva(Reserva **pp_reserva) {
-    if (pp_reserva == NULL)
-        return 0;
+int libera_reserva(Reserva *p_reserva, int passageiroJaLiberado) {
+    if (p_reserva == NULL)
+        return 1;
+    int liberaCorretamente = 1;
 
-    int id;
-    Data *p_acessaData;
-    Passageiro *p_acessaPassageiro;
-    Voo *p_acessaVoo;
-    CodigoAssento acessaAssento;
+    // É preciso saber se existe outras reservas ativas com o passageiro para decidir se libera ou não o passageiro.
+//    if (!passageiroJaLiberado) {
+//        if(!passageiro_libera(p_reserva->p_passageiro)) liberaCorretamente = 0;
+//    }
 
-    acessa_reserva(
-            *pp_reserva,
-            &id,
-            &p_acessaData,
-            &p_acessaPassageiro,
-            &p_acessaVoo,
-            &acessaAssento);
-
-    libera_data(&p_acessaData);
-
-    free(p_acessaPassageiro);
-    p_acessaPassageiro = NULL;
-
-    free(p_acessaVoo);
-    p_acessaVoo = NULL;
-
-    free(*pp_reserva);
-    *pp_reserva = NULL;
-
-    return 1;
+    if(!libera_data(p_reserva->p_data)) liberaCorretamente = 0;
+    if(!libera_voo(p_reserva->p_voo)) liberaCorretamente = 0;
+    free(p_reserva);
+    p_reserva = NULL;
+    return liberaCorretamente;
 }
 
 /**
@@ -325,6 +310,7 @@ Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva) {
     }
 }
 
+<<<<<<< HEAD
 /**
  * Edita valores de data e assento da reserva.
  * Retorna NULL caso ou a reserva ou data ou código do assento tenha valor nulo e retorna o valor novo da reserva com os valores atualizados caso tudo ocorra corretamente
@@ -407,3 +393,14 @@ char* ler_reserva(Reserva *p_reserva) {
     printf("\tOrigem: %s\n", p_acessaOrigemVoo);
     printf("\tDestino: %s\n", p_acessaDestinoVoo);
 }
+
+/* Retorna o id da reserva. */
+int get_reserva_codigo(Reserva *p_reserva) {
+    return p_reserva->id;
+}
+
+/* Retorna o id do passageiro. */
+int get_reserva_codigo_passageiro(Reserva *p_reserva) {
+    return get_passageiro_codigo(p_reserva->p_passageiro);
+}
+

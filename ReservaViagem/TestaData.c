@@ -24,7 +24,7 @@ static void test_cria_data() {
  */
 static void test_libera_data() {
     Data *p_data = cria_data(rand() % 30 + 1, rand() % 11 + 1, rand() % 2019 + 1);
-    print_teste(libera_data(&p_data) == 1, "test_libera_data()");
+    print_teste(libera_data(p_data) == 1, "test_libera_data()");
 }
 
 /**

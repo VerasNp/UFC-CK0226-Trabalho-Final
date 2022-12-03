@@ -6,21 +6,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../ListaPassageiros/Passageiro.h"
+#include "../ListaVoos/Voos.h"
 #include <time.h>
-
-// Temp structs =====
-struct passageiro {
-    int id;
-    char *nome;
-    char *endereco;
-};
-
-struct voo {
-    int id;
-    char *origem;
-    char *destino;
-};
-// ==================
 
 /**
  * Renderiza resultado do teste
@@ -58,12 +46,14 @@ Reserva *gera_reserva(Data *p_data) {
                 rand() % 2019 + 1);
     }
 
-    Passageiro *p_passageiro = passageiro_cria(
-            p_passageiroNome,
-            p_passageiroEndereco);
-    Voo *p_voo = cria_voo(
-            p_vooOrigem,
-            p_vooDestino);
+    Data *p_data = cria_data(
+            rand() % 30 + 1,
+            rand() % 11 + 1,
+            rand() % 2019 + 1);
+
+    Passageiro *p_passageiro = passageiro_cria(p_passageiroNome, p_passageiroEndereco);
+
+    Voo *p_voo = cria_voo(p_vooOrigem, p_vooDestino);
 
     return cria_reserva(
             p_data,

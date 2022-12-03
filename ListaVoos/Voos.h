@@ -35,4 +35,7 @@ void leitura_voo(Voo *p_voo, int *p_codigo, char *p_origem, char *p_destino);
  * 
  * @param p_voo voo a ser liberado
  */
-void libera_voo(Voo *p_voo); 
+int libera_voo(Voo *p_voo);
+
+/* retorna o tamanho do vôo. */
+int tamanho_voo();

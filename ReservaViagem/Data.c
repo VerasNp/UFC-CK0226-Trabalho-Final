@@ -59,13 +59,12 @@ void acessa_data(Data *p_data, int *dia, int *mes, int *ano) {
  * @return 0
  * @return 1
  */
-int libera_data(Data **p_data) {
+int libera_data(Data *p_data) {
     if (p_data == NULL) {
         return 0;
     }
-
-    free(*p_data);
-    *p_data = NULL;
+    free(p_data);
+    p_data = NULL;
 
     return 1;
 }
@@ -92,4 +91,9 @@ int comparar_datas(Data *p_data1, Data *p_data2) {
             p_data1->ano == p_data2->ano && p_data1->mes == p_data2->mes && p_data1->dia > p_data2->dia)
         return 1;
     else return -1;
+}
+
+/* Retorna o tamanho da Data. */
+int tamanho_data() {
+    return sizeof(Data);
 }
