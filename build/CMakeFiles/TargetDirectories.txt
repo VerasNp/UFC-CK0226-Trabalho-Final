@@ -1,0 +1,3 @@
+/mnt/sda1/projects/UFC-CK0226-Trabalho-Final/build/CMakeFiles/testa_integracao.dir
+/mnt/sda1/projects/UFC-CK0226-Trabalho-Final/build/CMakeFiles/edit_cache.dir
+/mnt/sda1/projects/UFC-CK0226-Trabalho-Final/build/CMakeFiles/rebuild_cache.dir

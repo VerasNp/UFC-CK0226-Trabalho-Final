@@ -1,9 +1,5 @@
 #include "Passageiro.h"
 
-typedef struct no_passageiro No; 
-
-typedef struct lista_passageiro ListaPassageiro; 
-
 /*Cria uma nova lista com nó cabeça*/
 ListaPassageiro *cria_lista_passageiro(); 
 

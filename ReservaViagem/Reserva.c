@@ -1,6 +1,6 @@
 #include "../Utils/Headers.h"
-#include "../Utils/Enums.h"
 #include "Data.h"
+#include "Reserva.h"
 #include "Agenda.h"
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ListaVoos/Voos.h"
@@ -310,7 +310,6 @@ Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva) {
     }
 }
 
-<<<<<<< HEAD
 /**
  * Edita valores de data e assento da reserva.
  * Retorna NULL caso ou a reserva ou data ou código do assento tenha valor nulo e retorna o valor novo da reserva com os valores atualizados caso tudo ocorra corretamente

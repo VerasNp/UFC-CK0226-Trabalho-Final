@@ -6,9 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 include_directories(../ListaVoos)
 include_directories(../ListaPassageiros)
+include_directories(../Utils)
 
 add_executable(
         testa_data
+        ../Utils/Enums.h
+        ../Utils/Headers.h
         Data.h
         Data.c
         TestaData.c
