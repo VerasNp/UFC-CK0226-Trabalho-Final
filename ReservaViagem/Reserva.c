@@ -89,21 +89,20 @@ void acessa_reserva(
  * @return 0
  * @return 1
  */
-int libera_reserva(Reserva *p_reserva, int passageiroJaLiberado) {
+int libera_reserva(Reserva *p_reserva, int podeLiberarPassageiro) {
     if (p_reserva == NULL)
         return 1;
-    int liberaCorretamente = 1;
 
-    // É preciso saber se existe outras reservas ativas com o passageiro para decidir se libera ou não o passageiro.
-//    if (!passageiroJaLiberado) {
-//        if(!passageiro_libera(p_reserva->p_passageiro)) liberaCorretamente = 0;
-//    }
+//     É preciso saber se existe outras reservas ativas com o passageiro para decidir se libera ou não o passageiro.
+    if (podeLiberarPassageiro) {
+        if(!passageiro_libera(p_reserva->p_passageiro)) return 0;
+    }
 
-    if(!libera_data(p_reserva->p_data)) liberaCorretamente = 0;
-    if(!libera_voo(p_reserva->p_voo)) liberaCorretamente = 0;
+    if(!libera_data(p_reserva->p_data)) return 0;
+    if(!libera_voo(p_reserva->p_voo)) return 0;
     free(p_reserva);
     p_reserva = NULL;
-    return liberaCorretamente;
+    return 1;
 }
 
 /**
@@ -238,3 +237,6 @@ int get_reserva_codigo_passageiro(Reserva *p_reserva) {
     return get_passageiro_codigo(p_reserva->p_passageiro);
 }
 
+Passageiro *get_reserva_passageiro(Reserva *p_reserva) {
+    return p_reserva->p_passageiro;
+}

@@ -1,4 +1,5 @@
 #include "../Utils/Headers.h"
+#include "../TabelaPassageiros/TabelaPassageiros.h"
 
 // Placeholder para a struct
 // typedef struct reserva Reserva;
@@ -24,10 +25,10 @@ int tabela_indice(int codigoPassageiro, CodigosReservas *p_codigosReservas);
 
 /* Insere a viagem no índice apropriado da tabela de dispersão. Retorna 1 se foi sucedida a 
 inserção, 0 caso contrário. */
-int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
+int tabela_insere_viagem(TabelaViagens *p_tabela, TabelaPassageiros *p_tabelaPassageiros, Viagem *p_viagem);
 
 /* Remove a viagem da tabela de dispersão. Retorna 1 se a remoção foi sucedida,, 0 caso contrário. */
-int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem);
+int tabela_remove_viagem(TabelaViagens *p_tabela, TabelaPassageiros *p_tabelaPassageiros, Viagem *p_viagem);
 
 /* Retorna o NoViagem caso a pesquisa seja sucedida, NULL se não encontrar uma Viagem com os códigos
 especificados. */
@@ -41,7 +42,7 @@ Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, Co
 int tabela_tamanho_indice(TabelaViagens *p_tabela, int indice);
 
 /* Libera a tabela de dispersão da memória. 1 se sucedido, 0 caso contrário. */
-int tabela_libera(TabelaViagens *p_tabela);
+int tabela_libera(TabelaViagens *p_tabela, TabelaPassageiros *p_tabelaPassageiros);
 
 /* Função retorna o percentual de índices ocupados(com viagem) na tabela hash. */
 float tabela_percentual_indices(TabelaViagens *p_tabela);
