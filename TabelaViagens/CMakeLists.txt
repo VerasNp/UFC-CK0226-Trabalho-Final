@@ -25,6 +25,8 @@ add_executable(
         ../ListaVoos/Voos.h
         ../ListaVoos/Voos.c
         ../Utils/Headers.h
+        ../Utils/Enums.h
+        ../Utils/Enums.c
         ../TabelaPassageiros/TabelaPassageiros.c
         ../TabelaPassageiros/TabelaPassageiros.h
         TabelaViagens.h

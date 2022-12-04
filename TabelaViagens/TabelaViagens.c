@@ -469,3 +469,44 @@ int get_viagem_codigo_passageiro(Viagem *p_viagem) {
     Reserva *p_reserva = p_viagem->trechos->reserva;
     return get_reserva_codigo_passageiro(p_reserva);
 }
+
+void viagem_printa_itinerario(Viagem *p_viagem) {
+    int viagemContador = 1;
+    Trecho *p_trecho = p_viagem->trechos;
+    Passageiro *p_passageiro = get_reserva_passageiro(p_trecho->reserva);
+    int passageiroId;
+    char nomePassageiro[100];
+    char enderecoPassageiro[300];
+    passageiro_acessa(p_passageiro, &passageiroId, nomePassageiro, enderecoPassageiro);
+
+    printf("---- Itinerário da viagem ----\n");
+    printf("%s, %s\n", nomePassageiro, enderecoPassageiro);
+    printf("Código do Passageiro: %d\n\n", passageiroId);
+
+    int codigoReserva;
+    Data *p_dataReserva = malloc(tamanho_data());
+    Passageiro *p_passageiroReserva = malloc(passageiro_tamanho());
+    Voo *p_vooReserva = malloc(tamanho_voo());
+    CodigoAssento codigoAssento = A0;
+    int dia, mes, ano;
+    int codigoVoo;
+    char origemVoo[300];
+    char destinoVoo[300];
+
+    while (p_trecho != NULL) {
+        acessa_reserva(p_trecho->reserva, &codigoReserva, &p_dataReserva, &p_passageiroReserva, &p_vooReserva, &codigoAssento);
+
+        acessa_data(p_dataReserva, &dia, &mes, &ano);
+
+        leitura_voo(p_vooReserva, &codigoVoo, origemVoo, destinoVoo);
+
+        printf("- Viagem %00d:\n", viagemContador++);
+        printf("     %s -> %s\n", origemVoo, destinoVoo);
+        printf("     Código da reserva: %d  - Data: %0d/%0d/%000d\n", codigoVoo, dia, mes, ano);
+        printf("     Assento: %s\n", codigo_assento_to_string(codigoAssento));
+        p_trecho = p_trecho->proximo;
+    }
+    libera_data(p_dataReserva);
+    libera_voo(p_vooReserva);
+    passageiro_libera(p_passageiroReserva);
+}

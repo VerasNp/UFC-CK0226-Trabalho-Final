@@ -12,3 +12,5 @@ enum EnumCodigoAssento {
 };
 
 typedef enum EnumCodigoAssento CodigoAssento;
+
+char *codigo_assento_to_string(CodigoAssento codigo);

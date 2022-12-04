@@ -190,9 +190,24 @@ void testa_tabela_crud() {
      print_teste(tabela_libera(p_tabela, p_tabelaPassageiros), "tabela_libera() - teste 1");
 }
 
+void testa_printa_itinerario() {
+    printf("Testando viagem_printa_itinerario()...\n");
+
+    Reserva **pp_reservas3 = malloc(sizeof(Reserva *)*4);
+    Passageiro *p_passageiro3 = passageiro_cria("Robinho", "Fortaleza"); // id = 70
+
+    pp_reservas3[0] = reserva_padrao_cria(p_passageiro3); // 70-6
+    pp_reservas3[1] = reserva_padrao_cria(p_passageiro3); // 70-7
+    pp_reservas3[2] = reserva_padrao_cria(p_passageiro3); // 70-8
+    pp_reservas3[3] = reserva_padrao_cria(p_passageiro3); // 70-9
+    Viagem *p_viagem3 = viagem_cria(pp_reservas3, 4);
+    viagem_printa_itinerario(p_viagem3);
+}
+
 void main(void) {
     testa_tabela_cria();
     testa_cria_lista_codigos_reservas();
     testa_tabela_indice();
     testa_tabela_crud();
+    testa_printa_itinerario();
 }
