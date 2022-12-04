@@ -119,3 +119,5 @@ int get_reserva_codigo(Reserva *p_reserva);
 
 /* Retorna o id do passageiro. */
 int get_reserva_codigo_passageiro(Reserva *p_reserva);
+
+Passageiro *get_reserva_passageiro(Reserva *p_reserva);
