@@ -90,7 +90,7 @@ void testa_crud_agenda(void){
   print_teste(libera_agenda(&p_agenda1),"libera_agenda"); 
 }
 
-/*void testa_tabela(void){ 
+void testa_tabela(void){ 
   printf("- Testando testa_tabela()...\n");
   Passageiro *p_passageiro1 = passageiro_cria("Leon","Belo Horizonte"); 
   Passageiro *p_passageiro2 = passageiro_cria("Alan","Ceará");
@@ -99,19 +99,23 @@ void testa_crud_agenda(void){
   Voo *p_voo2 = cria_voo("Natal","RJ"); 
   Voo *p_voo3 = cria_voo("Alagoas","BH");
   Data *p_data1 = cria_data(10,12,2022); 
-  Data *p_data2 = cria_data(20,11,2022);
-  Data *p_data3 = cria_data(9,10,2022);
+  Data *p_data2 = cria_data(20,11,2023);
+  Data *p_data3 = cria_data(9,10,2024);
   Reserva **pp_vetorReserva = malloc(sizeof(Reserva *)*3);
   pp_vetorReserva[0]= cria_reserva(p_data1,p_passageiro1,p_voo1,A0);
   pp_vetorReserva[1] = cria_reserva(p_data2,p_passageiro2,p_voo2,A0);
   pp_vetorReserva[2] = cria_reserva(p_data3,p_passageiro3,p_voo3,A0); 
   Viagem *p_viagem = viagem_cria(pp_vetorReserva, 3);
-  //Falta ainda
+  TabelaViagens *p_tabela = tabela_cria();
+  print_teste(tabela_insere_viagem(p_tabela,p_viagem),"inserção da viagem");
+  print_teste(tabela_remove_viagem(p_tabela,p_viagem),"Remoção viagem");
+  print_teste(tabela_libera(p_tabela),"liberação tabela");
   free(pp_vetorReserva); 
-}*/
+}
 
 
 int main(void) {
   testa_crud_agenda();
+  testa_tabela();
   return 0;
 }
