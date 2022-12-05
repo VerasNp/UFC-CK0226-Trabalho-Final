@@ -6,6 +6,7 @@
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ReservaViagem/Data.h"
 #include "../ListaVoos/Voos.h"
+#include "../TabelaPassageiros/TabelaPassageiros.h"
 
 #define TAMANHO_TABELA 1001
 
@@ -45,15 +46,19 @@ struct tabela_viagens {
     NoViagem **tabelaHash;
 };
 
-int viagem_libera(Viagem *p_viagem) {
+int viagem_libera(Viagem *p_viagem, TabelaPassageiros *p_tabelaPassageiros) {
     if (p_viagem == NULL) return 0;
 
     Trecho *p_trechos = p_viagem->trechos;
-    int passageiroJaLiberado = 0;
+    Passageiro *p_passageiro = get_reserva_passageiro(p_trechos->reserva);
+    NoPassageiro *p_noPassageiro = pesquisa_tabela_passageiros(p_tabelaPassageiros, p_passageiro);
+    int numeroViagens = get_no_passageiro_numero_viagens(p_noPassageiro);
+
+    int podeLiberarPassageiro = numeroViagens == 1;
 
     while (p_trechos != NULL) {
-        if (!libera_reserva(p_trechos->reserva, passageiroJaLiberado)) return 0;
-        passageiroJaLiberado = 1;
+        if (!libera_reserva(p_trechos->reserva, podeLiberarPassageiro)) return 0;
+        podeLiberarPassageiro = 0;
         Trecho *p_aux = p_trechos->proximo;
         free(p_trechos);
         p_trechos = p_aux;
@@ -63,11 +68,11 @@ int viagem_libera(Viagem *p_viagem) {
     return 1;
 }
 
-int no_viagem_libera(NoViagem *p_noViagem) {
+int no_viagem_libera(NoViagem *p_noViagem, TabelaPassageiros *p_tabelaPassageiros) {
     if (p_noViagem == NULL) return 1;
 
     while (p_noViagem != NULL) {
-        if (!viagem_libera(p_noViagem->viagem)) {
+        if (!viagem_libera(p_noViagem->viagem, p_tabelaPassageiros)) {
             return 0;
         }
         NoViagem *p_aux = p_noViagem->proximo;
@@ -78,9 +83,9 @@ int no_viagem_libera(NoViagem *p_noViagem) {
 }
 
 /* Libera a tabela de dispersão da memória. 1 se sucedido, 0 caso contrário. */
-int tabela_libera(TabelaViagens *p_tabela) {
+int tabela_libera(TabelaViagens *p_tabela, TabelaPassageiros *p_tabelaPassageiros) {
     for (int i=0; i < TAMANHO_TABELA; i++) {
-        if (!no_viagem_libera(p_tabela->tabelaHash[i])) {
+        if (!no_viagem_libera(p_tabela->tabelaHash[i], p_tabelaPassageiros)) {
             return 0;
         }
     }
@@ -137,7 +142,7 @@ int tabela_tamanho_indice(TabelaViagens *p_tabela, int indice) {
 
 /* Insere a viagem no índice apropriado da tabela de dispersão. Retorna 1 se foi sucedida a 
 inserção, 0 caso contrário. */
-int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
+int tabela_insere_viagem(TabelaViagens *p_tabela, TabelaPassageiros *p_tabelaPassageiros, Viagem *p_viagem) {
     if (p_viagem == NULL) return 0;
     CodigosReservas *p_codigos = viagem_cria_lista_codigos_reservas(p_viagem);
     Reserva *p_reserva = p_viagem->trechos->reserva;
@@ -163,6 +168,9 @@ int tabela_insere_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
         p_novoNoViagem->proximo->anterior = p_novoNoViagem;
     }
     p_tabela->tabelaHash[indice] = p_novoNoViagem;
+
+    Passageiro *p_passageiro = get_reserva_passageiro(p_reserva);
+    insere_tabela_passageiros(p_tabelaPassageiros, p_passageiro);
     return 1;
 }
 
@@ -192,12 +200,17 @@ Viagem *tabela_pesquisa_viagem(TabelaViagens *p_tabela, int codigoPassageiro, Co
 }
 
 /* Remove a viagem da tabela de dispersão. Retorna 1 se a remoção foi sucedida,, 0 caso contrário. */
-int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
+int tabela_remove_viagem(TabelaViagens *p_tabela, TabelaPassageiros *p_tabelaPassageiros, Viagem *p_viagem) {
     int codigoPassageiro = get_viagem_codigo_passageiro(p_viagem);
     CodigosReservas *p_codigosReservas = viagem_cria_lista_codigos_reservas(p_viagem);
 
     NoViagem *p_noViagem = tabela_pesquisa_no_viagem(p_tabela, codigoPassageiro, p_codigosReservas);
     if (p_noViagem == NULL) return 0;
+
+    /* Remoção da TabelaPassageiros */
+    Reserva *p_reserva = p_viagem->trechos->reserva;
+    Passageiro *p_passageiro = get_reserva_passageiro(p_reserva);
+    if (!remove_tabela_passageiro(p_tabelaPassageiros, p_passageiro)) return 0;
 
     if (p_noViagem->proximo != NULL) {
         p_noViagem->proximo->anterior = p_noViagem->anterior;
@@ -206,7 +219,7 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
         p_noViagem->anterior->proximo = p_noViagem->proximo;
         p_noViagem->anterior = NULL;
         p_noViagem->proximo = NULL;
-        no_viagem_libera(p_noViagem);
+        no_viagem_libera(p_noViagem, p_tabelaPassageiros);
         return 1;
     }
 
@@ -217,14 +230,14 @@ int tabela_remove_viagem(TabelaViagens *p_tabela, Viagem *p_viagem) {
         p_tabela->tabelaHash[indice] = NULL;
         p_noViagem->anterior = NULL;
         p_noViagem->proximo = NULL;
-        no_viagem_libera(p_noViagem);
+        no_viagem_libera(p_noViagem, p_tabelaPassageiros);
         return 1;
     }
 
     p_tabela->tabelaHash[indice] = p_noViagem->proximo;
     p_noViagem->anterior = NULL;
     p_noViagem->proximo = NULL;
-    no_viagem_libera(p_noViagem);
+    no_viagem_libera(p_noViagem, p_tabelaPassageiros);
     return 1;
 }
 
@@ -455,4 +468,45 @@ NoViagem *get_proximo_no_viagem(NoViagem *p_noViagem) {
 int get_viagem_codigo_passageiro(Viagem *p_viagem) {
     Reserva *p_reserva = p_viagem->trechos->reserva;
     return get_reserva_codigo_passageiro(p_reserva);
+}
+
+void viagem_printa_itinerario(Viagem *p_viagem) {
+    int viagemContador = 1;
+    Trecho *p_trecho = p_viagem->trechos;
+    Passageiro *p_passageiro = get_reserva_passageiro(p_trecho->reserva);
+    int passageiroId;
+    char nomePassageiro[100];
+    char enderecoPassageiro[300];
+    passageiro_acessa(p_passageiro, &passageiroId, nomePassageiro, enderecoPassageiro);
+
+    printf("---- Itinerário da viagem ----\n");
+    printf("%s, %s\n", nomePassageiro, enderecoPassageiro);
+    printf("Código do Passageiro: %d\n\n", passageiroId);
+
+    int codigoReserva;
+    Data *p_dataReserva = malloc(tamanho_data());
+    Passageiro *p_passageiroReserva = malloc(passageiro_tamanho());
+    Voo *p_vooReserva = malloc(tamanho_voo());
+    CodigoAssento codigoAssento = A0;
+    int dia, mes, ano;
+    int codigoVoo;
+    char origemVoo[300];
+    char destinoVoo[300];
+
+    while (p_trecho != NULL) {
+        acessa_reserva(p_trecho->reserva, &codigoReserva, &p_dataReserva, &p_passageiroReserva, &p_vooReserva, &codigoAssento);
+
+        acessa_data(p_dataReserva, &dia, &mes, &ano);
+
+        leitura_voo(p_vooReserva, &codigoVoo, origemVoo, destinoVoo);
+
+        printf("- Viagem %00d:\n", viagemContador++);
+        printf("     %s -> %s\n", origemVoo, destinoVoo);
+        printf("     Código da reserva: %d  - Data: %0d/%0d/%000d\n", codigoVoo, dia, mes, ano);
+        printf("     Assento: %s\n", codigo_assento_to_string(codigoAssento));
+        p_trecho = p_trecho->proximo;
+    }
+    libera_data(p_dataReserva);
+    libera_voo(p_vooReserva);
+    passageiro_libera(p_passageiroReserva);
 }

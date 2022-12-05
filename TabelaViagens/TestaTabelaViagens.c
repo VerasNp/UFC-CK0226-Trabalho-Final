@@ -134,15 +134,16 @@ void testa_tabela_crud() {
     print_teste(viagem_compara(p_viagem3, p_viagem3), "viagem_compara() - teste 2: viagens iguais.");
 
     TabelaViagens *p_tabela = tabela_cria();
-    if (!tabela_insere_viagem(p_tabela, p_viagem1)) tabelaInsereBool = 0;
-    if (!tabela_insere_viagem(p_tabela, p_viagem2)) tabelaInsereBool = 0;
-    if (!tabela_insere_viagem(p_tabela, p_viagem4)) tabelaInsereBool = 0;
+    TabelaPassageiros *p_tabelaPassageiros = cria_tabela_passageiros();
+    if (!tabela_insere_viagem(p_tabela, p_tabelaPassageiros, p_viagem1)) tabelaInsereBool = 0;
+    if (!tabela_insere_viagem(p_tabela, p_tabelaPassageiros, p_viagem2)) tabelaInsereBool = 0;
+    if (!tabela_insere_viagem(p_tabela, p_tabelaPassageiros, p_viagem4)) tabelaInsereBool = 0;
 
 
     print_teste(tabelaInsereBool, "tabela_insere_viagem() - teste 1: 3 Viagens inseridas.");
-    print_teste(!tabela_insere_viagem(p_tabela, p_viagem4), "tabela_insere_viagem() - teste 2: Não inserir viagens iguais. ");
+    print_teste(!tabela_insere_viagem(p_tabela, p_tabelaPassageiros, p_viagem4), "tabela_insere_viagem() - teste 2: Não inserir viagens iguais. ");
 
-    print_teste(tabela_insere_viagem(p_tabela, p_viagem3), "tabela_insere_viagem() - teste 3: Colisão. ");
+    print_teste(tabela_insere_viagem(p_tabela, p_tabelaPassageiros,  p_viagem3), "tabela_insere_viagem() - teste 3: Colisão. ");
     print_teste(tabela_tamanho_indice(p_tabela, 115) == 2, "tabela_insere_viagem() - teste 4: 2 viagens no índice 115. ");
 
 
@@ -174,19 +175,33 @@ void testa_tabela_crud() {
     
     CodigosReservas *p_codigosReservasRemovidas1 = viagem_cria_lista_codigos_reservas(p_viagem3);
     int codigoPassageiroRemovido1 = get_viagem_codigo_passageiro(p_viagem3);
-    print_teste(tabela_remove_viagem(p_tabela, p_viagem3), "tabela_remove_viagem() - teste 1");
+    print_teste(tabela_remove_viagem(p_tabela, p_tabelaPassageiros, p_viagem3), "tabela_remove_viagem() - teste 1");
     Viagem *p_viagemRemovida1 = tabela_pesquisa_viagem(p_tabela, codigoPassageiroRemovido1, p_codigosReservasRemovidas1);
     print_teste(p_viagemRemovida1 == NULL, "tabela_remove_viagem() - teste 2: Viagem removida não se encontra na tabela. ");
 
     CodigosReservas *p_codigosReservasRemovidas2 = viagem_cria_lista_codigos_reservas(p_viagem2);
     int codigoPassageiroRemovido2 = get_viagem_codigo_passageiro(p_viagem2);
-    print_teste(tabela_remove_viagem(p_tabela, p_viagem2), "tabela_remove_viagem() - teste 3: remoção de viagem em colisão.");
+    print_teste(tabela_remove_viagem(p_tabela, p_tabelaPassageiros, p_viagem2), "tabela_remove_viagem() - teste 3: remoção de viagem em colisão.");
     Viagem *p_viagemRemovida2 = tabela_pesquisa_viagem(p_tabela, codigoPassageiroRemovido2, p_codigosReservasRemovidas2);
     print_teste(p_viagemRemovida2 == NULL, "tabela_remove_viagem() - teste 4: Viagem removida não se encontra na tabela. ");
 
     printf("Testando tabela_libera()...\n");
 
-     print_teste(tabela_libera(p_tabela), "tabela_libera() - teste 1");
+     print_teste(tabela_libera(p_tabela, p_tabelaPassageiros), "tabela_libera() - teste 1");
+}
+
+void testa_printa_itinerario() {
+    printf("Testando viagem_printa_itinerario()...\n");
+
+    Reserva **pp_reservas3 = malloc(sizeof(Reserva *)*4);
+    Passageiro *p_passageiro3 = passageiro_cria("Robinho", "Fortaleza"); // id = 70
+
+    pp_reservas3[0] = reserva_padrao_cria(p_passageiro3); // 70-6
+    pp_reservas3[1] = reserva_padrao_cria(p_passageiro3); // 70-7
+    pp_reservas3[2] = reserva_padrao_cria(p_passageiro3); // 70-8
+    pp_reservas3[3] = reserva_padrao_cria(p_passageiro3); // 70-9
+    Viagem *p_viagem3 = viagem_cria(pp_reservas3, 4);
+    viagem_printa_itinerario(p_viagem3);
 }
 
 void main(void) {
@@ -194,4 +209,5 @@ void main(void) {
     testa_cria_lista_codigos_reservas();
     testa_tabela_indice();
     testa_tabela_crud();
+    testa_printa_itinerario();
 }
