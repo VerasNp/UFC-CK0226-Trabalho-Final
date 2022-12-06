@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Menus/PassageirosMenu.h"
+#include "../Utils/Headers.h"
+#include "../ListaPassageiros/ListaPassageiros.h"
 
 void limpar_tela();
 
 int main(void) {
 
     char *opcao = (char *) malloc(sizeof(char));
+    ListaPassageiro *p_listaPassageiros = cria_lista_passageiro(); 
 
     do {
         limpar_tela();
@@ -21,7 +24,7 @@ int main(void) {
         switch (*opcao) {
             case '1':
                 limpar_tela();
-                PassageiroMenu();
+                PassageiroMenu(p_listaPassageiros);
                 break;
             case '2':
                 limpar_tela();
