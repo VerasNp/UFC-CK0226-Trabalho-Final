@@ -4,7 +4,7 @@
 #include "../Utils/Utils.h"
 
 
-void PassageiroMenu(ListaPassageiro *p_listaPassageiros) {
+void passageiro_menu(ListaPassageiro *p_listaPassageiros) {
     char *opcao = (char *) malloc(sizeof(char));
     printf("\n\t");
     printf("-----PASSAGEIROS------");

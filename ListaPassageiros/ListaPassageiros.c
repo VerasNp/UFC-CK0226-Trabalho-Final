@@ -117,7 +117,7 @@ void print_passageiro(Passageiro *p_passageiro){
     if (p_passageiro != NULL){ 
         int id; 
         char *p_nome = (char *)malloc(sizeof(char)*100); 
-        char *p_endereco = (char *)maalloc(sizeof(char)*300);
+        char *p_endereco = (char *)malloc(sizeof(char)*300);
         passageiro_acessa(p_passageiro,&id,p_nome,p_endereco);
         printf("Nome: %s \t Endereço: %s \t Id: %d\n",p_nome,p_endereco,id);
     }
@@ -131,7 +131,7 @@ void listar_passageiros(ListaPassageiro *p_lista){
         No *p_aux = p_lista->primeiro->proximo; 
         printf("\tPassageiros:");
         while (p_aux != NULL){ 
-            print_passageiro(p_aux);
+            print_passageiro(p_aux->passageiro);
             p_aux = p_aux->proximo;
         }
     }
