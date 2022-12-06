@@ -6,6 +6,7 @@
 #include "../Utils/Headers.h"
 #include "../ListaPassageiros/ListaPassageiros.h"
 #include "../ReservaViagem/Agenda.h"
+#include "Menus/ReservasMenu.h"
 
 void limpar_tela();
 
@@ -35,16 +36,7 @@ int main(void) {
                 break;
             case '3':
                 limpar_tela();
-                printf("\n\t");
-                printf("-----RESERVAS------");
-                printf("\n\t 1. Criar");
-                printf("\n\t 2. Listar");
-                printf("\n\t 3. Editar");
-                printf("\n\t 4. Filtrar por código do voo");
-                printf("\n\t 5. Filtrar por data");
-                printf("\n\t 6. Remover");
-                printf("\n\t");
-                scanf(" %c%*c", opcao);
+                ReservasMenu();
                 break;
             case '4':
                 limpar_tela();

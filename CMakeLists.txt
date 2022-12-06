@@ -39,8 +39,14 @@ add_executable(
 
 add_executable(
         testa_travel_boobking
+        Utils/Utils.h
+        Utils/Utils.c
+        Utils/Validacoes.h
+        Utils/Validacoes.c
         Menus/PassageirosMenu.h
         Menus/PassageirosMenu.c
+        Menus/ReservasMenu.h
+        Menus/ReservasMenu.c
         TravelBooking.h
         TravelBooking.c
 )
