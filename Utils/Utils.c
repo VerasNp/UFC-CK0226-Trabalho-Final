@@ -5,3 +5,7 @@ void print_teste(int r, char texto[]) {
     if (r) printf("   [SUCESSO] %s\n", texto);
     else printf("   [ERRO] %s\n", texto);
 }
+
+void erro(char* texto)  {
+    printf("[ERRO]: %s", texto);
+}

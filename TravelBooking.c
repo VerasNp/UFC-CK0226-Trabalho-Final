@@ -1,62 +1,73 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Enums.h"
-#include "Headers.h"
+#include "Menus/PassageirosMenu.h"
 
-struct voo {
-  int codigo;
-  char *origem;
-  char *destino;
-};
+void limpar_tela();
 
-struct no_voo {
-  Voo *voo;
-  struct no_voo *proximo;
-};
+int main(void) {
 
-struct lista_voo {
-  struct no_voo *primeiro;
-};
+    char *opcao = (char *) malloc(sizeof(char));
 
-struct passageiro {
-  int id;
-  char *nome;
-  char *endereco;
-};
+    do {
+        limpar_tela();
+        printf("\nMENU PRINCIPAL");
+        printf("\n\t 1. Passageiros");
+        printf("\n\t 2. Voos");
+        printf("\n\t 3. Reservas");
+        printf("\n\t 4. Roteiros de viagem");
+        printf("\n\t");
+        scanf(" %c%*c", opcao);
 
-struct no_passageiro {
-  Passageiro *passageiro;
-  struct no_passageiro *proximo;
-};
+        switch (*opcao) {
+            case '1':
+                limpar_tela();
+                PassageiroMenu();
+                break;
+            case '2':
+                limpar_tela();
+                printf("\n\t");
+                printf("-----VOOS------");
+                printf("\n\t 1. Criar");
+                printf("\n\t 2. Listar");
+                printf("\n\t 3. Editar");
+                printf("\n\t 4. Remover");
+                printf("\n\t");
+                scanf(" %c%*c", opcao);
+                break;
+            case '3':
+                limpar_tela();
+                printf("\n\t");
+                printf("-----RESERVAS------");
+                printf("\n\t 1. Criar");
+                printf("\n\t 2. Listar");
+                printf("\n\t 3. Editar");
+                printf("\n\t 4. Filtrar por código do voo");
+                printf("\n\t 5. Filtrar por data");
+                printf("\n\t 6. Remover");
+                printf("\n\t");
+                scanf(" %c%*c", opcao);
+                break;
+            case '4':
+                limpar_tela();
+                printf("\n\t");
+                printf("-----ROTEIROS DE VIAGENS------");
+                printf("\n\t 1. Criar");
+                printf("\n\t 2. Listar");
+                printf("\n\t 3. Editar");
+                printf("\n\t 4. Remover");
+                printf("\n\t");
+                scanf(" %c%*c", opcao);
+                break;
+        }
+    } while (*opcao != 'X');
 
-struct lista_passageiro {
-  struct no_passageiro *primeiro;
-};
+    exit(EXIT_SUCCESS);
+}
 
-struct reserva {
-  int codigo;
-  Data *data_viagem;
-  Passageiro *passageiro;
-  Voo *voo;
-  Assento assento;
-};
-
-struct agenda {
-  Reserva *reserva;
-  Agenda *esq;
-  Agenda *dir;
-};
-
-struct trecho {
-  Reserva *reserva;
-  struct trecho *proximo;
-};
-
-struct viagem {
-  struct trecho *trechos;
-};
-
-struct tabela_viagem {
-  int tamanho;
-  Viagem *tabela_hash;
-};
+void limpar_tela() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif // _WIN32
+}
