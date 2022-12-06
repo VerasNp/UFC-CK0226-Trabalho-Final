@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Menus/PassageirosMenu.h"
+#include "ListaVoos/ListaVoos.h"
 
 void limpar_tela();
 
 int main(void) {
+    ListaVoo *p_listaVoo = cria_lista();
 
     char *opcao = (char *) malloc(sizeof(char));
 

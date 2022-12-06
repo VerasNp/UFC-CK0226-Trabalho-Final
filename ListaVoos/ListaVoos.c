@@ -122,12 +122,13 @@ void print_fila(ListaVoo *p_lista)
   NoVoo *p_tmp = p_lista->primeiro;
   int codigoLeitura; 
   char *p_origem = (char *)malloc(sizeof(char)*300); 
-  char *p_destino = (char *)malloc(sizeof(char)*300); 
+  char *p_destino = (char *)malloc(sizeof(char)*300);
 
+  printf("Vôos disponíveis:\n");
   while (p_tmp != NULL)
   {
     leitura_voo(p_tmp->voo,&codigoLeitura,p_origem,p_destino);
-    printf("%d-", codigoLeitura);
+    printf("Código:%d - %s --> %s\n", codigoLeitura, p_origem, p_destino);
     p_tmp = p_tmp->proximo;
   }
   printf("\n");
