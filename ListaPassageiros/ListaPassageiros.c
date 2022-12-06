@@ -1,6 +1,7 @@
 #include "ListaPassageiros.h" 
 #include <stdio.h>
 #include <stdlib.h> 
+#include <string.h>
 
 struct no_passageiro{ 
     Passageiro *passageiro; 
@@ -110,3 +111,45 @@ int lista_passageiro_quantidade(ListaPassageiro *p_lista){
     }
     return cont; 
 }
+
+/*Printa os atributos do passageiro*/
+void print_passageiro(Passageiro *p_passageiro){ 
+    if (p_passageiro != NULL){ 
+        int id; 
+        char *p_nome = (char *)malloc(sizeof(char)*100); 
+        char *p_endereco = (char *)maalloc(sizeof(char)*300);
+        passageiro_acessa(p_passageiro,&id,p_nome,p_endereco);
+        printf("Nome: %s \t Endereço: %s \t Id: %d\n",p_nome,p_endereco,id);
+    }
+}
+
+/*printa as informações de cada passageiro em uma dada lista*/
+void listar_passageiros(ListaPassageiro *p_lista){ 
+    if (p_lista == NULL || p_lista->primeiro->proximo == NULL)
+        printf("Lista vazia");
+    else{
+        No *p_aux = p_lista->primeiro->proximo; 
+        printf("\tPassageiros:");
+        while (p_aux != NULL){ 
+            print_passageiro(p_aux);
+            p_aux = p_aux->proximo;
+        }
+    }
+}
+
+/*Dado um nome, busca o passageiro*/ 
+Passageiro *busca_nome_passageiro(ListaPassageiro *p_lista,char *p_nome){ 
+    if (p_lista == NULL || p_lista->primeiro->proximo == NULL){
+        return NULL; 
+    }
+    int id; 
+    char *p_nomeAcessa = (char *)malloc(sizeof(char)*100);
+    char *p_enderecoAcessa = (char *)malloc(sizeof(char)*300); 
+    No *p_aux = p_lista->primeiro->proximo; 
+    while (p_aux != NULL){ 
+        passageiro_acessa(p_aux->passageiro,&id,p_nomeAcessa,p_enderecoAcessa);
+        if (strcmp(p_nomeAcessa,p_nome) == 0) return p_aux->passageiro; 
+        p_aux = p_aux->proximo;  
+    }
+    return NULL;
+}   

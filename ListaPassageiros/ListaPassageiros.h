@@ -18,3 +18,11 @@ int libera_lista_passageiro(ListaPassageiro *p_lista);
 /*Retorna o número de passageiros da lista. Se a lista for nula retorna -1*/
 int lista_passageiro_quantidade(ListaPassageiro *p_lista);
 
+/*printa as informações de cada passageiro em uma dada lista*/
+void listar_passageiros(ListaPassageiro *p_lista); 
+
+/*Dado um nome, busca o passageiro*/ 
+Passageiro *busca_nome_passageiro(ListaPassageiro *p_lista,char *p_nome);
+
+/*Printa os atributos do passageiro*/
+void print_passageiro(Passageiro *p_passageiro);
