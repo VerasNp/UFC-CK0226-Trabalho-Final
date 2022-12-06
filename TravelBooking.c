@@ -14,6 +14,7 @@ int main(void) {
     char *opcao = (char *) malloc(sizeof(char));
     ListaPassageiro *p_listaPassageiros = cria_lista_passageiro();
     ListaVoo *p_listaVoo = cria_lista();
+    Agenda *p_agenda = cria_agenda(NULL);
 
     do {
         limpar_tela();
@@ -36,7 +37,7 @@ int main(void) {
                 break;
             case '3':
                 limpar_tela();
-                ReservasMenu();
+                reservas_menu(p_agenda, p_listaPassageiros, p_listaVoo);
                 break;
             case '4':
                 limpar_tela();

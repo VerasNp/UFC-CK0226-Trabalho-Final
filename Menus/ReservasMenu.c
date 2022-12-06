@@ -1,11 +1,18 @@
+#include "../Utils/Enums.h"
 #include "ReservasMenu.h"
 #include "../ListaPassageiros/Passageiro.h"
+#include "../ListaPassageiros/ListaPassageiros.h"
+#include "../ListaVoos/Voos.h"
+#include "../ListaVoos/ListaVoos.h"
+#include "../ReservaViagem/Data.h"
+#include "../ReservaViagem/Agenda.h"
+#include "../ReservaViagem/Reserva.h"
 #include "../Utils/Validacoes.h"
 #include "../Utils/Utils.h"
 #include "stdio.h"
 #include "stdlib.h"
 
-void ReservasMenu() {
+void reservas_menu(Agenda *p_agenda, ListaPassageiro *p_listaPassageiros, ListaVoo *p_listaVoos) {
     char *opcao = (char *) malloc(sizeof(char));
     printf("\n\t");
     printf("-----RESERVAS------");
@@ -20,12 +27,13 @@ void ReservasMenu() {
 
     switch (*opcao) {
         case '1':
-            CriarReservasMenu();
+            criar_reservas_menu(p_agenda, p_listaPassageiros, p_listaVoos);
             break;
     }
 }
 
-void CriarReservasMenu() {
+void criar_reservas_menu(Agenda *p_agenda, ListaPassageiro *p_listaPassageiros, ListaVoo *p_listaVoos) {
+    // Passageiro
     char *p_nome = (char *) malloc(sizeof(char) * 1001);
     char *p_endereco = (char *) malloc(sizeof(char) * 1001);
     printf("Insira os dados do passageiro: \n");
@@ -47,7 +55,14 @@ void CriarReservasMenu() {
         else
             break;
     }
+    Passageiro *p_passageiro = busca_nome_passageiro(p_listaPassageiros, p_nome);
 
+    if (p_passageiro == NULL) {
+        p_passageiro = passageiro_cria(p_nome, p_endereco);
+        incluir_passageiro(p_listaPassageiros, p_passageiro);
+    }
+
+    // Data da reserva
     printf("Escolha uma data para a sua viagem: \n");
     int dia;
     int mes;
@@ -88,5 +103,23 @@ void CriarReservasMenu() {
         else break;
     }
 
+    Data *p_data = cria_data(dia, mes, ano);
+
+    if (busca_reserva_na_agenda_cod_passageiro_data_viagem(p_agenda, get_passageiro_codigo(p_passageiro), p_data) != NULL)
+        erro("Um mesmo passageiro não pode viajar ao mesmo tempo para dois lugares!");
+
+    // Voo
+    int codigoVoo;
+    printf("Escolha um voo");
+    scanf("%d", &codigoVoo);
+    Voo *p_voo = busca_voo(p_listaVoos, codigoVoo);
+
+    // Assento
     printf("Escolha um assento: \n");
+    CodigoAssento assento;
+    scanf("%u", &assento);
+
+    Reserva *p_reserva = cria_reserva(p_data, p_passageiro, p_voo, assento);
+    Agenda *p_novaAgenda = cria_agenda(p_reserva);
+    insere_agenda(p_agenda, p_novaAgenda);
 }
