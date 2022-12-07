@@ -102,7 +102,6 @@ Agenda *insere_agenda(Agenda *p_agenda, Agenda *p_novaAgenda) {
     Passageiro *p_acessaNovaAgendaPassageiro;
     Voo *p_acessaNovaAgendaVoo;
     CodigoAssento acessaNovaAgendaAssento;
-
     acessa_reserva(
             p_novaAgenda->p_reserva,
             &acessaId,

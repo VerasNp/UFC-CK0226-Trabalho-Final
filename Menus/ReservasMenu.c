@@ -1,4 +1,3 @@
-#include "../Utils/Enums.h"
 #include "ReservasMenu.h"
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ListaPassageiros/ListaPassageiros.h"
@@ -102,17 +101,26 @@ void criar_reservas_menu(Agenda *p_agenda, ListaPassageiro *p_listaPassageiros, 
         if (ano < 2022) erro("O ano deve ter um valor válido!\n");
         else break;
     }
-
     Data *p_data = cria_data(dia, mes, ano);
 
-    if (busca_reserva_na_agenda_cod_passageiro_data_viagem(p_agenda, get_passageiro_codigo(p_passageiro), p_data) != NULL)
-        erro("Um mesmo passageiro não pode viajar ao mesmo tempo para dois lugares!");
+    while (1) {
+        if (busca_reserva_na_agenda_cod_passageiro_data_viagem(p_agenda, get_passageiro_codigo(p_passageiro), p_data) !=
+            NULL) {
+            erro("Um mesmo passageiro não pode viajar ao mesmo tempo para dois lugares!");
+        } else break;
+    }
 
     // Voo
     int codigoVoo;
-    printf("Escolha um voo");
+    Voo *p_voo;
+    if (tamanho_lista(p_listaVoos) == 0) {
+        erro("Infelizmente ainda não temos voos disponíveis!");
+        return;
+    }
+    printf("Escolha um voo: ");
     scanf("%d", &codigoVoo);
-    Voo *p_voo = busca_voo(p_listaVoos, codigoVoo);
+    p_voo = busca_voo(p_listaVoos, codigoVoo);
+
 
     // Assento
     printf("Escolha um assento: \n");

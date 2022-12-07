@@ -41,10 +41,26 @@ add_executable(
         testa_travel_boobking
         Utils/Utils.h
         Utils/Utils.c
+        ListaPassageiros/Passageiro.h
+        ListaPassageiros/Passageiro.c
+        ListaPassageiros/ListaPassageiros.h
+        ListaPassageiros/ListaPassageiros.c
+        ListaVoos/Voos.h
+        ListaVoos/Voos.c
+        ListaVoos/ListaVoos.h
+        ListaVoos/ListaVoos.c
+        ReservaViagem/Data.h
+        ReservaViagem/Data.c
+        ReservaViagem/Reserva.h
+        ReservaViagem/Reserva.c
+        ReservaViagem/Agenda.h
+        ReservaViagem/Agenda.c
         Utils/Validacoes.h
         Utils/Validacoes.c
         Menus/PassageirosMenu.h
         Menus/PassageirosMenu.c
+        Menus/VoosMenu.h
+        Menus/VoosMenu.c
         Menus/ReservasMenu.h
         Menus/ReservasMenu.c
         TravelBooking.h

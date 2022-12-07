@@ -9,7 +9,8 @@
 
 struct reserva {
     int id;
-    Data *p_data;
+    Data *p_dataPartida;
+    Data *p_dataChegada;
     Passageiro *p_passageiro;
     Voo *p_voo;
     CodigoAssento codigoAssento;
@@ -17,7 +18,8 @@ struct reserva {
 
 /**
  * Criaçao individual de uma reserva
- * @param p_data
+ * @param p_dataPartida
+ * @param p_dataChegada
  * @param p_passageiro
  * @param p_voo
  * @param codigoAssento
@@ -25,14 +27,15 @@ struct reserva {
  * @return p_reserva
  */
 Reserva *cria_reserva(
-        Data *p_data,
+        Data *p_dataPartida,
+        Data *p_dataChegada,
         Passageiro *p_passageiro,
         Voo *p_voo,
         CodigoAssento codigoAssento) {
     static int id;
 
     if (
-            p_data == NULL ||
+            (p_dataPartida == NULL && p_dataChegada == NULL) ||
             p_passageiro == NULL ||
             p_voo == NULL ||
             (codigoAssento < 0 || codigoAssento > C9)) {
@@ -44,7 +47,8 @@ Reserva *cria_reserva(
         return NULL;
 
     p_reserva->id = ++id;
-    p_reserva->p_data = p_data;
+    p_reserva->p_dataPartida = p_dataPartida;
+    p_reserva->p_dataChegada = p_dataChegada;
     p_reserva->p_passageiro = p_passageiro;
     p_reserva->p_voo = p_voo;
     p_reserva->codigoAssento = codigoAssento;
@@ -56,7 +60,8 @@ Reserva *cria_reserva(
  * Acessa dados da reserva armazenados em dado lugar da memoria
  * @param p_reserva
  * @param p_id
- * @param pp_acessaData
+ * @param pp_acessaDataPartida
+ * @param pp_acessaDataChegada
  * @param pp_acessaPassageiro
  * @param pp_acessaVoo
  * @param p_acessaCodigoAssento
@@ -64,19 +69,22 @@ Reserva *cria_reserva(
 void acessa_reserva(
         Reserva *p_reserva,
         int *p_id,
-        Data **pp_acessaData,
+        Data **pp_acessaDataPartida,
+        Data **pp_acessaDataChegada,
         Passageiro **pp_acessaPassageiro,
         Voo **pp_acessaVoo,
         CodigoAssento *p_acessaCodigoAssento) {
     if (p_reserva == NULL) {
         *p_id = -1;
-        *pp_acessaData = NULL;
+        *pp_acessaDataPartida = NULL;
+        *pp_acessaDataChegada = NULL;
         *pp_acessaPassageiro = NULL;
         *pp_acessaVoo = NULL;
         *p_acessaCodigoAssento = -1;
     } else {
         *p_id = p_reserva->id;
-        *pp_acessaData = p_reserva->p_data;
+        *pp_acessaDataPartida = p_reserva->p_dataPartida;
+        *pp_acessaDataChegada = p_reserva->p_dataChegada;
         *pp_acessaPassageiro = p_reserva->p_passageiro;
         *pp_acessaVoo = p_reserva->p_voo;
         *p_acessaCodigoAssento = p_reserva->codigoAssento;
@@ -98,7 +106,8 @@ int libera_reserva(Reserva *p_reserva, int podeLiberarPassageiro) {
         if(!passageiro_libera(p_reserva->p_passageiro)) return 0;
     }
 
-    if(!libera_data(p_reserva->p_data)) return 0;
+    if(!libera_data(p_reserva->p_dataPartida)) return 0;
+    if(!libera_data(p_reserva->p_dataChegada)) return 0;
     if(!libera_voo(p_reserva->p_voo)) return 0;
     free(p_reserva);
     p_reserva = NULL;
@@ -173,14 +182,16 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
             &p_acessaAgendaDireita);
 
     int acessaId;
-    Data *p_acessaData;
+    Data *p_acessaDataPartida;
+    Data *p_acessaDataChegada;
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
     acessa_reserva(
             p_acessaReserva,
             &acessaId,
-            &p_acessaData,
+            &p_acessaDataPartida,
+            &p_acessaDataChegada,
             &p_acessaPassageiro,
             &p_acessaVoo,
             &acessaAssento);
@@ -250,14 +261,16 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
             &p_acessaAgendaDireita);
 
     int acessaId;
-    Data *p_acessaData;
+    Data *p_acessaDataPartida;
+    Data *p_acessaDataChegada;
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
     acessa_reserva(
             p_acessaReserva,
             &acessaId,
-            &p_acessaData,
+            &p_acessaDataPartida,
+            &p_acessaDataChegada,
             &p_acessaPassageiro,
             &p_acessaVoo,
             &acessaAssento);
@@ -271,7 +284,7 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
             p_acessaNomePassageiro,
             p_acessaEnderecoPassageiro);
 
-    if (p_acessaIdPassageiro == idPassageiro && comparar_datas(p_acessaData, p_data) == 0)
+    if (p_acessaIdPassageiro == idPassageiro && (comparar_datas(p_acessaDataPartida, p_data) == 0 || comparar_datas(p_acessaDataChegada, p_data) == 0 ))
         return p_acessaReserva;
 
     Reserva *p_reservaEncontradaAgendaEsq = busca_reserva_na_agenda_cod_passageiro_data_viagem(
@@ -320,12 +333,14 @@ Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva) {
  */
 Reserva *edita_reserva(
         Reserva *p_reserva,
-        Data *p_dataViagem,
+        Data *p_dataPartida,
+        Data *p_dataChegada,
         CodigoAssento codigoAssento) {
-    if (p_reserva == NULL || p_dataViagem == NULL || (codigoAssento < 0 || codigoAssento > C9))
+    if (p_reserva == NULL || p_dataPartida == NULL || p_dataChegada == NULL || (codigoAssento < 0 || codigoAssento > C9))
         return NULL;
 
-    (*(p_reserva)).p_data = p_dataViagem;
+    (*(p_reserva)).p_dataPartida = p_dataPartida;
+    (*(p_reserva)).p_dataChegada = p_dataChegada;
     (*(p_reserva)).codigoAssento = codigoAssento;
 
     return p_reserva;
@@ -341,14 +356,16 @@ char* ler_reserva(Reserva *p_reserva) {
         return NULL;
 
     int acessaId;
-    Data *p_acessaData;
+    Data *p_acessaDataPartida;
+    Data *p_acessaDataChegada;
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
     acessa_reserva(
             p_reserva,
             &acessaId,
-            &p_acessaData,
+            &p_acessaDataPartida,
+            &p_acessaDataChegada,
             &p_acessaPassageiro,
             &p_acessaVoo,
             &acessaAssento);
@@ -371,17 +388,27 @@ char* ler_reserva(Reserva *p_reserva) {
             p_acessaNomePassageiro,
             p_acessaEnderecoPassageiro);
 
-    int dia;
-    int mes;
-    int ano;
+    int diaPartida;
+    int mesPartida;
+    int anoPartida;
     acessa_data(
-            p_acessaData,
-            &dia,
-            &mes,
-            &ano);
+            p_acessaDataPartida,
+            &diaPartida,
+            &mesPartida,
+            &anoPartida);
+
+    int diaChegada;
+    int mesChegada;
+    int anoChegada;
+    acessa_data(
+            p_acessaDataChegada,
+            &diaChegada,
+            &mesChegada,
+            &anoChegada);
 
     printf("Código da reserva: %d \n", acessaId);
-    printf("Data da reserva: %d/%d/%d \n", dia, mes, ano);
+    printf("Data de partida: %d/%d/%d \n", diaPartida, mesPartida, anoPartida);
+    printf("Data de chegada: %d/%d/%d \n", diaChegada, mesChegada, anoChegada);
     printf("Dados do passageiro:\n");
     printf("\tCódigo: %d\n", p_acessaIdPassageiro);
     printf("\tNome: %s\n", p_acessaNomePassageiro);
