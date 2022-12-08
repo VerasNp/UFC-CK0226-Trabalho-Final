@@ -62,3 +62,5 @@ int tamanho_lista(ListaVoo *p_lista);
  * @param p_lista lista que terá o espaço liberado
  */
 int libera_lista(ListaVoo *p_lista);
+
+Voo *pop_lista_voo(ListaVoo *p_lista);

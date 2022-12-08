@@ -56,6 +56,13 @@ int insere_voo(Voo *p_voo, ListaVoo *p_lista)
   } while (p_aux != NULL);
 }
 
+Voo *pop_lista_voo(ListaVoo *p_lista) {
+    if (p_lista->primeiro == NULL) return NULL;
+    NoVoo *p_resultado = p_lista->primeiro;
+    p_lista->primeiro = p_resultado->proximo;
+    return p_resultado->voo;
+}
+
 Voo *retira_voo(ListaVoo *p_lista, int codigo)
 {
   if (p_lista == NULL)
