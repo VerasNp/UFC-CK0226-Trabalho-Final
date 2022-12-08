@@ -91,26 +91,35 @@ void testa_crud_agenda(void){
 }
 
 void testa_tabela(void){ 
-  printf("- Testando testa_tabela()...\n");
-  Passageiro *p_passageiro1 = passageiro_cria("Leon","Belo Horizonte"); 
-  Passageiro *p_passageiro2 = passageiro_cria("Alan","Ceará");
-  Passageiro *p_passageiro3 = passageiro_cria("Vitor","Acre");
-  Voo *p_voo1 = cria_voo("Fortaleza","SP"); 
-  Voo *p_voo2 = cria_voo("Natal","RJ"); 
-  Voo *p_voo3 = cria_voo("Alagoas","BH");
+  printf("- Testando TabelaViagens()...\n");
+  Passageiro *p_passageiro1 = passageiro_cria("Leon","Belo Horizonte");
+  Voo *p_voo1 = cria_voo("Fortaleza","Natal");
+  Voo *p_voo2 = cria_voo("Natal","Ouro Preto");
+  Voo *p_voo3 = cria_voo("Ouro Preto","Campinas");
   Data *p_data1 = cria_data(10,12,2022); 
-  Data *p_data2 = cria_data(20,11,2023);
-  Data *p_data3 = cria_data(9,10,2024);
+  Data *p_data2 = cria_data(11,12,2022);
+  Data *p_data3 = cria_data(12,12,2022);
+
   Reserva **pp_vetorReserva = malloc(sizeof(Reserva *)*3);
   pp_vetorReserva[0]= cria_reserva(p_data1,p_passageiro1,p_voo1,A0);
-  pp_vetorReserva[1] = cria_reserva(p_data2,p_passageiro2,p_voo2,A0);
-  pp_vetorReserva[2] = cria_reserva(p_data3,p_passageiro3,p_voo3,A0); 
+  pp_vetorReserva[1] = cria_reserva(p_data2,p_passageiro1,p_voo2,B3);
+  pp_vetorReserva[2] = cria_reserva(p_data3,p_passageiro1,p_voo3,B2);
   Viagem *p_viagem = viagem_cria(pp_vetorReserva, 3);
   TabelaViagens *p_tabela = tabela_cria();
   print_teste(tabela_insere_viagem(p_tabela,p_viagem),"inserção da viagem");
-  print_teste(tabela_remove_viagem(p_tabela,p_viagem),"Remoção viagem");
+
+  int codigoPassageiro = get_viagem_codigo_passageiro(p_viagem);
+  CodigosReservas *p_codigosReservas = viagem_cria_lista_codigos_reservas(p_viagem);
+  int codigoReserva0 = get_reserva_codigo(pp_vetorReserva[0]);
+  int vetorCodigos[3] = {codigoReserva0, codigoReserva0+1, codigoReserva0+2};
+  CodigosReservas *p_codigosReservas2 = vetor_cria_lista_codigos_reservas(vetorCodigos, 3);
+
+  print_teste(tabela_pesquisa_viagem(p_tabela, codigoPassageiro, p_codigosReservas) != NULL, "Pesquisa viagem");
+  print_teste(tabela_pesquisa_viagem(p_tabela, codigoPassageiro, p_codigosReservas2) != NULL, "Pesquisa viagem - usando CodigosReservas criados a partir de uma lista de inteiros.");
+  print_teste(tabela_remove_viagem(p_tabela,p_viagem),"Remoção de viagem existente");
+  print_teste(tabela_pesquisa_viagem(p_tabela, codigoPassageiro, p_codigosReservas) == NULL, "Pesquisa viagem inexistente");
   print_teste(tabela_libera(p_tabela),"liberação tabela");
-  free(pp_vetorReserva); 
+  free(pp_vetorReserva);
 }
 
 
