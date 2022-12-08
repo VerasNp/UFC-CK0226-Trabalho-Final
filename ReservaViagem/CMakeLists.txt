@@ -29,10 +29,8 @@ add_executable(
         Agenda.c
         Reserva.h
         Reserva.c
-        ../ListaPassageiros/Passageiro.h
-        ../ListaPassageiros/Passageiro.c
-        ../ListaVoos/Voos.c
-        ../ListaVoos/Voos.h
+        ../TabelaViagens/TabelaViagens.c
+        ../TabelaViagens/TabelaViagens.h
         TestaReserva.c)
 
 add_executable(

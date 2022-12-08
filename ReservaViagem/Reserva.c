@@ -4,6 +4,7 @@
 #include "Agenda.h"
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ListaVoos/Voos.h"
+#include "../TabelaViagens/TabelaViagens.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -405,3 +406,5 @@ int get_reserva_codigo_passageiro(Reserva *p_reserva) {
 Passageiro *get_reserva_passageiro(Reserva *p_reserva) {
     return p_reserva->p_passageiro;
 }
+
+int cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens);
