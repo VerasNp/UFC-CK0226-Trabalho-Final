@@ -93,7 +93,70 @@ Voo *retira_voo(ListaVoo *p_lista, int codigo)
   return NULL;
 }
 
-Voo *busca_voo(ListaVoo *p_lista, int codigo)
+Voo *busca_voo_destino(ListaVoo *p_lista, char *destino) {
+    if (p_lista == NULL || destino == NULL)
+        return NULL;
+
+    NoVoo *p_tmp = p_lista->primeiro;
+    int codigoLeitura;
+    char *p_origem = (char *)malloc(sizeof(char)*300);
+    char *p_destino = (char *)malloc(sizeof(char)*300);
+    while (p_tmp != NULL)
+    {
+        leitura_voo(p_tmp->voo,&codigoLeitura,p_origem,p_destino);
+        if (strcmp(destino, p_destino) == 0){
+            free(p_origem); free(p_destino);
+            return p_tmp->voo;
+        }
+        p_tmp = p_tmp->proximo;
+    }
+    free(p_origem); free(p_destino);
+    return NULL;
+}
+
+Voo *busca_voo_origem_e_destino(ListaVoo *p_lista, char *origem, char *destino) {
+    if (p_lista == NULL || origem == NULL || destino == NULL)
+        return NULL;
+
+    NoVoo *p_tmp = p_lista->primeiro;
+    int codigoLeitura;
+    char *p_origem = (char *)malloc(sizeof(char)*300);
+    char *p_destino = (char *)malloc(sizeof(char)*300);
+    while (p_tmp != NULL)
+    {
+        leitura_voo(p_tmp->voo,&codigoLeitura,p_origem,p_destino);
+        if (strcmp(origem, p_origem) == 0 && strcmp(destino, p_destino) == 0){
+            free(p_origem); free(p_destino);
+            return p_tmp->voo;
+        }
+        p_tmp = p_tmp->proximo;
+    }
+    free(p_origem); free(p_destino);
+    return NULL;
+}
+
+Voo *busca_voo_origem(ListaVoo *p_lista, char *origem) {
+    if (p_lista == NULL || origem == NULL)
+        return NULL;
+
+    NoVoo *p_tmp = p_lista->primeiro;
+    int codigoLeitura;
+    char *p_origem = (char *)malloc(sizeof(char)*300);
+    char *p_destino = (char *)malloc(sizeof(char)*300);
+    while (p_tmp != NULL)
+    {
+        leitura_voo(p_tmp->voo,&codigoLeitura,p_origem,p_destino);
+        if (strcmp(origem, p_origem) == 0){
+            free(p_origem); free(p_destino);
+            return p_tmp->voo;
+        }
+        p_tmp = p_tmp->proximo;
+    }
+    free(p_origem); free(p_destino);
+    return NULL;
+}
+
+Voo *busca_voo_codigo(ListaVoo *p_lista, int codigo)
 {
   if (p_lista == NULL)
     return NULL;
