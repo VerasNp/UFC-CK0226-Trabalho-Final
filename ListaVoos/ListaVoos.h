@@ -38,7 +38,10 @@ Voo *retira_voo(ListaVoo *p_lista, int codigo);
  * @param codigo Codigo que será procurado
  * @return O voo com o codigo dado ou NULL se não foi possível encontrar
  */
-Voo *busca_voo(ListaVoo *p_lista, int codigo);
+Voo *busca_voo_origem_e_destino(ListaVoo *p_lista, char *origem, char *destino);
+Voo *busca_voo_origem(ListaVoo *p_lista, char *origem);
+Voo *busca_voo_destino(ListaVoo *p_lista, char *destino);
+Voo *busca_voo_codigo(ListaVoo *p_lista, int codigo);
 /**
  * @brief Imprime os codigos dos voos da lista
  * 
