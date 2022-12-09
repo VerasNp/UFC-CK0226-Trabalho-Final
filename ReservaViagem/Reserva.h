@@ -86,7 +86,8 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
 Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
         Agenda *p_raizAgenda,
         int idPassageiro,
-        Data *p_data);
+        Data *p_dataPartida,
+        Data *p_dataChegada);
 
 /**
  * Insere uma reserva na agenda retornando NULL caso a inserção nao seja concluída e retornando a reserva inserida caso seja inserida na agenda com sucesso

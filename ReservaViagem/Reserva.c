@@ -250,7 +250,8 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_cod_voo(
 Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
         Agenda *p_raizAgenda,
         int idPassageiro,
-        Data *p_data) {
+        Data *p_dataPartida,
+        Data *p_dataChegada) {
     if (p_raizAgenda == NULL)
         return NULL;
 
@@ -287,13 +288,14 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
             p_acessaNomePassageiro,
             p_acessaEnderecoPassageiro);
 
-    if (p_acessaIdPassageiro == idPassageiro && (comparar_datas(p_acessaDataPartida, p_data) == 0 || comparar_datas(p_acessaDataChegada, p_data) == 0))
+    if (p_acessaIdPassageiro == idPassageiro && ((comparar_datas(p_acessaDataPartida, p_dataPartida) <= 0 && comparar_datas(p_acessaDataChegada, p_dataPartida) > 0))
+        || comparar_datas(p_acessaDataPartida, p_dataChegada) < 0)
         return p_acessaReserva;
 
     Reserva *p_reservaEncontradaAgendaEsq = busca_reserva_na_agenda_cod_passageiro_data_viagem(
             p_acessaAgendaEsquerda,
             idPassageiro,
-            p_data);
+            p_dataPartida, p_dataChegada);
     if (p_reservaEncontradaAgendaEsq != NULL) {
         return p_reservaEncontradaAgendaEsq;
     };
@@ -301,7 +303,7 @@ Reserva *busca_reserva_na_agenda_cod_passageiro_data_viagem(
     Reserva *p_reservaEncontradaAgendaDir = busca_reserva_na_agenda_cod_passageiro_data_viagem(
             p_acessaAgendaDireita,
             idPassageiro,
-            p_data);
+            p_dataPartida, p_dataChegada);
     if (p_reservaEncontradaAgendaDir != NULL) {
         return p_reservaEncontradaAgendaDir;
     };

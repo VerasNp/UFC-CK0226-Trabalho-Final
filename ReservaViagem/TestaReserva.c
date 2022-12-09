@@ -268,36 +268,37 @@ static void test_busca_reserva_na_agenda_cod_passageiro_data_viagem() {
     Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
 
     if (insere_agenda(NULL, p_primeiraAgenda) == NULL)
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "insere_agenda()1");
 
     Data *p_segundaDataPartida = cria_data(11,2,2022);
     Data *p_segundaDataChegada = cria_data(13,2,2022);
     Reserva *p_segundaReserva = gera_reserva(p_segundaDataPartida, p_segundaDataChegada);
 
-    if (!valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva))
-        print_teste(0, "insere_agenda()");
+    if (valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva) == 1)
+        print_teste(0, "insere_agenda()2");
 
     Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "insere_agenda()3");
 
     Data *p_terceiraDataPartida = cria_data(12,4,2022);
     Data *p_terceiraDataChegada = cria_data(13,4,2022);
     Reserva *p_terceiraReserva = gera_reserva(p_terceiraDataPartida, p_terceiraDataChegada);
 
     if (!valida_intervalo_datas(p_primeiraAgenda, p_terceiraReserva))
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "insere_agenda()4");
 
     Agenda *p_terceiraAgenda = cria_agenda(p_terceiraReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_terceiraAgenda) == NULL)
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "insere_agenda()5");
 
-    Data *p_dataProcurar = cria_data(11, 2, 2022);
+    Data *p_dataPartida = cria_data(10, 2, 2022);
+    Data *p_dataChegada = cria_data(15, 2, 2022);
 
     print_teste(
-            busca_reserva_na_agenda_cod_passageiro_data_viagem(p_primeiraAgenda, 11, p_dataProcurar) != NULL,
+            busca_reserva_na_agenda_cod_passageiro_data_viagem(p_primeiraAgenda, 11, p_dataPartida, p_dataChegada) != NULL,
             "test_busca_reserva_na_agenda_cod_passageiro_data_viagem()");
 }
 
