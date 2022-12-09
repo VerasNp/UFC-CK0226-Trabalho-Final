@@ -1,12 +1,7 @@
-#include "TravelBooking.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-struct data {
-  int dia;
-  int mes;
-  int ano;
-};
+#include "Enums.h"
+#include "Headers.h"
 
 struct voo {
   int codigo;
