@@ -168,6 +168,7 @@ void testa_tabela_crud() {
 
     print_teste(valorPercentual == 2997, "tabela_percentual_indices()");
     print_teste(maiorColisao == 2, "tabela_maior_colisao");
+    tabela_printa_indices(p_tabela);
 
     /* REMOÇÃO */
     printf("- Testando tabela_remove_viagem()...\n");

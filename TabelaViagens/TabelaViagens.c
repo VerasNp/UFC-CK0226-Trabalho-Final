@@ -14,15 +14,6 @@
 
 #define TAMANHO_TABELA 1001
 
-
-/* Função quebra-galho, deve ser removida futuramente. */
-int reserva_libera(Reserva *p_reserva) {
-    if (p_reserva == NULL) return 0;
-    free(p_reserva);
-    return 1;
-}
-
-
 struct trecho {
     Reserva *reserva;
     struct trecho *proximo;

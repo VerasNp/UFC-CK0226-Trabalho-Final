@@ -1,9 +1,6 @@
 #include "../Utils/Headers.h"
 #include "../TabelaPassageiros/TabelaPassageiros.h"
 
-// Placeholder para a struct
-// typedef struct reserva Reserva;
-
 typedef struct trecho Trecho;
 
 typedef struct viagem Viagem;
@@ -89,20 +86,12 @@ NoViagem *get_proximo_no_viagem(NoViagem *p_noViagem);
 /* Dada uma viagem, retorna o código do passageiro. */ 
 int get_viagem_codigo_passageiro(Viagem *p_viagem);
 
-
-/* Todas as funções abaixo devem ser removidas futuramente. Implementadas apenas para teste. */
-
-/* Função quebra-galho, deve ser removida futuramente. */
-int get_reserva_codigo_passageiro(Reserva *p_reserva);
-
-/* Função quebra-galho, deve ser removida futuramente. */
-int get_reserva_codigo(Reserva *p_reserva);
-
 void tabela_printa_indices(TabelaViagens *p_tabela);
 
 CodigosReservas *cria_codigos_reservas();
 int insere_codigos_reservas(CodigosReservas *p_codigos, int codigo);
 
+/* Cria uma viagem a partir da origem e do destino se for possível. */
 Viagem *cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens,
                         TabelaPassageiros *p_tabelaPassageiros, Agenda *p_agendaReservas,
                         char *p_origem, char *p_destino, Passageiro *p_passageiro);
