@@ -7,11 +7,16 @@ include_directories(.)
 include_directories(ListaPassageiros)
 include_directories(ListaVoos)
 include_directories(ReservaViagem)
+include_directories(TabelaPassageiros)
 include_directories(TabelaViagens)
 include_directories(Utils)
 
 add_executable(
         testa_integracao
+        Utils/Validacoes.h
+        Utils/Validacoes.c
+        Utils/Enums.h
+        Utils/Enums.c
         Utils/Utils.c
         ListaPassageiros/Passageiro.h
         ListaPassageiros/Passageiro.c
@@ -27,6 +32,8 @@ add_executable(
         ReservaViagem/Reserva.c
         ReservaViagem/Agenda.h
         ReservaViagem/Agenda.c
+        TabelaPassageiros/TabelaPassageiros.h
+        TabelaPassageiros/TabelaPassageiros.c
         TabelaViagens/TabelaViagens.h
         TabelaViagens/TabelaViagens.c
         TestaTravelBooking.c
