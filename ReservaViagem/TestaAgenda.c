@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include "Validacoes.h"
 
 /**
  * Renderiza resultado do teste
@@ -37,17 +38,31 @@ Reserva *gera_reserva() {
     strcat(p_vooOrigem, idText);
     strcat(p_vooDestino, idText);
 
-    Data *p_data = cria_data(
-            rand() % 30 + 1,
-            rand() % 11 + 1,
-            rand() % 2019 + 1);
+    Data *p_dataPartida = cria_data(
+            rand() % 28 + 1,
+            rand() % 9 + 1,
+            rand() % 2018 + 1);
+
+    int diaPartida;
+    int mesPartida;
+    int anoPartida;
+    acessa_data(p_dataPartida,
+                &diaPartida,
+                &mesPartida,
+                &anoPartida);
+
+    Data *p_dataChegada = cria_data(
+            diaPartida + 1,
+            mesPartida + 1,
+            anoPartida + 1);
 
     Passageiro *p_passageiro = passageiro_cria(p_passageiroNome, p_passageiroEndereco);
 
     Voo *p_voo = cria_voo(p_vooOrigem, p_vooDestino);
 
     return cria_reserva(
-            p_data,
+            p_dataPartida,
+            p_dataChegada,
             p_passageiro,
             p_voo,
             rand() % 30 + 1);
@@ -105,12 +120,18 @@ static void test_insere_agenda() {
 
     Reserva *p_segundaReserva = gera_reserva();
 
+    if (!valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva))
+        print_teste(0, "insere_agenda()");
+
     Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
         print_teste(0, "insere_agenda()");
 
     Reserva *p_terceiraReserva = gera_reserva();
+
+    if (!valida_intervalo_datas(p_primeiraAgenda, p_terceiraReserva))
+        print_teste(0, "insere_agenda()");
 
     Agenda *p_terceiraAgenda = cria_agenda(p_terceiraReserva);
 
@@ -130,6 +151,9 @@ static void test_remove_agenda() {
 
     Reserva *p_segundaReserva = gera_reserva();
 
+    if (!valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva))
+        print_teste(0, "insere_agenda()");
+
     Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
@@ -137,11 +161,13 @@ static void test_remove_agenda() {
 
     Reserva *p_terceiraReserva = gera_reserva();
 
+    if (!valida_intervalo_datas(p_primeiraAgenda, p_terceiraReserva))
+        print_teste(0, "insere_agenda()");
+
     Agenda *p_terceiraAgenda = cria_agenda(p_terceiraReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_terceiraAgenda) == NULL)
         print_teste(0, "insere_agenda()");
-
 
     print_teste(remove_agenda(p_primeiraAgenda,NULL, p_segundaReserva),"test_remove_agenda()");
 }

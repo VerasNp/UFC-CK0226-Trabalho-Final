@@ -19,6 +19,8 @@ add_executable(
 
 add_executable(
         testa_reserva
+        ../Utils/Validacoes.h
+        ../Utils/Validacoes.c
         ../ListaVoos/Voos.h
         ../ListaVoos/Voos.c
         ../ListaPassageiros/Passageiro.h
@@ -37,6 +39,8 @@ add_executable(
 
 add_executable(
         testa_agenda
+        ../Utils/Validacoes.h
+        ../Utils/Validacoes.c
         ../ListaVoos/Voos.h
         ../ListaVoos/Voos.c
         ../ListaPassageiros/Passageiro.h

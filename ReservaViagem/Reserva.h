@@ -3,7 +3,8 @@
 
 /**
  * Criaçao individual de uma reserva.
- * @param p_data
+ * @param p_dataPartida
+ * @param p_dataChegada
  * @param p_passageiro
  * @param p_voo
  * @param codigoAssento
@@ -11,7 +12,8 @@
  * @return p_reserva
  */
 Reserva *cria_reserva(
-        Data *p_data,
+        Data *p_dataPartida,
+        Data *p_dataChegada,
         Passageiro *p_passageiro,
         Voo *p_voo,
         CodigoAssento codigoAssento);
@@ -28,7 +30,8 @@ int libera_reserva(Reserva *p_reserva, int passageiroJaLiberado);
  * Acessa dados da reserva armazenados em dado lugar da memoria
  * @param p_reserva
  * @param p_id
- * @param pp_acessaData
+ * @param pp_acessaDataPartida
+ * @param pp_acessaDataChegada
  * @param pp_acessaPassageiro
  * @param pp_acessaVoo
  * @param p_acessaCodigoAssento
@@ -36,7 +39,8 @@ int libera_reserva(Reserva *p_reserva, int passageiroJaLiberado);
 void acessa_reserva(
         Reserva *p_reserva,
         int *p_id,
-        Data **pp_acessaData,
+        Data **pp_acessaDataPartida,
+        Data **pp_acessaDataChegada,
         Passageiro **pp_acessaPassageiro,
         Voo **pp_acessaVoo,
         CodigoAssento *p_acessaCodigoAssento);
@@ -97,14 +101,16 @@ Reserva *insere_reserva(Agenda *p_raizAgenda, Reserva *p_reserva);
  * Edita valores de data e assento da reserva.
  * Retorna NULL caso ou a reserva ou data ou código do assento tenha valor nulo e retorna o valor novo da reserva com os valores atualizados caso tudo ocorra corretamente
  * @param p_reserva
- * @param p_dataViagem
+ * @param p_dataPartida
+ * @param p_dataChegada
  * @param codigoAssento
  * @return NULL
  * @return p_reserva
  */
 Reserva *edita_reserva(
         Reserva *p_reserva,
-        Data *p_dataViagem,
+        Data *p_dataPartida,
+        Data *p_dataChegada,
         CodigoAssento codigoAssento);
 
 /**
@@ -121,3 +127,7 @@ int get_reserva_codigo(Reserva *p_reserva);
 int get_reserva_codigo_passageiro(Reserva *p_reserva);
 
 Passageiro *get_reserva_passageiro(Reserva *p_reserva);
+
+Data *get_reserva_data_partida(Reserva *p_reserva);
+
+Data *get_reserva_data_chegada(Reserva *p_reserva);
