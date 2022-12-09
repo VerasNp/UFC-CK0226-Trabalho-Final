@@ -4,6 +4,7 @@
 #include "Agenda.h"
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ListaVoos/Voos.h"
+#include "../ListaVoos/ListaVoos.h"
 #include "../TabelaViagens/TabelaViagens.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +15,12 @@ struct reserva {
     Passageiro *p_passageiro;
     Voo *p_voo;
     CodigoAssento codigoAssento;
+};
+
+struct lista_reserva {
+    int tamanhoVetor;
+    int numeroDeReservas;
+    Reserva **reservas;
 };
 
 /**
@@ -407,4 +414,39 @@ Passageiro *get_reserva_passageiro(Reserva *p_reserva) {
     return p_reserva->p_passageiro;
 }
 
-int cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens);
+ListaReserva *cria_lista_reserva() {
+    ListaReserva *p_lista = malloc(sizeof(ListaReserva));
+    Reserva **pp_vetorReserva = malloc(sizeof(Reserva *)*10);
+    if (p_lista == NULL || pp_vetorReserva == NULL) return NULL;
+
+    p_lista->numeroDeReservas = 0;
+    p_lista->tamanhoVetor = 10;
+    p_lista->reservas = pp_vetorReserva;
+}
+
+Reserva **get_reserva_lista_reserva(ListaReserva *p_lista) {
+    if (p_lista == NULL) return NULL;
+    return p_lista->reservas;
+}
+
+int get_numero_reservas_lista_reserva(ListaReserva *p_lista) {
+    if (p_lista == NULL) return -1;
+    return p_lista->numeroDeReservas;
+}
+
+int insere_lista_reserva(ListaReserva *p_lista, Reserva *p_reserva) {
+    int index = p_lista->numeroDeReservas++;
+
+    if (index == p_lista->tamanhoVetor) {
+        p_lista->tamanhoVetor *= 2;
+        Reserva **pp_vetorReserva = malloc(sizeof(Reserva *)*p_lista->tamanhoVetor);
+        for (int i=0; i < index; i++) {
+            pp_vetorReserva[i] = p_lista->reservas[i];
+        }
+        free(p_lista->reservas);
+        p_lista->reservas = pp_vetorReserva;
+    }
+
+    p_lista->reservas[index] = p_reserva;
+    return 1;
+}

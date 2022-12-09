@@ -1,5 +1,6 @@
 #include "../Utils/Enums.h"
 #include "../Utils/Headers.h"
+#include "../TabelaPassageiros/TabelaPassageiros.h"
 
 /**
  * Criaçao individual de uma reserva.
@@ -121,3 +122,8 @@ int get_reserva_codigo(Reserva *p_reserva);
 int get_reserva_codigo_passageiro(Reserva *p_reserva);
 
 Passageiro *get_reserva_passageiro(Reserva *p_reserva);
+
+ListaReserva *cria_lista_reserva();
+int insere_lista_reserva(ListaReserva *p_lista, Reserva *p_reserva);
+Reserva **get_reserva_lista_reserva(ListaReserva *p_lista);
+int get_numero_reservas_lista_reserva(ListaReserva *p_lista);

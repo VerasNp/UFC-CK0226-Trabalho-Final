@@ -64,3 +64,4 @@ int tamanho_lista(ListaVoo *p_lista);
 int libera_lista(ListaVoo *p_lista);
 
 Voo *pop_lista_voo(ListaVoo *p_lista);
+int lista_voo_esta_vazia(ListaVoo *p_lista);

@@ -6,6 +6,7 @@
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ReservaViagem/Data.h"
 #include "../ListaVoos/Voos.h"
+#include "../ListaVoos/ListaVoos.h"
 #include "../TabelaPassageiros/TabelaPassageiros.h"
 
 #define TAMANHO_TABELA 1001
@@ -45,6 +46,23 @@ struct tabela_viagens {
     int tamanho;
     NoViagem **tabelaHash;
 };
+
+CodigosReservas *cria_codigos_reservas() {
+    CodigosReservas *p_codigos_reservas = malloc(sizeof(CodigosReservas));
+    int *p_codigos = malloc(sizeof(int)*10);
+    if (p_codigos_reservas == NULL || p_codigos == NULL) return NULL;
+
+    p_codigos_reservas->codigos;
+    p_codigos_reservas->tamanho = 0;
+    return p_codigos_reservas;
+}
+
+int insere_codigos_reservas(CodigosReservas *p_codigos, int codigo) {
+    if (p_codigos == NULL || codigo < 0) return 0;
+    int tamanho = p_codigos->tamanho++;
+    p_codigos->codigos[tamanho] = codigo;
+    return 1;
+}
 
 int viagem_libera(Viagem *p_viagem, TabelaPassageiros *p_tabelaPassageiros) {
     if (p_viagem == NULL) return 0;
@@ -509,4 +527,25 @@ void viagem_printa_itinerario(Viagem *p_viagem) {
     libera_data(p_dataReserva);
     libera_voo(p_vooReserva);
     passageiro_libera(p_passageiroReserva);
+}
+
+Viagem *cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens,
+                        TabelaPassageiros *p_tabelaPassageiros, char *p_origem, char *p_destino, Passageiro *p_passageiro) {
+    ListaVoo *p_roteiroVoo = cria_roteiro_voo(p_listaVoo, p_origem, p_destino);
+    inverte_lista_voo(p_roteiroVoo);
+    int dia = 8;
+
+    ListaReserva  *p_listaReserva = cria_lista_reserva();
+
+    if (lista_voo_esta_vazia(p_roteiroVoo)) return NULL;
+
+    while (!lista_voo_esta_vazia(p_roteiroVoo)) {
+        Voo *p_voo = pop_lista_voo(p_roteiroVoo);
+        Data *p_data = cria_data(dia++, 12, 2022);
+        Reserva *p_reserva = cria_reserva(p_data, p_passageiro, p_voo, rand() % 30);
+        insere_lista_reserva(p_listaReserva, p_reserva);
+    }
+    Viagem *p_viagem = viagem_cria(get_reserva_lista_reserva(p_listaReserva), get_numero_reservas_lista_reserva(p_listaReserva));
+    if (!tabela_insere_viagem(p_tabelaViagens, p_tabelaPassageiros, p_viagem)) return NULL;
+    return p_viagem;
 }

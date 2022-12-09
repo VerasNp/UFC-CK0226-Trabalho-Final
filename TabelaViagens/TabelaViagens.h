@@ -99,3 +99,9 @@ int get_reserva_codigo_passageiro(Reserva *p_reserva);
 int get_reserva_codigo(Reserva *p_reserva);
 
 void tabela_printa_indices(TabelaViagens *p_tabela);
+
+CodigosReservas *cria_codigos_reservas();
+int insere_codigos_reservas(CodigosReservas *p_codigos, int codigo);
+
+Viagem *cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens,
+                        TabelaPassageiros *p_tabelaPassageiros, char *p_origem, char *p_destino, Passageiro *p_passageiro);

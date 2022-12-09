@@ -56,6 +56,10 @@ int insere_voo(Voo *p_voo, ListaVoo *p_lista)
   } while (p_aux != NULL);
 }
 
+int lista_voo_esta_vazia(ListaVoo *p_lista) {
+    return p_lista->primeiro == NULL;
+}
+
 Voo *pop_lista_voo(ListaVoo *p_lista) {
     if (p_lista->primeiro == NULL) return NULL;
     NoVoo *p_resultado = p_lista->primeiro;

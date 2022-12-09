@@ -12,3 +12,4 @@ typedef struct viagem Viagem;
 typedef struct no_viagem NoViagem;
 typedef struct lista_codigos_reservas CodigosReservas;
 typedef struct tabela_viagens TabelaViagens;
+typedef struct lista_reserva ListaReserva;
