@@ -104,4 +104,5 @@ CodigosReservas *cria_codigos_reservas();
 int insere_codigos_reservas(CodigosReservas *p_codigos, int codigo);
 
 Viagem *cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens,
-                        TabelaPassageiros *p_tabelaPassageiros, char *p_origem, char *p_destino, Passageiro *p_passageiro);
+                        TabelaPassageiros *p_tabelaPassageiros, Agenda *p_agendaReservas,
+                        char *p_origem, char *p_destino, Passageiro *p_passageiro);

@@ -31,4 +31,4 @@ add_executable(
         ../TabelaPassageiros/TabelaPassageiros.h
         TabelaViagens.h
         TabelaViagens.c
-        TestaTabelaViagens.c ../ListaVoos/ListaVoos.c)
+        TestaTabelaViagens.c ../ListaVoos/ListaVoos.c ../Utils/Validacoes.c)

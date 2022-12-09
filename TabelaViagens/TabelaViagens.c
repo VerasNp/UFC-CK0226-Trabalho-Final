@@ -2,9 +2,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 #include "../ReservaViagem/Reserva.h"
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ReservaViagem/Data.h"
+#include "../ReservaViagem/Agenda.h"
+#include "../Utils/Validacoes.h"
 #include "../ListaVoos/Voos.h"
 #include "../ListaVoos/ListaVoos.h"
 #include "../TabelaPassageiros/TabelaPassageiros.h"
@@ -535,23 +538,42 @@ void viagem_printa_itinerario(Viagem *p_viagem) {
 }
 
 Viagem *cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens,
-                        TabelaPassageiros *p_tabelaPassageiros, char *p_origem, char *p_destino, Passageiro *p_passageiro) {
+                        TabelaPassageiros *p_tabelaPassageiros, Agenda *p_agendaReservas, char *p_origem, char *p_destino, Passageiro *p_passageiro) {
     ListaVoo *p_roteiroVoo = cria_roteiro_voo(p_listaVoo, p_origem, p_destino);
     inverte_lista_voo(p_roteiroVoo);
-    int dia = 8;
+    int colisaoTemporal = 0;
 
     ListaReserva  *p_listaReserva = cria_lista_reserva();
 
     if (lista_voo_esta_vazia(p_roteiroVoo)) return NULL;
 
+    time_t mytime;
+    mytime = time(NULL);
+    struct tm tm = *localtime(&mytime);
+    int ano = tm.tm_year + 1900;
+    int mes = tm.tm_mon + 1;
+    int dia = tm.tm_mday;
+
     while (!lista_voo_esta_vazia(p_roteiroVoo)) {
         Voo *p_voo = pop_lista_voo(p_roteiroVoo);
-        Data *p_dataPartida = cria_data(dia++, 12, 2022);
-        Data *p_dataChegada = cria_data(dia, 12, 2022);
+        Data *p_dataPartida = cria_data(dia++, mes, ano);
+        Data *p_dataChegada = cria_data(dia, mes, ano);
         Reserva *p_reserva = cria_reserva(p_dataPartida, p_dataChegada, p_passageiro, p_voo, rand() % 30);
+        if (!valida_intervalo_datas(p_agendaReservas, p_reserva)) colisaoTemporal = 1;
         insere_lista_reserva(p_listaReserva, p_reserva);
     }
-    Viagem *p_viagem = viagem_cria(get_reserva_lista_reserva(p_listaReserva), get_numero_reservas_lista_reserva(p_listaReserva));
+
+    if (colisaoTemporal == 1) return NULL;
+
+    int numeroReservas = get_numero_reservas_lista_reserva(p_listaReserva);
+    Reserva **pp_vetorReservas = get_reserva_lista_reserva(p_listaReserva);
+
+    for (int i=0; i < numeroReservas; i++) {
+        Agenda *p_agenda = cria_agenda(pp_vetorReservas[i]);
+        insere_agenda(p_agendaReservas, p_agenda);
+    }
+
+    Viagem *p_viagem = viagem_cria(pp_vetorReservas, numeroReservas);
     if (!tabela_insere_viagem(p_tabelaViagens, p_tabelaPassageiros, p_viagem)) return NULL;
     return p_viagem;
 }

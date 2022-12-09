@@ -2,6 +2,7 @@
 #include "TabelaViagens.h"
 #include "../ReservaViagem/Reserva.h"
 #include "../ListaPassageiros/Passageiro.h"
+#include "../ReservaViagem/Agenda.h"
 #include "../ReservaViagem/Data.h"
 #include "../ListaVoos/Voos.h"
 #include "../ListaVoos/ListaVoos.h"
@@ -48,10 +49,6 @@ void testa_cria_lista_codigos_reservas() {
         }
     }
     print_teste(0, "CódigosReservas gerado por vetor");
-}
-
-void testa_viagem_cria() {
-    TODO: "teste necessita das funções de Reserva";
 }
 
 void testa_tabela_indice() {
@@ -208,6 +205,9 @@ void testa_printa_itinerario() {
 
 void testa_cria_roteiro_viagem() {
     Passageiro *p_passageiro = passageiro_cria("Alfredo", "José");
+    Reserva *p_reservaPadrao = reserva_padrao_cria(p_passageiro);
+    Agenda *p_agenda = cria_agenda(p_reservaPadrao);
+
     Voo *p_voo1 = cria_voo("Fortaleza", "Recife");
     Voo *p_voo2 = cria_voo("Recife", "Rio de Janeiro");
     Voo *p_voo3 = cria_voo("Rio de Janeiro", "São Paulo");
@@ -220,15 +220,16 @@ void testa_cria_roteiro_viagem() {
 
     TabelaViagens *p_tabelaViagens = tabela_cria();
     TabelaPassageiros *p_tabelaPassageiros = cria_tabela_passageiros();
-    Viagem *p_viagem = cria_roteiro_viagem(p_listaVoo, p_tabelaViagens, p_tabelaPassageiros, "Fortaleza", "Charqueadas", p_passageiro);
+    Viagem *p_viagem = cria_roteiro_viagem(p_listaVoo, p_tabelaViagens, p_tabelaPassageiros, p_agenda, "Fortaleza", "Charqueadas", p_passageiro);
     viagem_printa_itinerario(p_viagem);
 }
 
-void main(void) {
+int main(void) {
     testa_tabela_cria();
     testa_cria_lista_codigos_reservas();
     testa_tabela_indice();
     testa_tabela_crud();
     testa_printa_itinerario();
     testa_cria_roteiro_viagem();
+    return 0;
 }
