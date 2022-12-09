@@ -268,19 +268,19 @@ static void test_busca_reserva_na_agenda_cod_passageiro_data_viagem() {
     Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
 
     if (insere_agenda(NULL, p_primeiraAgenda) == NULL)
-        print_teste(0, "insere_agenda()1");
+        print_teste(0, "insere_agenda()");
 
     Data *p_segundaDataPartida = cria_data(11,2,2022);
     Data *p_segundaDataChegada = cria_data(13,2,2022);
     Reserva *p_segundaReserva = gera_reserva(p_segundaDataPartida, p_segundaDataChegada);
 
     if (valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva) == 1)
-        print_teste(0, "insere_agenda()2");
+        print_teste(0, "insere_agenda()");
 
     Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
-        print_teste(0, "insere_agenda()3");
+        print_teste(0, "insere_agenda()");
 
     Data *p_terceiraDataPartida = cria_data(12,4,2022);
     Data *p_terceiraDataChegada = cria_data(13,4,2022);
