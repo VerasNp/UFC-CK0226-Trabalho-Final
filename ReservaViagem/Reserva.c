@@ -4,7 +4,6 @@
 #include "Agenda.h"
 #include "../ListaPassageiros/Passageiro.h"
 #include "../ListaVoos/Voos.h"
-#include "../ListaVoos/ListaVoos.h"
 #include "../TabelaViagens/TabelaViagens.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -410,6 +409,7 @@ int get_reserva_codigo_passageiro(Reserva *p_reserva) {
     return get_passageiro_codigo(p_reserva->p_passageiro);
 }
 
+<<<<<<< HEAD
 Passageiro *get_reserva_passageiro(Reserva *p_reserva) {
     return p_reserva->p_passageiro;
 }
