@@ -52,6 +52,7 @@ void testa_insere_tabela_passageiro() {
 
 
 
-void main() {
+int main() {
     testa_insere_tabela_passageiro();
+    return 0;
 }

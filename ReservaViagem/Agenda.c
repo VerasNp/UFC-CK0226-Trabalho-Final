@@ -92,21 +92,23 @@ Agenda *insere_agenda(Agenda *p_agenda, Agenda *p_novaAgenda) {
     Agenda *p_agendaAnterior;
 
     int acessaId;
-    Data *p_acessaData;
+    Data *p_acessaDataPartida;
+    Data *p_acessaDataChegada;
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
 
     int acessaNovaAgendaId;
-    Data *p_acessaNovaAgendaData;
+    Data *p_acessaNovaAgendaDataPartida;
+    Data *p_acessaNovaAgendaDataChegada;
     Passageiro *p_acessaNovaAgendaPassageiro;
     Voo *p_acessaNovaAgendaVoo;
     CodigoAssento acessaNovaAgendaAssento;
-
     acessa_reserva(
             p_novaAgenda->p_reserva,
             &acessaId,
-            &p_acessaNovaAgendaData,
+            &p_acessaNovaAgendaDataPartida,
+            &p_acessaNovaAgendaDataChegada,
             &p_acessaNovaAgendaPassageiro,
             &p_acessaNovaAgendaVoo,
             &acessaNovaAgendaAssento);
@@ -117,12 +119,13 @@ Agenda *insere_agenda(Agenda *p_agenda, Agenda *p_novaAgenda) {
         acessa_reserva(
                 p_agenda->p_reserva,
                 &acessaNovaAgendaId,
-                &p_acessaData,
+                &p_acessaDataPartida,
+                &p_acessaDataChegada,
                 &p_acessaPassageiro,
                 &p_acessaVoo,
                 &acessaAssento);
 
-        if (comparar_datas(p_acessaNovaAgendaData, p_acessaData) <= 0) {
+        if (comparar_datas(p_acessaNovaAgendaDataPartida, p_acessaDataPartida) <= 0) {
             p_agenda = p_agenda->p_esquerda;
             if (p_agenda == NULL) {
                 p_agendaAnterior->p_esquerda = p_novaAgenda;
@@ -151,35 +154,39 @@ int remove_agenda(Agenda *p_raizAgenda,Agenda *p_raizAgendaPai, Reserva *p_reser
         return 0;
 
     int acessaIdReservaRaizAgenda;
-    Data *p_acessaDataReservaRaizAgenda;
+    Data *p_acessaDataPartidaReservaRaizAgenda;
+    Data *p_acessaDataChegadaReservaRaizAgenda;
     Passageiro *p_acessaPassageiroReservaRaizAgenda;
     Voo *p_acessaVooReservaRaizAgenda;
     CodigoAssento acessaAssentoReservaRaizAgenda;
     acessa_reserva(
             (*(p_raizAgenda)).p_reserva,
             &acessaIdReservaRaizAgenda,
-            &p_acessaDataReservaRaizAgenda,
+            &p_acessaDataPartidaReservaRaizAgenda,
+            &p_acessaDataChegadaReservaRaizAgenda,
             &p_acessaPassageiroReservaRaizAgenda,
             &p_acessaVooReservaRaizAgenda,
             &acessaAssentoReservaRaizAgenda);
 
     int acessaId;
-    Data *p_acessaData;
+    Data *p_acessaDataPartida;
+    Data *p_acessaDataChegada;
     Passageiro *p_acessaPassageiro;
     Voo *p_acessaVoo;
     CodigoAssento acessaAssento;
     acessa_reserva(
             p_reserva,
             &acessaId,
-            &p_acessaData,
+            &p_acessaDataPartida,
+            &p_acessaDataChegada,
             &p_acessaPassageiro,
             &p_acessaVoo,
             &acessaAssento);
 
-    if (comparar_datas(p_acessaData, p_acessaDataReservaRaizAgenda) < 0)
+    if (comparar_datas(p_acessaDataPartida, p_acessaDataPartidaReservaRaizAgenda) < 0)
         remove_agenda((*(p_raizAgenda)).p_esquerda,p_raizAgenda, p_reserva);
 
-    else if (comparar_datas(p_acessaData, p_acessaDataReservaRaizAgenda) > 0)
+    else if (comparar_datas(p_acessaDataPartida, p_acessaDataPartidaReservaRaizAgenda) > 0)
         remove_agenda((*(p_raizAgenda)).p_direita,p_raizAgenda, p_reserva);
 
     else {

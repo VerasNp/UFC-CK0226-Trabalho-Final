@@ -502,29 +502,34 @@ void viagem_printa_itinerario(Viagem *p_viagem) {
     printf("Código do Passageiro: %d\n\n", passageiroId);
 
     int codigoReserva;
-    Data *p_dataReserva = malloc(tamanho_data());
+    Data *p_dataReservaPartida = malloc(tamanho_data());
+    Data *p_dataReservaChegada = malloc(tamanho_data());
     Passageiro *p_passageiroReserva = malloc(passageiro_tamanho());
     Voo *p_vooReserva = malloc(tamanho_voo());
     CodigoAssento codigoAssento = A0;
-    int dia, mes, ano;
+    int diaPartida, mesPartida, anoPartida;
+    int diaChegada, mesChegada, anoChegada;
     int codigoVoo;
     char origemVoo[300];
     char destinoVoo[300];
 
     while (p_trecho != NULL) {
-        acessa_reserva(p_trecho->reserva, &codigoReserva, &p_dataReserva, &p_passageiroReserva, &p_vooReserva, &codigoAssento);
+        acessa_reserva(p_trecho->reserva, &codigoReserva, &p_dataReservaPartida, &p_dataReservaChegada, &p_passageiroReserva, &p_vooReserva, &codigoAssento);
 
-        acessa_data(p_dataReserva, &dia, &mes, &ano);
+        acessa_data(p_dataReservaPartida, &diaPartida, &mesPartida, &anoPartida);
+        acessa_data(p_dataReservaChegada, &diaChegada, &mesChegada, &anoChegada);
 
         leitura_voo(p_vooReserva, &codigoVoo, origemVoo, destinoVoo);
 
-        printf("- Viagem %00d:\n", viagemContador++);
+        printf("- Viagem %0d:\n", viagemContador++);
         printf("     %s -> %s\n", origemVoo, destinoVoo);
-        printf("     Código da reserva: %d  - Data: %0d/%0d/%000d\n", codigoVoo, dia, mes, ano);
+        printf("     Código da reserva: %d\n", codigoVoo);
+        printf("     Partida: %0d/%0d/%0d - Chegada: %0d/%0d/%0d\n", diaPartida, mesPartida, anoPartida, diaChegada, mesChegada, anoChegada);
         printf("     Assento: %s\n", codigo_assento_to_string(codigoAssento));
         p_trecho = p_trecho->proximo;
     }
-    libera_data(p_dataReserva);
+    libera_data(p_dataReservaPartida);
+    libera_data(p_dataReservaChegada);
     libera_voo(p_vooReserva);
     passageiro_libera(p_passageiroReserva);
 }
@@ -541,8 +546,9 @@ Viagem *cria_roteiro_viagem(ListaVoo *p_listaVoo, TabelaViagens *p_tabelaViagens
 
     while (!lista_voo_esta_vazia(p_roteiroVoo)) {
         Voo *p_voo = pop_lista_voo(p_roteiroVoo);
-        Data *p_data = cria_data(dia++, 12, 2022);
-        Reserva *p_reserva = cria_reserva(p_data, p_passageiro, p_voo, rand() % 30);
+        Data *p_dataPartida = cria_data(dia++, 12, 2022);
+        Data *p_dataChegada = cria_data(dia, 12, 2022);
+        Reserva *p_reserva = cria_reserva(p_dataPartida, p_dataChegada, p_passageiro, p_voo, rand() % 30);
         insere_lista_reserva(p_listaReserva, p_reserva);
     }
     Viagem *p_viagem = viagem_cria(get_reserva_lista_reserva(p_listaReserva), get_numero_reservas_lista_reserva(p_listaReserva));

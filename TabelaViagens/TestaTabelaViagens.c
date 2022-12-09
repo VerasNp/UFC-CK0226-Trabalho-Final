@@ -11,9 +11,10 @@
 /* Função auxiliar para os testes. */
 Reserva *reserva_padrao_cria(Passageiro *p_passageiro) {
     if (p_passageiro == NULL) return NULL;
-    Data *p_data = cria_data(13,2,2022);
+    Data *p_dataPartida = cria_data(13,2,2022);
+    Data *p_dataChegada = cria_data(14,2,2022);
     Voo *p_voo = cria_voo("Fortaleza", "Japão");
-    return cria_reserva(p_data, p_passageiro, p_voo, A3);
+    return cria_reserva(p_dataPartida, p_dataChegada, p_passageiro, p_voo, A3);
 }
 
 void testa_tabela_cria() {
