@@ -409,7 +409,6 @@ int get_reserva_codigo_passageiro(Reserva *p_reserva) {
     return get_passageiro_codigo(p_reserva->p_passageiro);
 }
 
-<<<<<<< HEAD
 Passageiro *get_reserva_passageiro(Reserva *p_reserva) {
     return p_reserva->p_passageiro;
 }
