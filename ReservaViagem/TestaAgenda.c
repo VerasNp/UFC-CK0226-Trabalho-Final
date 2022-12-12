@@ -72,6 +72,7 @@ Reserva *gera_reserva() {
  * Teste para criaçao de uma agenda preenchida com uma reserva de forma separada
  */
 static void test_cria_agenda() {
+    printf("- Testando test_cria_agenda()...\n");
     Agenda *p_agenda = cria_agenda(NULL);
     print_teste(p_agenda != NULL, "test_cria_agenda()");
 }
@@ -80,6 +81,7 @@ static void test_cria_agenda() {
  * Testa funçao para acessar atributos da agenda em dado ponto da memoria
  */
 static void test_acessa_agenda() {
+    printf("- Testando test_acessa_agenda()...\n");
     Reserva *p_primeiraReserva = gera_reserva();
     Agenda *p_agenda = cria_agenda(p_primeiraReserva);
 
@@ -100,6 +102,7 @@ static void test_acessa_agenda() {
  * Teste para liberaçao de espaçco de memoria ocupado por agenda
  */
 static void test_libera_agenda() {
+    printf("- Testando test_libera_agenda()...\n");
     Reserva *p_reserva = gera_reserva();
     Agenda *p_agenda = cria_agenda(p_reserva);
 
@@ -111,27 +114,39 @@ static void test_libera_agenda() {
  * Teste de inserir uma nova agenda com uma reserva dentro da mesma
  */
 static void test_insere_agenda() {
-    Reserva *p_primeiraReserva = gera_reserva();
-
+    printf("- Testando test_insere_agenda()...\n");
+    Data *p_primeiraDataPartida = cria_data(12, 3, 2022);
+    Data *p_primeiraDataChegada = cria_data(13, 3, 2022);
+    Passageiro *p_passageiroPrimeiro = passageiro_cria("Passageiro teste 1", "Endereço teste 1");
+    Voo *p_vooPrimeiro = cria_voo("Teste Origem 1", "Teste Destino 1");
+    Reserva *p_primeiraReserva = cria_reserva(p_primeiraDataPartida, p_primeiraDataChegada, p_passageiroPrimeiro, p_vooPrimeiro, A0);
     Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
 
     if (insere_agenda(NULL, p_primeiraAgenda) == NULL)
         print_teste(0, "insere_agenda()");
 
-    Reserva *p_segundaReserva = gera_reserva();
+    Data *p_segundaDataPartida = cria_data(12, 2, 2022);
+    Data *p_segundaDataChegada = cria_data(13, 2, 2022);
+    Passageiro *p_passageiroSegundo = passageiro_cria("Passageiro teste 2", "Endereço teste 2");
+    Voo *p_vooSegundo = cria_voo("Teste Origem 2", "Teste Destino 2");
+    Reserva *p_segundaReserva = cria_reserva(p_segundaDataPartida, p_segundaDataChegada, p_passageiroSegundo, p_vooSegundo, A1);
 
     if (!valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva))
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_insere_agenda()");
 
     Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
         print_teste(0, "insere_agenda()");
 
-    Reserva *p_terceiraReserva = gera_reserva();
+    Data *p_terceiraDataPartida = cria_data(12, 4, 2022);
+    Data *p_terceiraDataChegada = cria_data(13, 4, 2022);
+    Passageiro *p_passageiroTerceiro = passageiro_cria("Passageiro teste 3", "Endereço teste 3");
+    Voo *p_vooTerceiro = cria_voo("Teste Origem 3", "Teste Destino 3");
+    Reserva *p_terceiraReserva = cria_reserva(p_terceiraDataPartida, p_terceiraDataChegada, p_passageiroTerceiro, p_vooTerceiro, A1);
 
     if (!valida_intervalo_datas(p_primeiraAgenda, p_terceiraReserva))
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_insere_agenda()");
 
     Agenda *p_terceiraAgenda = cria_agenda(p_terceiraReserva);
 
@@ -142,6 +157,7 @@ static void test_insere_agenda() {
 }
 
 static void test_remove_agenda() {
+    printf("- Testando test_remove_agenda()...\n");
     Reserva *p_primeiraReserva = gera_reserva();
 
     Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
@@ -173,6 +189,7 @@ static void test_remove_agenda() {
 }
 
 void test_valida_intervalos_datas() {
+    printf("- Testando test_valida_intervalos_datas()...\n");
     Passageiro *p_passageiro = passageiro_cria("Igor", "Aldeota");
     Voo *p_voo = cria_voo("Fortaleza", "Campinas");
         Data *p_partida1 = cria_data(15, 07, 2022);
