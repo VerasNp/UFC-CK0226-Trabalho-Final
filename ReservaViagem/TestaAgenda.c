@@ -158,32 +158,43 @@ static void test_insere_agenda() {
 
 static void test_remove_agenda() {
     printf("- Testando test_remove_agenda()...\n");
-    Reserva *p_primeiraReserva = gera_reserva();
-
+    Data *p_primeiraDataPartida = cria_data(12, 3, 2022);
+    Data *p_primeiraDataChegada = cria_data(13, 3, 2022);
+    Passageiro *p_passageiroPrimeiro = passageiro_cria("Passageiro teste 1", "Endereço teste 1");
+    Voo *p_vooPrimeiro = cria_voo("Teste Origem 1", "Teste Destino 1");
+    Reserva *p_primeiraReserva = cria_reserva(p_primeiraDataPartida, p_primeiraDataChegada, p_passageiroPrimeiro, p_vooPrimeiro, A0);
     Agenda *p_primeiraAgenda = cria_agenda(p_primeiraReserva);
 
     if (insere_agenda(NULL, p_primeiraAgenda) == NULL)
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_remove_agenda()");
 
-    Reserva *p_segundaReserva = gera_reserva();
+    Data *p_segundaDataPartida = cria_data(12, 2, 2022);
+    Data *p_segundaDataChegada = cria_data(13, 2, 2022);
+    Passageiro *p_passageiroSegundo = passageiro_cria("Passageiro teste 2", "Endereço teste 2");
+    Voo *p_vooSegundo = cria_voo("Teste Origem 2", "Teste Destino 2");
+    Reserva *p_segundaReserva = cria_reserva(p_segundaDataPartida, p_segundaDataChegada, p_passageiroSegundo, p_vooSegundo, A1);
 
     if (!valida_intervalo_datas(p_primeiraAgenda, p_segundaReserva))
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_remove_agenda()");
 
     Agenda *p_segundaAgenda = cria_agenda(p_segundaReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_segundaAgenda) == NULL)
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_remove_agenda()");
 
-    Reserva *p_terceiraReserva = gera_reserva();
+    Data *p_terceiraDataPartida = cria_data(12, 4, 2022);
+    Data *p_terceiraDataChegada = cria_data(13, 4, 2022);
+    Passageiro *p_passageiroTerceiro = passageiro_cria("Passageiro teste 3", "Endereço teste 3");
+    Voo *p_vooTerceiro = cria_voo("Teste Origem 3", "Teste Destino 3");
+    Reserva *p_terceiraReserva = cria_reserva(p_terceiraDataPartida, p_terceiraDataChegada, p_passageiroTerceiro, p_vooTerceiro, A1);
 
     if (!valida_intervalo_datas(p_primeiraAgenda, p_terceiraReserva))
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_remove_agenda()");
 
     Agenda *p_terceiraAgenda = cria_agenda(p_terceiraReserva);
 
     if (insere_agenda(p_primeiraAgenda, p_terceiraAgenda) == NULL)
-        print_teste(0, "insere_agenda()");
+        print_teste(0, "test_remove_agenda()");
 
     print_teste(remove_agenda(p_primeiraAgenda,NULL, p_segundaReserva),"test_remove_agenda()");
 }
