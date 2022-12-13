@@ -16,6 +16,7 @@ static void print_teste(int r, char texto[]) {
  * Testa a criaçao de uma data de forma separada
  */
 static void test_cria_data() {
+    printf("- Testando test_cria_data()...\n");
     print_teste(cria_data(20, 10, 2022) != NULL, "test_cria_data()");
 }
 
@@ -23,6 +24,7 @@ static void test_cria_data() {
  * Teste de liberaçao de espaço ocupado por data
  */
 static void test_libera_data() {
+    printf("- Testando test_libera_data()...\n");
     Data *p_data = cria_data(rand() % 30 + 1, rand() % 11 + 1, rand() % 2019 + 1);
     print_teste(libera_data(p_data) == 1, "test_libera_data()");
 }
@@ -31,6 +33,7 @@ static void test_libera_data() {
  * Testa funçao de acessar valores de uma data
  */
 static void test_acessa_data() {
+    printf("- Testando test_acessa_data()...\n");
     int dia;
     int mes;
     int ano;
@@ -53,6 +56,7 @@ static void test_acessa_data() {
  * Testa a funçao que compara duas datas e retorna se a primeira e maior que a segunda ou igual
  */
 static void test_comparar_datas() {
+    printf("- Testando test_comparar_datas()...\n");
     Data *p_data1 = cria_data(20, 10, 2022);
     Data *p_data2 = cria_data(20, 11, 2022);
 
